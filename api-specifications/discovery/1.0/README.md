@@ -7,5 +7,5 @@ The name Discovery API highlights that this API specification is (a) becoming a
 standard, and (b) should be used by API clients to learn about the runtime
 configuration and usage of the given API installation.
 
-* [OpenAPI specification](discovery-api-spec.yml)
-* [Postman verification tests](discovery-api-spec.postman.json)
+* [OpenAPI specification](discovery-api-1.0.yml)
+* [Postman verification tests](discovery-api-1.0.postman.json)
