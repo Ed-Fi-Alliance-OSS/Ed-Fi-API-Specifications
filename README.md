@@ -21,7 +21,15 @@ an Ed-Fi API. Any interested party can build an alternate, compatible,
 application, by adhering to the Open API specifications and guidance provided in
 this space.
 
-![From Data Standard to API Standard to API Application](ds-to-api-to-app.png)
+```none
++------------------+      +---------------------+      +-------------------+
+|  Data Standard   | ---> |  API Specifications | ---> |   Application     |
++------------------+      +---------------------+      +-------------------+
+| - Unifying Data  |      | - Resources API     |      | - Ed-Fi ODS/API   |
+|   Model          |      | - Descriptors API   |      | - Ed-Fi DMS       |
+| - Extensions     |      | - Management API    |      | - Ed-Fi Admin API |
++------------------+      +---------------------+      +-------------------+
+```
 
 ## Building an Ed-Fi API Application
 
