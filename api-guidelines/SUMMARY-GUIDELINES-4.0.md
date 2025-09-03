@@ -9,10 +9,10 @@ The Ed-Fi API Design & Implementation Guidelines (herein after referred to as
 the "Guidelines") describe requirements for an Ed-Fi representational state
 transfer (REST) application programming interface (API). The Guidelines describe
 the properties to which an API specification and related implementation must
-adhere in order to be considered aligned to Ed-Fi technology standards. They do
+adhere in order to be considered aligned to the Ed-Fi Data Standard. They do
 not describe a specific implementation technology.
 
-These changes are intended to ensure the establishment of API standards that can
+These changes are intended to ensure the establishment of API specifications that can
 be relied upon when building or using an Ed-Fi compliant API, allowing client
 applications to interoperate with _any_ Ed-Fi API with minimal friction.
 
