@@ -1,9 +1,9 @@
-# Ed-Fi-API-Standards
+# Ed-Fi API Specifications
 
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/Ed-Fi-Alliance-OSS/Ed-Fi-API-Standards/badge)](https://securityscorecards.dev/viewer/?uri=github.com/Ed-Fi-Alliance-OSS/Ed-Fi-API-Standards)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/Ed-Fi-Alliance-OSS/Ed-Fi-API-Specifications/badge)](https://securityscorecards.dev/viewer/?uri=github.com/Ed-Fi-Alliance-OSS/Ed-Fi-API-Specifications)
 
 The [Ed-Fi Alliance](https://www.ed-fi.org) coordinates and publishes
-community-led standards for education and the exchange of education data.
+community-led standards and specifications for education and the exchange of education data.
 
 The **Ed-Fi Data Standard** is the widely adopted, CEDS-aligned, open-source
 data standard developed by the educational community for the betterment of the
@@ -21,7 +21,15 @@ an Ed-Fi API. Any interested party can build an alternate, compatible,
 application, by adhering to the Open API specifications and guidance provided in
 this space.
 
-![From Data Standard to API Standard to API Application](ds-to-api-to-app.png)
+```none
++------------------+      +---------------------+      +-------------------+
+|  Data Standard   | ---> |  API Specifications | ---> |   Application     |
++------------------+      +---------------------+      +-------------------+
+| - Unifying Data  |      | - Resources API     |      | - Ed-Fi ODS/API   |
+|   Model          |      | - Descriptors API   |      | - Ed-Fi DMS       |
+| - Extensions     |      | - Management API    |      | - Ed-Fi Admin API |
++------------------+      +---------------------+      +-------------------+
+```
 
 ## Building an Ed-Fi API Application
 
@@ -45,7 +53,7 @@ API](./api-guidelines/TIPS-FOR-SUCCESS.md)
 
 ## Legal Information
 
-Copyright (c) 2024 Ed-Fi Alliance, LLC and contributors.
+Copyright (c) 2025 Ed-Fi Alliance, LLC and contributors.
 
 Licensed under the [Apache License, Version 2.0](LICENSE) (the "License").
 
