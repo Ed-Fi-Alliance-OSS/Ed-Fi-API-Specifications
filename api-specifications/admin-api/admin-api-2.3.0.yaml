@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: Admin API Documentation
+  title: Ed-Fi Management API
   description: 'The Ed-Fi Admin API is a REST API-based administrative interface for managing vendors, applications, client credentials, and authorization rules for accessing an Ed-Fi API.'
   version: v2
 paths:
