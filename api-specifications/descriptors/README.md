@@ -6,4 +6,6 @@ The Ed-Fi Descriptors API supports reading and modifying descriptors
 * [Version 3.3](./descriptor-api-3.3.yml)
 * [Version 4.0](./descriptor-api-4.0.yml)
 * [Version 5.0](./descriptor-api-5.0.yml)
+* Version 5.1 - needs to be uploaded
+* Version 5.2 - needs to be uploaded
 * [Version 6.0](./descriptor-api-6.0.yaml)
