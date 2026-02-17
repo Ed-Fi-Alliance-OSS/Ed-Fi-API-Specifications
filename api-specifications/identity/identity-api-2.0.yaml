@@ -59,7 +59,7 @@ paths:
     post:
       tags:
         - Identities
-      summary: Retrieve a multiple person records from their Unique Ids.
+      summary: Retrieve multiple person records from their Unique Ids.
       operationId: Identities_Find
       requestBody:
         description: Unique Ids of the persons to be retrieved.
