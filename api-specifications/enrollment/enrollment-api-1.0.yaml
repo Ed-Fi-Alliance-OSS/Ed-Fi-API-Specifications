@@ -1,0 +1,2471 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+openapi: 3.0.4
+info:
+  title: Ed-Fi Enrollment API
+  description: >
+    The API allows client systems to access the basic data required to provision a broad range of online teaching and learning applications.
+  version: 1.0.0
+paths:
+  /ed-fi/enrollment/LocalEducationAgencies:
+    get:
+      tags:
+        - localEducationAgencies
+      summary: >-
+        Retrieves specific resources using the resource's property values (using
+        the "Get" pattern).
+      description: >-
+        This GET operation provides access to resources using the "Get" search
+        pattern.  The values of any properties of the resource that are
+        specified will be used to return all matching results (if it exists).
+      operationId: getLocalEducationAgencies
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/queryExpression'
+        - name: localEducationAgencyId
+          in: query
+          description: >-
+            The identifier assigned to a local education agency. It must be
+            distinct from any other identifier assigned to educational
+            organizations, such as a SchoolId, to prevent duplication.
+          schema:
+            type: integer
+            format: int64
+          x-Ed-Fi-isIdentity: true
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/localEducationAgency'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/LocalEducationAgencies/{id}:
+    get:
+      tags:
+        - localEducationAgencies
+      summary: >-
+        Retrieves a specific resource using the resource's identifier (using the
+        "Get By Id" pattern).
+      description: >-
+        This GET operation retrieves a resource by the specified resource
+        identifier.
+      operationId: getLocalEducationAgenciesById
+      parameters:
+        - name: id
+          in: path
+          description: A resource identifier that uniquely identifies the resource.
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/If-None-Match'
+        - $ref: '#/components/parameters/fields'
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/localEducationAgency'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/Schools:
+    get:
+      tags:
+        - schools
+      summary: >-
+        Retrieves specific resources using the resource's property values (using
+        the "Get" pattern).
+      description: >-
+        This GET operation provides access to resources using the "Get" search
+        pattern.  The values of any properties of the resource that are
+        specified will be used to return all matching results (if it exists).
+      operationId: getSchools
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/queryExpression'
+        - name: schoolId
+          in: query
+          description: >-
+            The identifier assigned to a school. It must be distinct from any
+            other identifier assigned to educational organizations, such as a
+            LocalEducationAgencyId, to prevent duplication.
+          schema:
+            type: integer
+            format: int64
+          x-Ed-Fi-isIdentity: true
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/school'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/Schools/{id}:
+    get:
+      tags:
+        - schools
+      summary: >-
+        Retrieves a specific resource using the resource's identifier (using the
+        "Get By Id" pattern).
+      description: >-
+        This GET operation retrieves a resource by the specified resource
+        identifier.
+      operationId: getSchoolsById
+      parameters:
+        - name: id
+          in: path
+          description: A resource identifier that uniquely identifies the resource.
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/If-None-Match'
+        - $ref: '#/components/parameters/fields'
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/school'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/localEducationAgencies/{localEducationAgency_id}/schools:
+    get:
+      tags:
+        - schools
+      summary: >-
+        Retrieves specific resources using the resource's property values (using
+        the "Get" pattern).
+      description: >-
+        This GET operation provides access to resources using the "Get" search
+        pattern.  The values of any properties of the resource that are
+        specified will be used to return all matching results (if it exists).
+      operationId: getSchoolsByLocalEducationAgency
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/queryExpression'
+        - name: schoolId
+          in: query
+          description: >-
+            The identifier assigned to a school. It must be distinct from any
+            other identifier assigned to educational organizations, such as a
+            LocalEducationAgencyId, to prevent duplication.
+          schema:
+            type: integer
+            format: int64
+          x-Ed-Fi-isIdentity: true
+        - name: localEducationAgency_id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/school'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/sections/{section_id}/schools:
+    get:
+      tags:
+        - schools
+      summary: >-
+        Retrieves specific resources using the resource's property values (using
+        the "Get" pattern).
+      description: >-
+        This GET operation provides access to resources using the "Get" search
+        pattern.  The values of any properties of the resource that are
+        specified will be used to return all matching results (if it exists).
+      operationId: getSchoolsBySection
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/queryExpression'
+        - name: schoolId
+          in: query
+          description: >-
+            The identifier assigned to a school. It must be distinct from any
+            other identifier assigned to educational organizations, such as a
+            LocalEducationAgencyId, to prevent duplication.
+          schema:
+            type: integer
+            format: int64
+          x-Ed-Fi-isIdentity: true
+        - name: section_id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/school'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/staffs/{staff_id}/schools:
+    get:
+      tags:
+        - schools
+      summary: >-
+        Retrieves specific resources using the resource's property values (using
+        the "Get" pattern).
+      description: >-
+        This GET operation provides access to resources using the "Get" search
+        pattern.  The values of any properties of the resource that are
+        specified will be used to return all matching results (if it exists).
+      operationId: getSchoolsByStaff
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/queryExpression'
+        - name: schoolId
+          in: query
+          description: >-
+            The identifier assigned to a school. It must be distinct from any
+            other identifier assigned to educational organizations, such as a
+            LocalEducationAgencyId, to prevent duplication.
+          schema:
+            type: integer
+            format: int64
+          x-Ed-Fi-isIdentity: true
+        - name: staff_id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/school'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/students/{student_id}/schools:
+    get:
+      tags:
+        - schools
+      summary: >-
+        Retrieves specific resources using the resource's property values (using
+        the "Get" pattern).
+      description: >-
+        This GET operation provides access to resources using the "Get" search
+        pattern.  The values of any properties of the resource that are
+        specified will be used to return all matching results (if it exists).
+      operationId: getSchoolsByStudent
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/queryExpression'
+        - name: schoolId
+          in: query
+          description: >-
+            The identifier assigned to a school. It must be distinct from any
+            other identifier assigned to educational organizations, such as a
+            LocalEducationAgencyId, to prevent duplication.
+          schema:
+            type: integer
+            format: int64
+          x-Ed-Fi-isIdentity: true
+        - name: student_id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/school'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/Sections:
+    get:
+      tags:
+        - sections
+      summary: >-
+        Retrieves specific resources using the resource's property values (using
+        the "Get" pattern).
+      description: >-
+        This GET operation provides access to resources using the "Get" search
+        pattern.  The values of any properties of the resource that are
+        specified will be used to return all matching results (if it exists).
+      operationId: getSections
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/queryExpression'
+        - name: sectionIdentifier
+          in: query
+          description: The local identifier assigned to a section.
+          schema:
+            maxLength: 255
+            type: string
+          x-Ed-Fi-isIdentity: true
+        - name: localCourseCode
+          in: query
+          description: >-
+            The local code assigned by the School that identifies the course
+            offering provided for the instruction of students.
+          schema:
+            maxLength: 60
+            type: string
+          x-Ed-Fi-isIdentity: true
+        - name: schoolId
+          in: query
+          description: >-
+            The identifier assigned to a school. It must be distinct from any
+            other identifier assigned to educational organizations, such as a
+            LocalEducationAgencyId, to prevent duplication.
+          schema:
+            type: integer
+            format: int64
+          x-Ed-Fi-isIdentity: true
+        - name: schoolYear
+          in: query
+          description: The identifier for the school year.
+          schema:
+            type: integer
+            format: int32
+          x-Ed-Fi-isIdentity: true
+        - name: sessionName
+          in: query
+          description: The identifier for the calendar for the academic session.
+          schema:
+            maxLength: 120
+            type: string
+          x-Ed-Fi-isIdentity: true
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/section'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/Sections/{id}:
+    get:
+      tags:
+        - sections
+      summary: >-
+        Retrieves a specific resource using the resource's identifier (using the
+        "Get By Id" pattern).
+      description: >-
+        This GET operation retrieves a resource by the specified resource
+        identifier.
+      operationId: getSectionsById
+      parameters:
+        - name: id
+          in: path
+          description: A resource identifier that uniquely identifies the resource.
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/If-None-Match'
+        - $ref: '#/components/parameters/fields'
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/section'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/localEducationAgencies/{localEducationAgency_id}/sections:
+    get:
+      tags:
+        - sections
+      summary: >-
+        Retrieves specific resources using the resource's property values (using
+        the "Get" pattern).
+      description: >-
+        This GET operation provides access to resources using the "Get" search
+        pattern.  The values of any properties of the resource that are
+        specified will be used to return all matching results (if it exists).
+      operationId: getSectionsByLocalEducationAgency
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/queryExpression'
+        - name: sectionIdentifier
+          in: query
+          description: The local identifier assigned to a section.
+          schema:
+            maxLength: 255
+            type: string
+          x-Ed-Fi-isIdentity: true
+        - name: localCourseCode
+          in: query
+          description: >-
+            The local code assigned by the School that identifies the course
+            offering provided for the instruction of students.
+          schema:
+            maxLength: 60
+            type: string
+          x-Ed-Fi-isIdentity: true
+        - name: schoolId
+          in: query
+          description: >-
+            The identifier assigned to a school. It must be distinct from any
+            other identifier assigned to educational organizations, such as a
+            LocalEducationAgencyId, to prevent duplication.
+          schema:
+            type: integer
+            format: int64
+          x-Ed-Fi-isIdentity: true
+        - name: schoolYear
+          in: query
+          description: The identifier for the school year.
+          schema:
+            type: integer
+            format: int32
+          x-Ed-Fi-isIdentity: true
+        - name: sessionName
+          in: query
+          description: The identifier for the calendar for the academic session.
+          schema:
+            maxLength: 120
+            type: string
+          x-Ed-Fi-isIdentity: true
+        - name: localEducationAgency_id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/section'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/schools/{school_id}/sections:
+    get:
+      tags:
+        - sections
+      summary: >-
+        Retrieves specific resources using the resource's property values (using
+        the "Get" pattern).
+      description: >-
+        This GET operation provides access to resources using the "Get" search
+        pattern.  The values of any properties of the resource that are
+        specified will be used to return all matching results (if it exists).
+      operationId: getSectionsBySchool
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/queryExpression'
+        - name: sectionIdentifier
+          in: query
+          description: The local identifier assigned to a section.
+          schema:
+            maxLength: 255
+            type: string
+          x-Ed-Fi-isIdentity: true
+        - name: localCourseCode
+          in: query
+          description: >-
+            The local code assigned by the School that identifies the course
+            offering provided for the instruction of students.
+          schema:
+            maxLength: 60
+            type: string
+          x-Ed-Fi-isIdentity: true
+        - name: schoolId
+          in: query
+          description: >-
+            The identifier assigned to a school. It must be distinct from any
+            other identifier assigned to educational organizations, such as a
+            LocalEducationAgencyId, to prevent duplication.
+          schema:
+            type: integer
+            format: int64
+          x-Ed-Fi-isIdentity: true
+        - name: schoolYear
+          in: query
+          description: The identifier for the school year.
+          schema:
+            type: integer
+            format: int32
+          x-Ed-Fi-isIdentity: true
+        - name: sessionName
+          in: query
+          description: The identifier for the calendar for the academic session.
+          schema:
+            maxLength: 120
+            type: string
+          x-Ed-Fi-isIdentity: true
+        - name: school_id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/section'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/staffs/{staff_id}/sections:
+    get:
+      tags:
+        - sections
+      summary: >-
+        Retrieves specific resources using the resource's property values (using
+        the "Get" pattern).
+      description: >-
+        This GET operation provides access to resources using the "Get" search
+        pattern.  The values of any properties of the resource that are
+        specified will be used to return all matching results (if it exists).
+      operationId: getSectionsByStaff
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/queryExpression'
+        - name: sectionIdentifier
+          in: query
+          description: The local identifier assigned to a section.
+          schema:
+            maxLength: 255
+            type: string
+          x-Ed-Fi-isIdentity: true
+        - name: localCourseCode
+          in: query
+          description: >-
+            The local code assigned by the School that identifies the course
+            offering provided for the instruction of students.
+          schema:
+            maxLength: 60
+            type: string
+          x-Ed-Fi-isIdentity: true
+        - name: schoolId
+          in: query
+          description: >-
+            The identifier assigned to a school. It must be distinct from any
+            other identifier assigned to educational organizations, such as a
+            LocalEducationAgencyId, to prevent duplication.
+          schema:
+            type: integer
+            format: int64
+          x-Ed-Fi-isIdentity: true
+        - name: schoolYear
+          in: query
+          description: The identifier for the school year.
+          schema:
+            type: integer
+            format: int32
+          x-Ed-Fi-isIdentity: true
+        - name: sessionName
+          in: query
+          description: The identifier for the calendar for the academic session.
+          schema:
+            maxLength: 120
+            type: string
+          x-Ed-Fi-isIdentity: true
+        - name: staff_id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/section'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/students/{student_id}/sections:
+    get:
+      tags:
+        - sections
+      summary: >-
+        Retrieves specific resources using the resource's property values (using
+        the "Get" pattern).
+      description: >-
+        This GET operation provides access to resources using the "Get" search
+        pattern.  The values of any properties of the resource that are
+        specified will be used to return all matching results (if it exists).
+      operationId: getSectionsByStudent
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/queryExpression'
+        - name: sectionIdentifier
+          in: query
+          description: The local identifier assigned to a section.
+          schema:
+            maxLength: 255
+            type: string
+          x-Ed-Fi-isIdentity: true
+        - name: localCourseCode
+          in: query
+          description: >-
+            The local code assigned by the School that identifies the course
+            offering provided for the instruction of students.
+          schema:
+            maxLength: 60
+            type: string
+          x-Ed-Fi-isIdentity: true
+        - name: schoolId
+          in: query
+          description: >-
+            The identifier assigned to a school. It must be distinct from any
+            other identifier assigned to educational organizations, such as a
+            LocalEducationAgencyId, to prevent duplication.
+          schema:
+            type: integer
+            format: int64
+          x-Ed-Fi-isIdentity: true
+        - name: schoolYear
+          in: query
+          description: The identifier for the school year.
+          schema:
+            type: integer
+            format: int32
+          x-Ed-Fi-isIdentity: true
+        - name: sessionName
+          in: query
+          description: The identifier for the calendar for the academic session.
+          schema:
+            maxLength: 120
+            type: string
+          x-Ed-Fi-isIdentity: true
+        - name: student_id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/section'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/Staffs:
+    get:
+      tags:
+        - staffs
+      summary: >-
+        Retrieves specific resources using the resource's property values (using
+        the "Get" pattern).
+      description: >-
+        This GET operation provides access to resources using the "Get" search
+        pattern.  The values of any properties of the resource that are
+        specified will be used to return all matching results (if it exists).
+      operationId: getStaffs
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/queryExpression'
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/staff'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/Staffs/{id}:
+    get:
+      tags:
+        - staffs
+      summary: >-
+        Retrieves a specific resource using the resource's identifier (using the
+        "Get By Id" pattern).
+      description: >-
+        This GET operation retrieves a resource by the specified resource
+        identifier.
+      operationId: getStaffsById
+      parameters:
+        - name: id
+          in: path
+          description: A resource identifier that uniquely identifies the resource.
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/If-None-Match'
+        - $ref: '#/components/parameters/fields'
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/staff'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/localEducationAgencies/{localEducationAgency_id}/staffs:
+    get:
+      tags:
+        - staffs
+      summary: >-
+        Retrieves specific resources using the resource's property values (using
+        the "Get" pattern).
+      description: >-
+        This GET operation provides access to resources using the "Get" search
+        pattern.  The values of any properties of the resource that are
+        specified will be used to return all matching results (if it exists).
+      operationId: getStaffsByLocalEducationAgency
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/queryExpression'
+        - name: localEducationAgency_id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/staff'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/schools/{school_id}/staffs:
+    get:
+      tags:
+        - staffs
+      summary: >-
+        Retrieves specific resources using the resource's property values (using
+        the "Get" pattern).
+      description: >-
+        This GET operation provides access to resources using the "Get" search
+        pattern.  The values of any properties of the resource that are
+        specified will be used to return all matching results (if it exists).
+      operationId: getStaffsBySchool
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/queryExpression'
+        - name: school_id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/staff'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/sections/{section_id}/staffs:
+    get:
+      tags:
+        - staffs
+      summary: >-
+        Retrieves specific resources using the resource's property values (using
+        the "Get" pattern).
+      description: >-
+        This GET operation provides access to resources using the "Get" search
+        pattern.  The values of any properties of the resource that are
+        specified will be used to return all matching results (if it exists).
+      operationId: getStaffsBySection
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/queryExpression'
+        - name: section_id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/staff'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/students/{student_id}/staffs:
+    get:
+      tags:
+        - staffs
+      summary: >-
+        Retrieves specific resources using the resource's property values (using
+        the "Get" pattern).
+      description: >-
+        This GET operation provides access to resources using the "Get" search
+        pattern.  The values of any properties of the resource that are
+        specified will be used to return all matching results (if it exists).
+      operationId: getStaffsByStudent
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/queryExpression'
+        - name: student_id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/staff'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/Students:
+    get:
+      tags:
+        - students
+      summary: >-
+        Retrieves specific resources using the resource's property values (using
+        the "Get" pattern).
+      description: >-
+        This GET operation provides access to resources using the "Get" search
+        pattern.  The values of any properties of the resource that are
+        specified will be used to return all matching results (if it exists).
+      operationId: getStudents
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/queryExpression'
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/student'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/Students/{id}:
+    get:
+      tags:
+        - students
+      summary: >-
+        Retrieves a specific resource using the resource's identifier (using the
+        "Get By Id" pattern).
+      description: >-
+        This GET operation retrieves a resource by the specified resource
+        identifier.
+      operationId: getStudentsById
+      parameters:
+        - name: id
+          in: path
+          description: A resource identifier that uniquely identifies the resource.
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/If-None-Match'
+        - $ref: '#/components/parameters/fields'
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/student'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/localEducationAgencies/{localEducationAgency_id}/students:
+    get:
+      tags:
+        - students
+      summary: >-
+        Retrieves specific resources using the resource's property values (using
+        the "Get" pattern).
+      description: >-
+        This GET operation provides access to resources using the "Get" search
+        pattern.  The values of any properties of the resource that are
+        specified will be used to return all matching results (if it exists).
+      operationId: getStudentsByLocalEducationAgency
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/queryExpression'
+        - name: localEducationAgency_id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/student'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/schools/{school_id}/students:
+    get:
+      tags:
+        - students
+      summary: >-
+        Retrieves specific resources using the resource's property values (using
+        the "Get" pattern).
+      description: >-
+        This GET operation provides access to resources using the "Get" search
+        pattern.  The values of any properties of the resource that are
+        specified will be used to return all matching results (if it exists).
+      operationId: getStudentsBySchool
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/queryExpression'
+        - name: school_id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/student'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/sections/{section_id}/students:
+    get:
+      tags:
+        - students
+      summary: >-
+        Retrieves specific resources using the resource's property values (using
+        the "Get" pattern).
+      description: >-
+        This GET operation provides access to resources using the "Get" search
+        pattern.  The values of any properties of the resource that are
+        specified will be used to return all matching results (if it exists).
+      operationId: getStudentsBySection
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/queryExpression'
+        - name: section_id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/student'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+  /ed-fi/enrollment/staffs/{staff_id}/students:
+    get:
+      tags:
+        - students
+      summary: >-
+        Retrieves specific resources using the resource's property values (using
+        the "Get" pattern).
+      description: >-
+        This GET operation provides access to resources using the "Get" search
+        pattern.  The values of any properties of the resource that are
+        specified will be used to return all matching results (if it exists).
+      operationId: getStudentsByStaff
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/queryExpression'
+        - name: staff_id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: Use-Snapshot
+          in: header
+          description: Indicates if the configured Snapshot should be used.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: The requested resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/student'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFoundUseSnapshot'
+        '500':
+          $ref: '#/components/responses/Error'
+components:
+  schemas:
+    link:
+      type: object
+      properties:
+        rel:
+          type: string
+          description: Describes the nature of the relationship to the referenced resource.
+        href:
+          type: string
+          description: The URL to the related resource.
+    localEducationAgency:
+      required:
+        - localEducationAgencyId
+        - nameOfInstitution
+        - localEducationAgencyCategoryDescriptor
+      type: object
+      properties:
+        id:
+          type: string
+          description: ''
+        localEducationAgencyId:
+          type: integer
+          description: >-
+            The identifier assigned to a local education agency. It must be
+            distinct from any other identifier assigned to educational
+            organizations, such as a SchoolId, to prevent duplication.
+          format: int64
+          x-Ed-Fi-isIdentity: true
+        addresses:
+          type: array
+          items:
+            $ref: >-
+              #/components/schemas/localEducationAgency_educationOrganizationAddress
+          description: 'An unordered collection of educationOrganizationAddresses. '
+        charterStatusDescriptor:
+          maxLength: 306
+          type: string
+          description: >-
+            A school or agency providing free public elementary or secondary
+            education to eligible students under a specific charter granted by
+            the state legislature or other appropriate authority and designated
+            by such authority to be a charter school.
+          x-nullable: true
+        institutionTelephones:
+          type: array
+          items:
+            $ref: >-
+              #/components/schemas/localEducationAgency_educationOrganizationInstitutionTelephone
+          description: >-
+            An unordered collection of
+            educationOrganizationInstitutionTelephones.
+        localEducationAgencyCategoryDescriptor:
+          maxLength: 306
+          type: string
+          description: The category of local education agency/district.
+        nameOfInstitution:
+          maxLength: 75
+          type: string
+          description: The full, legally accepted name of the institution.
+        shortNameOfInstitution:
+          maxLength: 75
+          type: string
+          description: A short name for the institution.
+          x-nullable: true
+        stateEducationAgencyId:
+          type: integer
+          description: >-
+            The identifier assigned to a state education agency. It must be
+            distinct from any other identifier assigned to educational
+            organizations, such as a LocalEducationAgencyId, to prevent
+            duplication.
+          format: int64
+          x-nullable: true
+        webSite:
+          maxLength: 255
+          minLength: 5
+          type: string
+          description: The public web site address (URL) for the education organization.
+          x-nullable: true
+        _etag:
+          type: string
+          description: >-
+            A unique system-generated value that identifies the version of the
+            resource.
+        _lastModifiedDate:
+          type: string
+          description: The date and time the resource was last modified.
+          format: date-time
+    localEducationAgency_educationOrganizationAddress:
+      required:
+        - addressTypeDescriptor
+        - streetNumberName
+        - city
+        - stateAbbreviationDescriptor
+        - postalCode
+      type: object
+      properties:
+        addressTypeDescriptor:
+          maxLength: 306
+          type: string
+          description: >-
+            The type of address listed for an individual or organization.    For
+            example:  Physical Address, Mailing Address, Home Address, etc.)
+          x-Ed-Fi-isIdentity: true
+        streetNumberName:
+          maxLength: 150
+          type: string
+          description: >-
+            The street number and street name or post office box number of an
+            address.
+          x-Ed-Fi-isIdentity: true
+        city:
+          maxLength: 30
+          minLength: 2
+          type: string
+          description: The name of the city in which an address is located.
+          x-Ed-Fi-isIdentity: true
+        stateAbbreviationDescriptor:
+          maxLength: 306
+          type: string
+          description: >-
+            The abbreviation for the state (within the United States) or
+            outlying area in which an address is located.
+          x-Ed-Fi-isIdentity: true
+        postalCode:
+          maxLength: 17
+          type: string
+          description: >-
+            The five or nine digit zip code or overseas postal code portion of
+            an address.
+          x-Ed-Fi-isIdentity: true
+        nameOfCounty:
+          maxLength: 30
+          type: string
+          description: >-
+            The name of the county, parish, borough, or comparable unit (within
+            a state) in which an address is located.
+          x-nullable: true
+    localEducationAgency_educationOrganizationInstitutionTelephone:
+      required:
+        - institutionTelephoneNumberTypeDescriptor
+        - telephoneNumber
+      type: object
+      properties:
+        institutionTelephoneNumberTypeDescriptor:
+          maxLength: 306
+          type: string
+          description: >-
+            The type of communication number listed for an individual or
+            organization.
+          x-Ed-Fi-isIdentity: true
+        telephoneNumber:
+          maxLength: 24
+          type: string
+          description: >-
+            The telephone number including the area code, and extension, if
+            applicable.
+    school:
+      required:
+        - schoolId
+        - nameOfInstitution
+        - educationOrganizationCategories
+        - gradeLevels
+      type: object
+      properties:
+        id:
+          type: string
+          description: ''
+        educationOrganizationCategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/school_educationOrganizationCategory'
+          description: 'An unordered collection of educationOrganizationCategories. '
+        gradeLevels:
+          type: array
+          items:
+            $ref: '#/components/schemas/school_schoolGradeLevel'
+          description: 'An unordered collection of schoolGradeLevels. '
+        schoolId:
+          type: integer
+          description: >-
+            The identifier assigned to a school. It must be distinct from any
+            other identifier assigned to educational organizations, such as a
+            LocalEducationAgencyId, to prevent duplication.
+          format: int64
+          x-Ed-Fi-isIdentity: true
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/school_educationOrganizationAddress'
+          description: 'An unordered collection of educationOrganizationAddresses. '
+        institutionTelephones:
+          type: array
+          items:
+            $ref: >-
+              #/components/schemas/school_educationOrganizationInstitutionTelephone
+          description: >-
+            An unordered collection of
+            educationOrganizationInstitutionTelephones.
+        localEducationAgency:
+          $ref: '#/components/schemas/school_localEducationAgency'
+        nameOfInstitution:
+          maxLength: 75
+          type: string
+          description: The full, legally accepted name of the institution.
+        schoolCategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/school_schoolCategory'
+          description: 'An unordered collection of schoolCategories. '
+        schoolTypeDescriptor:
+          maxLength: 306
+          type: string
+          description: >-
+            The type of education institution as classified by its primary
+            focus.
+          x-nullable: true
+        shortNameOfInstitution:
+          maxLength: 75
+          type: string
+          description: A short name for the institution.
+          x-nullable: true
+        webSite:
+          maxLength: 255
+          minLength: 5
+          type: string
+          description: The public web site address (URL) for the education organization.
+          x-nullable: true
+        _etag:
+          type: string
+          description: >-
+            A unique system-generated value that identifies the version of the
+            resource.
+        _lastModifiedDate:
+          type: string
+          description: The date and time the resource was last modified.
+          format: date-time
+    school_educationOrganizationAddress:
+      required:
+        - addressTypeDescriptor
+        - streetNumberName
+        - city
+        - stateAbbreviationDescriptor
+        - postalCode
+      type: object
+      properties:
+        addressTypeDescriptor:
+          maxLength: 306
+          type: string
+          description: >-
+            The type of address listed for an individual or organization.    For
+            example:  Physical Address, Mailing Address, Home Address, etc.)
+          x-Ed-Fi-isIdentity: true
+        streetNumberName:
+          maxLength: 150
+          type: string
+          description: >-
+            The street number and street name or post office box number of an
+            address.
+          x-Ed-Fi-isIdentity: true
+        city:
+          maxLength: 30
+          minLength: 2
+          type: string
+          description: The name of the city in which an address is located.
+          x-Ed-Fi-isIdentity: true
+        stateAbbreviationDescriptor:
+          maxLength: 306
+          type: string
+          description: >-
+            The abbreviation for the state (within the United States) or
+            outlying area in which an address is located.
+          x-Ed-Fi-isIdentity: true
+        postalCode:
+          maxLength: 17
+          type: string
+          description: >-
+            The five or nine digit zip code or overseas postal code portion of
+            an address.
+          x-Ed-Fi-isIdentity: true
+        nameOfCounty:
+          maxLength: 30
+          type: string
+          description: >-
+            The name of the county, parish, borough, or comparable unit (within
+            a state) in which an address is located.
+          x-nullable: true
+    school_educationOrganizationCategory:
+      required:
+        - category
+      type: object
+      properties:
+        category:
+          maxLength: 306
+          type: string
+          description: >-
+            The classification of the education agency within the geographic
+            boundaries of a state according to the level of administrative and
+            operational control granted by the state.
+          x-Ed-Fi-isIdentity: true
+    school_educationOrganizationInstitutionTelephone:
+      required:
+        - institutionTelephoneNumberTypeDescriptor
+        - telephoneNumber
+      type: object
+      properties:
+        institutionTelephoneNumberTypeDescriptor:
+          maxLength: 306
+          type: string
+          description: >-
+            The type of communication number listed for an individual or
+            organization.
+          x-Ed-Fi-isIdentity: true
+        telephoneNumber:
+          maxLength: 24
+          type: string
+          description: >-
+            The telephone number including the area code, and extension, if
+            applicable.
+    school_localEducationAgency:
+      required:
+        - id
+        - localEducationAgencyId
+      type: object
+      properties:
+        id:
+          type: string
+          description: ''
+        localEducationAgencyId:
+          type: integer
+          description: >-
+            The identifier assigned to a local education agency. It must be
+            distinct from any other identifier assigned to educational
+            organizations, such as a SchoolId, to prevent duplication.
+          format: int64
+          x-Ed-Fi-isIdentity: true
+    school_schoolCategory:
+      required:
+        - category
+      type: object
+      properties:
+        category:
+          maxLength: 306
+          type: string
+          description: The one or more categories of school.
+          x-Ed-Fi-isIdentity: true
+    school_schoolGradeLevel:
+      required:
+        - gradeLevelDescriptor
+      type: object
+      properties:
+        gradeLevelDescriptor:
+          maxLength: 306
+          type: string
+          description: The grade levels served at the school.
+          x-Ed-Fi-isIdentity: true
+    section:
+      required:
+        - sectionIdentifier
+        - localCourseCode
+      type: object
+      properties:
+        id:
+          type: string
+          description: ''
+        localCourseCode:
+          maxLength: 60
+          type: string
+          description: >-
+            The local code assigned by the School that identifies the course
+            offering provided for the instruction of students.
+          x-Ed-Fi-isIdentity: true
+        sectionIdentifier:
+          maxLength: 255
+          type: string
+          description: The local identifier assigned to a section.
+          x-Ed-Fi-isIdentity: true
+        availableCredits:
+          maximum: 999999.999
+          minimum: 0
+          type: number
+          description: >-
+            The value of credits or units of value awarded for the completion of
+            a course.
+          format: double
+          x-nullable: true
+        classPeriods:
+          type: array
+          items:
+            $ref: '#/components/schemas/section_sectionClassPeriod'
+          description: 'An unordered collection of sectionClassPeriods. '
+        educationalEnvironmentDescriptor:
+          maxLength: 306
+          type: string
+          description: >-
+            The setting in which a student receives education and related
+            services.
+          x-nullable: true
+        localCourseTitle:
+          maxLength: 120
+          type: string
+          description: >-
+            The descriptive name given to a course of study offered in the
+            school, if different from the course title.
+          x-nullable: true
+        location:
+          $ref: '#/components/schemas/section_location'
+        maximumAvailableCreditTypeDescriptor:
+          maxLength: 306
+          type: string
+          description: >-
+            The type of credits or units of value awarded for the completion of
+            a course.
+          x-nullable: true
+        sequenceOfCourse:
+          maximum: 8
+          minimum: 1
+          type: integer
+          description: >-
+            When a section is part of a sequence of parts for a course, the
+            number of the sequence. If the course has only one part, the value
+            of this section attribute should be 1.
+          format: int32
+          x-nullable: true
+        session:
+          $ref: '#/components/schemas/section_session'
+        staff:
+          type: array
+          items:
+            $ref: '#/components/schemas/section_staffSectionAssociation'
+          description: 'An unordered collection of staffSectionAssociations. '
+        students:
+          type: array
+          items:
+            $ref: '#/components/schemas/section_studentSectionAssociation'
+          description: 'An unordered collection of studentSectionAssociations. '
+        _etag:
+          type: string
+          description: >-
+            A unique system-generated value that identifies the version of the
+            resource.
+        _lastModifiedDate:
+          type: string
+          description: The date and time the resource was last modified.
+          format: date-time
+    section_location:
+      required:
+        - id
+        - schoolId
+        - classroomIdentificationCode
+      type: object
+      properties:
+        id:
+          type: string
+          description: ''
+        schoolId:
+          type: integer
+          description: >-
+            The identifier assigned to a school. It must be distinct from any
+            other identifier assigned to educational organizations, such as a
+            LocalEducationAgencyId, to prevent duplication.
+          format: int64
+          x-Ed-Fi-isIdentity: true
+        classroomIdentificationCode:
+          maxLength: 60
+          type: string
+          description: >-
+            A unique number or alphanumeric code assigned to a room by a school,
+            school system, state, or other agency or entity.
+          x-Ed-Fi-isIdentity: true
+    section_sectionClassPeriod:
+      required:
+        - classPeriodName
+      type: object
+      properties:
+        classPeriodName:
+          maxLength: 60
+          type: string
+          description: >-
+            An indication of the portion of a typical daily session in which
+            students receive instruction in a specified subject (e.g., morning,
+            sixth period, block period, or AB schedules).
+          x-Ed-Fi-isIdentity: true
+    section_session:
+      required:
+        - id
+        - schoolId
+        - schoolYear
+        - termDescriptor
+        - sessionName
+        - beginDate
+        - endDate
+        - totalInstructionalDays
+      type: object
+      properties:
+        id:
+          type: string
+          description: ''
+        schoolId:
+          type: integer
+          description: >-
+            The identifier assigned to a school. It must be distinct from any
+            other identifier assigned to educational organizations, such as a
+            LocalEducationAgencyId, to prevent duplication.
+          format: int64
+          x-Ed-Fi-isIdentity: true
+        schoolYear:
+          type: integer
+          description: The identifier for the school year.
+          format: int32
+          x-Ed-Fi-isIdentity: true
+        termDescriptor:
+          maxLength: 306
+          type: string
+          description: >-
+            A descriptor value to indicate the term that the session is
+            associated with.
+        sessionName:
+          maxLength: 120
+          type: string
+          description: The identifier for the calendar for the academic session.
+          x-Ed-Fi-isIdentity: true
+        beginDate:
+          type: string
+          description: >-
+            Month, day, and year of the first day of the session.  Note: Date
+            interpretation may vary. Ed-Fi recommends inclusive dates, but
+            states may define dates as inclusive or exclusive. For calculations,
+            align with local guidelines.
+          format: date
+        endDate:
+          type: string
+          description: >-
+            Month, day and year of the last day of the session.  Note: Date
+            interpretation may vary. Ed-Fi recommends inclusive dates, but
+            states may define dates as inclusive or exclusive. For calculations,
+            align with local guidelines.
+          format: date
+        totalInstructionalDays:
+          minimum: 0
+          type: integer
+          description: The total number of instructional days in the school calendar.
+          format: int32
+    section_staffSectionAssociation:
+      required:
+        - id
+        - staffUniqueId
+      type: object
+      properties:
+        id:
+          type: string
+          description: ''
+        staffUniqueId:
+          maxLength: 32
+          type: string
+          description: A unique alphanumeric code assigned to a staff.
+    section_studentSectionAssociation:
+      required:
+        - enrollmentBeginDate
+        - id
+        - studentUniqueId
+      type: object
+      properties:
+        enrollmentBeginDate:
+          type: string
+          description: >-
+            Month, day, and year of the student's entry or assignment to the
+            section.  Note: Date interpretation may vary. Ed-Fi recommends
+            inclusive dates, but states may define dates as inclusive or
+            exclusive. For calculations, align with local guidelines.
+          format: date
+          x-Ed-Fi-isIdentity: true
+        enrollmentEndDate:
+          type: string
+          description: >-
+            Month, day, and year of the withdrawal or exit of the student from
+            the section.  Note: Date interpretation may vary. Ed-Fi recommends
+            inclusive dates, but states may define dates as inclusive or
+            exclusive. For calculations, align with local guidelines.
+          format: date
+          x-nullable: true
+        id:
+          type: string
+          description: ''
+        studentUniqueId:
+          maxLength: 32
+          type: string
+          description: A unique alphanumeric code assigned to a student.
+    staff:
+      required:
+        - staffUniqueId
+        - firstName
+        - lastSurname
+      type: object
+      properties:
+        id:
+          type: string
+          description: ''
+        educationOrganizationAssignments:
+          type: array
+          items:
+            $ref: >-
+              #/components/schemas/staff_staffEducationOrganizationAssignmentAssociation
+          description: >-
+            An unordered collection of
+            staffEducationOrganizationAssignmentAssociations.
+        firstName:
+          maxLength: 75
+          type: string
+          description: >-
+            A name given to an individual at birth, baptism, or during another
+            naming ceremony, or through legal change.
+        lastSurname:
+          maxLength: 75
+          type: string
+          description: The name borne in common by members of a family.
+        loginId:
+          maxLength: 120
+          type: string
+          description: >-
+            The login ID for the user; used for security access control
+            interface.
+          x-nullable: true
+        personalTitlePrefix:
+          maxLength: 30
+          type: string
+          description: >-
+            A prefix used to denote the title, degree, position, or seniority of
+            the individual.
+          x-nullable: true
+        staffUniqueId:
+          maxLength: 32
+          type: string
+          description: A unique alphanumeric code assigned to a staff.
+        _etag:
+          type: string
+          description: >-
+            A unique system-generated value that identifies the version of the
+            resource.
+        _lastModifiedDate:
+          type: string
+          description: The date and time the resource was last modified.
+          format: date-time
+    staff_staffEducationOrganizationAssignmentAssociation:
+      required:
+        - staffClassificationDescriptor
+        - educationOrganizationId
+      type: object
+      properties:
+        staffClassificationDescriptor:
+          maxLength: 306
+          type: string
+          description: >-
+            The titles of employment, official status, or rank of education
+            staff.
+          x-Ed-Fi-isIdentity: true
+        educationOrganizationType:
+          maxLength: 128
+          type: string
+          description: ''
+          x-nullable: true
+        educationOrganizationId:
+          type: integer
+          description: The identifier assigned to an education organization.
+          format: int64
+          x-Ed-Fi-isIdentity: true
+    student:
+      required:
+        - studentUniqueId
+        - firstName
+        - lastSurname
+        - birthDate
+      type: object
+      properties:
+        id:
+          type: string
+          description: ''
+        birthDate:
+          type: string
+          description: The month, day, and year on which an individual was born.
+          format: date
+        firstName:
+          maxLength: 75
+          type: string
+          description: >-
+            A name given to an individual at birth, baptism, or during another
+            naming ceremony, or through legal change.
+        lastSurname:
+          maxLength: 75
+          type: string
+          description: The name borne in common by members of a family.
+        middleName:
+          maxLength: 75
+          type: string
+          description: >-
+            A secondary name given to an individual at birth, baptism, or during
+            another naming ceremony.
+          x-nullable: true
+        personalTitlePrefix:
+          maxLength: 30
+          type: string
+          description: >-
+            A prefix used to denote the title, degree, position, or seniority of
+            the individual.
+          x-nullable: true
+        studentDemographics:
+          type: array
+          items:
+            $ref: >-
+              #/components/schemas/student_studentEducationOrganizationAssociation
+          description: >-
+            An unordered collection of
+            studentEducationOrganizationAssociations.
+        studentSchoolEnrollments:
+          type: array
+          items:
+            $ref: '#/components/schemas/student_studentSchoolAssociation'
+          description: 'An unordered collection of studentSchoolAssociations. '
+        studentUniqueId:
+          maxLength: 32
+          type: string
+          description: A unique alphanumeric code assigned to a student.
+        _etag:
+          type: string
+          description: >-
+            A unique system-generated value that identifies the version of the
+            resource.
+        _lastModifiedDate:
+          type: string
+          description: The date and time the resource was last modified.
+          format: date-time
+    student_studentEducationOrganizationAssociation:
+      required:
+        - educationOrganizationId
+      type: object
+      properties:
+        loginId:
+          maxLength: 120
+          type: string
+          description: >-
+            The login ID for the user; used for security access control
+            interface.
+          x-nullable: true
+        educationOrganizationType:
+          maxLength: 128
+          type: string
+          description: ''
+          x-nullable: true
+        educationOrganizationId:
+          type: integer
+          description: The identifier assigned to an education organization.
+          format: int64
+          x-Ed-Fi-isIdentity: true
+    student_studentSchoolAssociation:
+      required:
+        - entryGradeLevelDescriptor
+        - enrollmentBeginDate
+        - id
+        - schoolId
+        - nameOfInstitution
+      type: object
+      properties:
+        entryGradeLevelDescriptor:
+          maxLength: 306
+          type: string
+          description: >-
+            The grade level or primary instructional level at which a student
+            enters and receives services in a school or an educational
+            institution during a given academic session.
+        enrollmentBeginDate:
+          type: string
+          description: >-
+            The month, day, and year on which an individual enters and begins to
+            receive instructional services in a school for each school year. The
+            EntryDate value should be the date the student enrolled, or when the
+            student's enrollment materially changed, such as with a grade
+            promotion.  Note: Date interpretation may vary. Ed-Fi recommends
+            inclusive dates, but states may define dates as inclusive or
+            exclusive. For calculations, align with local guidelines.
+          format: date
+          x-Ed-Fi-isIdentity: true
+        enrollmentEndDate:
+          type: string
+          description: >-
+            The recorded exit or withdraw date for the student.  Note: Date
+            interpretation may vary. Ed-Fi recommends inclusive dates, but
+            states may define dates as inclusive or exclusive. For calculations,
+            align with local guidelines.
+          format: date
+          x-nullable: true
+        id:
+          type: string
+          description: ''
+        schoolId:
+          type: integer
+          description: >-
+            The identifier assigned to a school. It must be distinct from any
+            other identifier assigned to educational organizations, such as a
+            LocalEducationAgencyId, to prevent duplication.
+          format: int64
+          x-Ed-Fi-isIdentity: true
+        nameOfInstitution:
+          maxLength: 75
+          type: string
+          description: The full, legally accepted name of the institution.
+  responses:
+    Created:
+      description: >-
+        The resource was created.  An ETag value is available in the ETag
+        header, and the location of the resource is available in the Location
+        header of the response.
+      content:
+        application/json: {}
+    Updated:
+      description: >-
+        The resource was updated.  An updated ETag value is available in the
+        ETag header of the response.
+      content:
+        application/json: {}
+    Deleted:
+      description: The resource was successfully deleted.
+      content:
+        application/json: {}
+    NotModified:
+      description: >-
+        The resource's current server-side ETag value matched the If-None-Match
+        header value supplied with the request indicating the resource has not
+        been modified.
+    BadRequest:
+      description: >-
+        Bad Request. The request was invalid and cannot be completed. See the
+        response body for specific validation errors. This will typically be an
+        issue with the query parameters or their values.
+      content:
+        application/json: {}
+    Unauthorized:
+      description: >-
+        Unauthorized. The request requires authentication. The OAuth bearer
+        token was either not provided or is invalid. The operation may succeed
+        once authentication has been successfully completed.
+    Forbidden:
+      description: >-
+        Forbidden. The request cannot be completed in the current authorization
+        context. Contact your administrator if you believe this operation should
+        be allowed.
+    NotFound:
+      description: The resource could not be found.
+      content:
+        application/json: {}
+    NotFoundUseSnapshot:
+      description: >-
+        The resource could not be found. If Use-Snapshot header is set to true,
+        this response can indicate the snapshot may have been removed.
+    Conflict:
+      description: >-
+        Conflict.  The request cannot be completed because it would result in an
+        invalid state.  See the response body for details.
+      content:
+        application/json: {}
+    PreconditionFailed:
+      description: >-
+        The resource's current server-side ETag value does not match the
+        supplied If-Match header value in the request. This indicates the
+        resource has been modified by another consumer.
+      content:
+        application/json: {}
+    Error:
+      description: >-
+        An unhandled error occurred on the server. See the response body for
+        details.
+      content:
+        application/json: {}
+  parameters:
+    offset:
+      name: offset
+      in: query
+      description: Indicates how many items should be skipped before returning results.
+      schema:
+        type: integer
+        format: int32
+    limit:
+      name: limit
+      in: query
+      description: >-
+        Indicates the maximum number of items that should be returned in the
+        results.
+      schema:
+        maximum: 500
+        minimum: 0
+        type: integer
+        format: int32
+        default: 25
+    MinChangeVersion:
+      name: minChangeVersion
+      in: query
+      description: Used in synchronization to set sequence minimum ChangeVersion
+      schema:
+        type: integer
+        format: int64
+    MaxChangeVersion:
+      name: maxChangeVersion
+      in: query
+      description: Used in synchronization to set sequence maximum ChangeVersion
+      schema:
+        type: integer
+        format: int64
+    If-None-Match:
+      name: If-None-Match
+      in: header
+      description: >-
+        The previously returned ETag header value, used here to prevent the
+        unnecessary data transfer of an unchanged resource.
+      schema:
+        type: string
+    fields:
+      name: fields
+      in: query
+      description: >-
+        Specifies a subset of properties that should be returned for each entity
+        (e.g. "property1,collection1(collProp1,collProp2)").
+      schema:
+        type: string
+    queryExpression:
+      name: q
+      in: query
+      description: >-
+        Specifies a query filter expression for the request. Currently only
+        supports range-based queries on dates and numbers (e.g.
+        "schoolId:[255901000...255901002]" and
+        "BeginDate:[2016-03-07...2016-03-10]").
+      schema:
+        type: string
+  securitySchemes:
+    oauth2_client_credentials:
+      type: oauth2
+      description: Ed-Fi ODS/API OAuth 2.0 Client Credentials Grant Type authorization
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.ed-fi.org/v7.3.1/api/oauth/token
+          scopes: {}
+security:
+  - oauth2_client_credentials: []
+tags:
+  - name: localEducationAgencies
+    description: ''
+  - name: schools
+    description: ''
+  - name: sections
+    description: ''
+  - name: staffs
+    description: ''
+  - name: students
+    description: ''
