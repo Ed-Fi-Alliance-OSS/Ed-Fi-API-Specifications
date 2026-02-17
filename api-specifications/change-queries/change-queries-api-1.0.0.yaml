@@ -1,0 +1,128 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+openapi: 3.0.4
+info:
+  title: Available Change Versions API Endpoint
+  description: >
+    The Available Change Versions API Endpoint provides the change versions for
+    the earliest (oldest) and most recent (newest) changes available.  This
+    endpoint is used to determine the range of change versions that can be
+    used in change queries.
+  version: 1.0.0
+paths:
+  /availableChangeVersions:
+    get:
+      tags:
+        - availableChangeVersions
+      summary: >-
+        Gets the change versions for the earliest (oldest) and most recent
+        (newest) changes available.
+      operationId: getAvailableChangeVersions
+      responses:
+        '200':
+          description: The resource was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/availableChangeVersion'
+        '401':
+          description: >-
+            Unauthorized.  The request requires authentication.  The OAuth
+            bearer token was either not provided or is invalid.  The operation
+            may succeed once authentication has been successfully completed.
+        '403':
+          description: >-
+            Forbidden.  The request cannot be completed in the current
+            authorization context.  Contact your administrator if you believe
+            this operation should be allowed.
+        '404':
+          description: >-
+            Not Found.  An attempt to connect to the database snapshot, enabled
+            by the Use-Snapshot header, was unsuccessful (indicating the
+            snapshot may have been removed).
+        '500':
+          description: >-
+            An unhandled error occurred on the server. See the response body for
+            details.
+          content:
+            application/json: {}
+components:
+  schemas:
+    availableChangeVersion:
+      required:
+        - oldestChangeVersion
+        - newestChangeVersion
+      properties:
+        oldestChangeVersion:
+          type: integer
+          format: int64
+        newestChangeVersion:
+          type: integer
+          format: int64
+  responses:
+    Unauthorized:
+      description: >-
+        Unauthorized. The request requires authentication. The OAuth bearer
+        token was either not provided or is invalid. The operation may succeed
+        once authentication has been successfully completed.
+      content:
+        application/octet-stream: {}
+    Error:
+      description: >-
+        An unhandled error occurred on the server. See the response body for
+        details.
+      content:
+        application/octet-stream: {}
+    NotFound:
+      description: Not Found. The resource could not be found.
+      content:
+        application/octet-stream: {}
+  parameters:
+    offset:
+      name: offset
+      in: query
+      description: Indicates how many items should be skipped before returning results.
+      schema:
+        type: integer
+        format: int32
+        default: 0
+    limit:
+      name: limit
+      in: query
+      description: >-
+        Indicates the maximum number of items that should be returned in the
+        results.
+      schema:
+        maximum: 500
+        minimum: 0
+        type: integer
+        format: int32
+        default: 25
+    totalCount:
+      name: totalCount
+      in: query
+      description: >-
+        Indicates if the total number of items available should be returned in
+        the 'Total-Count' header of the response.  If set to false,
+        'Total-Count' header will not be provided.
+      schema:
+        type: boolean
+        default: false
+  securitySchemes:
+    oauth2_client_credentials:
+      type: oauth2
+      description: Ed-Fi ODS/API OAuth 2.0 Client Credentials Grant Type authorization
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.ed-fi.org/v7.3.1/api/oauth/token
+          scopes: {}
+security:
+  - oauth2_client_credentials: []
+tags:
+  - name: availableChangeVersions
+    description: >-
+      Gets the change versions for the earliest (oldest) and most recent
+      (newest) changes available.
