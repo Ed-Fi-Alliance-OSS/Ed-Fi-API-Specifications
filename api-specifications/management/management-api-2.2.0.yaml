@@ -1,8 +1,8 @@
 openapi: 3.0.1
 info:
   version: 2.2.0
-  title: "Ed-Fi Admin API"
-  description: The Ed-Fi Admin API is a REST API-based administrative interface for managing vendors, applications, client credentials, and authorization rules for accessing an Ed-Fi API.
+  title: Ed-Fi Management API
+  description: The Ed-Fi Management API is a REST-based administrative interface for the Ed-Fi ODS / API Platform.  It provides functions for vendor, application and other aspects of ODS / API management.  Management API 2.2 is available for ODS / API v7.0 and later.
 paths:
   /v2/resourceClaims:
     get:
@@ -2383,7 +2383,7 @@ components:
         clientCredentials:
           tokenUrl: https://localhost/adminapi/connect/token
           scopes:
-            edfi_admin_api/full_access: Unrestricted access to all Admin API endpoints
+            edfi_admin_api/full_access: Unrestricted access to all Management API endpoints
 security:
   - oauth:
       - api
@@ -2434,6 +2434,6 @@ tags: [
     },
     {
       name: "Connect",
-      description: "Ed-Fi Admin API client registration and login."
+      description: "Ed-Fi Management API client registration and login."
     },
 ]

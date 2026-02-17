@@ -19,9 +19,11 @@ format.
     v6.x and 7.x)
   * [Descriptors API (5.0)](./descriptors/5.0/) (implemented in Ed-Fi ODS/API
     7.x)
-* Admin API
-  * [Admin API 1.x](./admin-api/admin-api-1.4.0.yaml)
-  * [Admin API 2.x](./admin-api/admin-api-2.2.0.yaml)
+* Management API
+  * [Management API 1.4.0](./management/management-api-1.4.0.yaml)
+  * [Management API 1.4.3](./management/management-api-1.4.3.yaml)
+  * [Management API 2.2.0](./management/management-api-2.2.0.yaml)
+  * [Management API 2.3.0](./management/management-api-2.3.0.yaml)
 
 ## OpenAPI Resources
 
