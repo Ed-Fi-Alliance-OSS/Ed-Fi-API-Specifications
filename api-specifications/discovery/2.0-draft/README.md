@@ -10,5 +10,5 @@ environment.
 Generally, this version is recommended for new applications that implement the
 Discovery API, whereas version 1.0 is used by the Ed-Fi ODS/API application.s
 
-* [OpenAPI specification](discovery-api-2.0.yml)
+* [OpenAPI specification](discovery-api-2.0.yaml)
 * [Postman verification tests](discovery-api-2.0.postman.json)
