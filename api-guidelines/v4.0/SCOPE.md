@@ -75,7 +75,7 @@ provision OAuth-related services.
 Other specifications managed by the Ed-Fi Alliance include:
 
 * [Ed-Fi Descriptors API](./API-DESIGN-GUIDELINES/ED-FI-DESCRIPTORS.md)
-* Ed-Fi Admin API
+* Ed-Fi Management API
 * Ed-Fi Identity API
 * Ed-Fi Change Queries API
 * Ed-Fi Enrollment API
