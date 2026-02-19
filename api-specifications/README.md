@@ -20,10 +20,10 @@ format.
   * [Descriptors API (5.0)](./descriptors/5.0/) (implemented in Ed-Fi ODS/API
     7.x)
 * Management API
-  * [Management API 1.4.0](./management/management-api-1.4.0.yaml)
-  * [Management API 1.4.3](./management/management-api-1.4.3.yaml)
-  * [Management API 2.2.0](./management/management-api-2.2.0.yaml)
-  * [Management API 2.3.0](./management/management-api-2.3.0.yaml)
+  * [Management API 1.4.0](./management/management-api-1.4.0.yaml) (implemented in Ed-Fi Admin API < v1.4)
+  * [Management API 1.4.3](./management/management-api-1.4.3.yaml) (implemented in Ed-Fi Admin API > v1.4 or > v2.3)
+  * [Management API 2.2.0](./management/management-api-2.2.0.yaml) (implemented in Ed-Fi Admin API < v2.2)
+  * [Management API 2.3.0](./management/management-api-2.3.0.yaml) (implemented in Ed-Fi Admin API > 2.3)
 
 ## OpenAPI Resources
 
