@@ -4,7 +4,7 @@ Product: Ed-Fi Data Standard \
 Affects: Ed-Fi Data Standard v6.1 \
 Obsoletes: -- \
 Obsoleted By: -- \
-Status: Published \
+Status: Early Access \
 Author: Steven Arnold (Ed-Fi Alliance)
 
 March 25, 2026
@@ -13,7 +13,7 @@ March 25, 2026
 
 This Request for Comments (RFC) includes materials that describe proposed additions and revisions to the Ed-Fi Data Standard. This draft material is intended to support review and comment as well as support early usage; users of this material are advised that this work is still under development.
 
-RFC 28(b) merges the Special Education Data Model (SEDM) extension—designed by Education Analytics, AEM Corp, and Public Consulting Group—into the Ed-Fi Data Standard. It introduces five new domain entities that model the Individualized Education Program (IEP) and its associated IDEA events, prescribed services, service delivery, and goals as first-class, auditable records.
+RFC 28(b) introduces the Special Education Data Model (SEDM) into the Ed-Fi Data Standard as a new **Early Access** domain, designed collaboratively by Education Analytics, AEM Corp, Public Consulting Group (PCG), and the South Carolina Department of Education. It introduces five new domain entities—together with supporting descriptors—that model the Individualized Education Program (IEP) and its associated IDEA events, prescribed services, service delivery, and goals as first-class, auditable records. As an Early Access domain, the model should not be considered final and is expected to evolve based on community feedback; comments can be shared via [Data Standard RFC 28b](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-Technology-Roadmap/discussions/60).
 
 ## Overview
 
@@ -22,6 +22,8 @@ A student receiving special education services is represented in the Ed-Fi Data 
 The SSEPA models special education primarily as participation in a locally defined program, which creates structural misalignment with how special education operates in practice. SSEPA requires a student to be enrolled in a program and uses program identifiers and enrollment dates as the primary anchors for special education data. Program definitions and lifecycles vary across Local Education Agencies (LEAs) and State Education Agencies (SEAs), and program begin and end dates do not reliably align with IEP effective periods. As a result, changes to an IEP often require creating a new program association or overwriting existing dates, even when the student's enrollment has not changed, leading to ambiguity around which IEP was in effect at a given time and limiting portability across jurisdictions. Additionally, the Ed-Fi standard does not currently provide a way to represent Individuals with Disabilities Education Act (IDEA) related events, IEP related goals, or IEP related service delivery.
 
 In contrast, a model such as SEDM treats the **IEP as a first-class, time-bound legal document**, explicitly capturing IDEA events, service prescriptions, and service delivery as records tied to the IEP rather than inferred from program state. SSEPA does not natively preserve IEP history, represent IDEA events as discrete entities, or support granular tracking of service delivery and goal progress over time; instead, it is optimized to reflect a current program state. This limits the ability to reconstruct compliance timelines, demonstrate procedural intent, or evaluate progress relative to the plan in effect when services were delivered. By anchoring data to the IEP itself, SEDM supports longitudinal analysis, evidence-based reporting, and clearer interpretation of special education obligations without reliance on program constructs that were not designed to carry legal or historical meaning.
+
+SEDM complements, rather than replaces, the existing model: the `StudentSpecialEducationProgramAssociation` remains available for consolidated reporting use cases. To minimize maintenance overhead while the model matures, initial adoption is recommended for Special Education vendors rather than SIS vendors.
 
 ## Use Cases
 
@@ -42,59 +44,130 @@ IEP portability is essential because the Individualized Education Program is a s
 ### Entity Relationship Overview
 
 ```mermaid
----
-config:
-  layout: elk
----
 erDiagram
-	direction TB
-	StudentIEP {
+ StudentIEP {
+     reference Student "I"
+     reference EducationOrganization "I"
+     string StudentIEPIdentifier "I"
+     date IEPFinalizedDate "I"
+     date IEPBeginDate "R"
+     date IEPEndDate "R"
+     descriptor IEPStatus "R"
+     descriptor Accommodation "OC"
+     common Disability "OC"
+     reference IDEAEvent "OC"
+     date IEPAmendedDate "O"
+     bool MedicallyFragile "O"
+     bool MultiplyDisabled "O"
+     descriptor ReasonExited "O"
+     decimal SchoolHoursPerWeek "O"
+     decimal SpecialEducationHoursPerWeek "O"
+     descriptor SpecialEducationSetting "O"
+ }
 
-	}
+ IDEAEvent {
+     reference Student "I"
+     reference EducationOrganization "I"
+     string IDEAEventIdentifier "I"
+     descriptor IDEAEventType "I"
+     date BeginDate "R"
+     date EndDate "O"
+     descriptor EventCompliance "O"
+     string EventNarrative "O"
+     descriptor EventReason "O"
+ }
 
-	IDEAEvent {
+ EducationOrganization {
+     integer EducationOrganizationId "I"
+     string NameOfInstitution "R"
+     string ShortNameOfInstitution "O"
+     descriptor EducationOrganizationCategory "RC"
+     common Address "OC"
+     common InternationalAddress "OC"
+     common InstitutionTelephone "OC"
+     string WebSite "O"
+     descriptor OperationalStatus "O"
+     common EducationOrganizationIndicator "OC"
+ }
 
-	}
+ StudentIEPServicePrescription["StudentIEP<br/>ServicePrescription"] {
+     reference StudentIEP "I"
+     descriptor ServicePrescription "I"
+     date ServicePrescriptionDate "I"
+     date BeginDate "R"
+     integer Duration "R"
+     descriptor DurationInterval "R"
+     date EndDate "O"
+     decimal Frequency "R"
+     descriptor FrequencyInterval "R"
+     reference IDEAEvent "OC"
+     descriptor ServiceLocationType "R"
+     reference Staff "OC"
+ }
 
-	EducationOrganization {
+ StudentIEPServiceDelivery {
+     reference StudentIEP "I"
+     string IEPServiceDeliveryIdentifier "I"
+     descriptor ServiceDelivery "I"
+     date ServiceDeliveryDate "I"
+     reference IDEAEvent "OC"
+     common Provider "OC"
+     reference StudentIEPServicePrescription "O"
+ }
 
-	}
+ Student {
+     string StudentUniqueId "I"
+     common Name "R"
+     common OtherName "OC"
+     common BirthData "R"
+     reference Person "O"
+ }
 
-	StudentIEPServicePrescription {
+ Staff {
+     string StaffUniqueId "I"
+     common Name "R"
+     common OtherName "OC"
+     date BirthDate "O"
+     descriptor HighestCompletedLevelOfEducation "O"
+     decimal YearsOfPriorProfessionalExperience "O"
+     decimal YearsOfPriorTeachingExperience "O"
+     string LoginId "O"
+     bool HighlyQualifiedTeacher "O"
+     common Recognition "OC"
+     reference Credential "OC"
+     reference Person "O"
+     descriptor HighlyQualifiedAcademicSubject "OC"
+     common EducatorResearch "O"
+     reference EducatorPreparationProgram "OC"
+     reference OpenStaffPosition "O"
+ }
 
-	}
+ StudentIEPGoal {
+     reference StudentIEP "I"
+     string IEPGoalIdentifier "I"
+     string IEPGoalDetails "R"
+     descriptor IEPGoalType "R"
+     common GoalAchievementPeriod "O"
+     reference IDEAEvent "OC"
+ }
+    IDEAEvent }o--|| EducationOrganization : "HasAssociated"
+    StudentIEPServicePrescription }o--|| StudentIEP : "HasAssociated"
+    StudentIEP ||--o{ StudentIEPGoal : "HasAssociated"
+    StudentIEPServiceDelivery }o--|| StudentIEPServicePrescription : "HasAssociated"
+    Student }|--o{ EducationOrganization : "HasAssociated"
+    Student ||--o{ IDEAEvent : "HasAssociated"
+    Student ||--o{ StudentIEP : "HasAssociated"
+    StudentIEP }o--o{ IDEAEvent : "HasAssociated"
+    Staff }o--o{ StudentIEPServicePrescription : "HasAssociated"
+    StudentIEPGoal }o--o{ IDEAEvent : "HasAssociated"
+    StudentIEP ||--o{ StudentIEPServiceDelivery : "HasAssociated"
+    EducationOrganization ||--o{ StudentIEP : "HasAssociated"
 
-	StudentIEPServiceDelivery {
-
-	}
-
-	Student {
-
-	}
-
-	Staff {
-
-	}
-
-	StudentIEPGoal {
-
-	}
-
-	Student}o..o{EducationOrganization:"has associated"
-	Student}o--||StudentIEP:"has"
-	Student||--o{IDEAEvent:"has"
-	IDEAEvent||--o{EducationOrganization:"has associated"
-	IDEAEvent}o..o{StudentIEP:"includes"
-	StudentIEPGoal}o--o{IDEAEvent:"has associated"
-	StudentIEP||--o{EducationOrganization:"  "
-	StudentIEP||--o{StudentIEPServicePrescription:"includes"
-	StudentIEP||--o{StudentIEPServiceDelivery:"includes"
-	StudentIEP||..o{StudentIEPGoal:"includes"
-	StudentIEPServicePrescription||..o{StudentIEPServiceDelivery:"implements"
-	StudentIEPServiceDelivery}o..o{Staff:"provides service"
-	StudentIEPServiceDelivery}o..o{IDEAEvent:"includes"
-	StudentIEPServicePrescription}o..||Staff:"  "
-	StudentIEPServicePrescription}o..o{IDEAEvent:"includes"
+    style StudentIEP fill:#E1BEE7,stroke:#AA00FF,color:#000000
+    style IDEAEvent fill:#E1BEE7,stroke:#AA00FF,color:#000000
+    style StudentIEPServicePrescription fill:#E1BEE7,stroke:#AA00FF,color:#000000
+    style StudentIEPServiceDelivery fill:#E1BEE7,stroke:#AA00FF,color:#000000
+    style StudentIEPGoal fill:#E1BEE7,stroke:#AA00FF,color:#000000
 ```
 
 ### StudentIEP
@@ -105,30 +178,30 @@ When an IEP is amended, a new `StudentIEP` record should be created with the ame
 
 **Identity**
 
-| Field                   | Type         | Description                                                                                          |
-| ----------------------- | ------------ | ---------------------------------------------------------------------------------------------------- |
-| `EducationOrganization` | Reference    | The identifier assigned to the education organization (usually District/LEA) providing IEP Services. |
-| `Student`               | Reference    | A reference to the student.                                                                          |
-| `StudentIEPIdentifier`  | String (120) | A unique identifier assigned by the provider or source system of IEP services.                       |
+| Field | Type | Description |
+|---|---|---|
+| `EducationOrganization` | Reference | The identifier assigned to the education organization (usually District/LEA) providing IEP Services. |
+| `Student` | Reference | A reference to the student. |
+| `StudentIEPIdentifier` | String (120) | A unique identifier assigned by the provider or source system of IEP services. |
+| `IEPFinalizedDate` | Date | The date the IEP was finalized. |
 
 **Properties**
 
-| Field                          | Type                  | Required | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| ------------------------------ | --------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `IEPBeginDate`                 | Date                  | Required | The projected date for the beginning of special education and related services.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `IEPEndDate`                   | Date                  | Required | The effective end date of the IEP.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `IEPStatus`                    | Descriptor            | Required | The current status of the IEP.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `IEPFinalizedDate`             | Date                  | Optional | The date the IEP was finalized.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `IEPAmendedDate`               | Date                  | Optional | The date when the IEP was last amended, if any. When amended, a new StudentIEP should be created with the amended data recorded.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `MedicallyFragile`             | Boolean               | Optional | Indicates whether the student receiving special education and related services is: 1) in the age range of birth to 22 years, and 2) has a serious, ongoing illness or a chronic condition that has lasted or is anticipated to last at least 12 or more months or has required at least one month of hospitalization, and that requires daily, ongoing medical treatments and monitoring by appropriately trained personnel which may include parents or other family members, and 3) requires the routine use of medical device or of assistive technology to compensate for the loss of usefulness of a body function needed to participate in activities of daily living, and 4) lives with ongoing threat to his or her continued well-being. Aligns with federal requirements. |
-| `MultiplyDisabled`             | Boolean               | Optional | Indicates whether the student receiving special education and related services has been designated as multiply disabled by the admission, review, and dismissal committee as aligned with federal requirements.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `SchoolHoursPerWeek`           | Decimal (5,2)         | Optional | Indicate the total number of hours of instructional time per week for the school that the student attends.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `SpecialEducationHoursPerWeek` | Decimal (5,2)         | Optional | Indicates the total number of hours of time per week specific to special education related services.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| `SpecialEducationSetting`      | Descriptor            | Optional | The major instructional setting (more than 50 percent of a student's special education program).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `ReasonExited`                 | Descriptor            | Optional | The reason why a person stops receiving special education services.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `Accommodation`                | Descriptor collection | Optional | The special variation(s) to be used in how various services (in general) are presented, how they are administered, or how the student is allowed to respond. This generally refers to changes that do not substantially alter the content that the service renders. The proper use of accommodations does not substantially change academic level or performance criteria.                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `Disability`                   | Common collection     | Optional | The disability condition(s) that best describes an individual's impairment, as determined by evaluation(s) conducted by the education organization.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `IDEAEvent`                    | Reference collection  | Optional | A reference to the IDEA events associated with the student's IEP.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `IEPBeginDate` | Date | Required | The projected date for the beginning of special education and related services. |
+| `IEPEndDate` | Date | Required | The effective end date of the IEP. |
+| `IEPStatus` | Descriptor | Required | The current status of the IEP. |
+| `IEPAmendedDate` | Date | Optional | The date when the IEP was last amended, if any. When amended, a new StudentIEP should be created with the amended data recorded. |
+| `MedicallyFragile` | Boolean | Optional | Indicates whether the student receiving special education and related services is: 1) in the age range of birth to 22 years, and 2) has a serious, ongoing illness or a chronic condition that has lasted or is anticipated to last at least 12 or more months or has required at least one month of hospitalization, and that requires daily, ongoing medical treatments and monitoring by appropriately trained personnel which may include parents or other family members, and 3) requires the routine use of medical device or of assistive technology to compensate for the loss of usefulness of a body function needed to participate in activities of daily living, and 4) lives with ongoing threat to his or her continued well-being. Aligns with federal requirements. |
+| `MultiplyDisabled` | Boolean | Optional | Indicates whether the student receiving special education and related services has been designated as multiply disabled by the admission, review, and dismissal committee as aligned with federal requirements. |
+| `SchoolHoursPerWeek` | Decimal (5,2) | Optional | Indicate the total number of hours of instructional time per week for the school that the student attends. |
+| `SpecialEducationHoursPerWeek` | Decimal (5,2) | Optional | Indicates the total number of hours of time per week specific to special education related services. |
+| `SpecialEducationSetting` | Descriptor | Optional | The major instructional setting (more than 50 percent of a student's special education program). |
+| `ReasonExited` | Descriptor | Optional | The reason why a person stops receiving special education services. |
+| `Accommodation` | Descriptor collection | Optional | The special variation(s) to be used in how various services (in general) are presented, how they are administered, or how the student is allowed to respond. This generally refers to changes that do not substantially alter the content that the service renders. The proper use of accommodations does not substantially change academic level or performance criteria. |
+| `Disability` | Common collection | Optional | The disability condition(s) that best describes an individual's impairment, as determined by evaluation(s) conducted by the education organization. |
+| `IDEAEvent` | Reference collection | Optional | A reference to the IDEA events associated with the student's IEP. |
 
 > **Note on dates:** Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. Align with local guidelines for calculations.
 
@@ -138,22 +211,22 @@ The `IDEAEvent` entity captures legally significant events required under IDEA�
 
 **Identity**
 
-| Field                   | Type         | Description                                                                                           |
-| ----------------------- | ------------ | ----------------------------------------------------------------------------------------------------- |
-| `EducationOrganization` | Reference    | The identifier assigned to the education organization (usually District/LEA) providing IDEA Services. |
-| `Student`               | Reference    | A reference to the student.                                                                           |
-| `IdeaEventIdentifier`   | String (120) | A unique identifier for the event record as assigned by the provider of IEP services.                 |
-| `IDEAEvent`             | Descriptor   | The IDEA event recorded for the student.                                                              |
+| Field | Type | Description |
+|---|---|---|
+| `EducationOrganization` | Reference | The identifier assigned to the education organization (usually District/LEA) providing IDEA Services. |
+| `Student` | Reference | A reference to the student. |
+| `IDEAEventIdentifier` | String (120) | A unique identifier for the event record as assigned by the provider of IEP services. |
+| `IDEAEventType` | Descriptor | The type of IDEA event recorded for the student. |
 
 **Properties**
 
-| Field             | Type          | Required | Description                                           |
-| ----------------- | ------------- | -------- | ----------------------------------------------------- |
-| `BeginDate`       | Date          | Required | The date when the IDEA related event started.         |
-| `EndDate`         | Date          | Optional | The date when the IDEA related event concluded.       |
-| `EventCompliance` | Descriptor    | Optional | The type of compliance represented by this event.     |
-| `EventReason`     | Descriptor    | Optional | The reason the IDEA event occurred.                   |
-| `EventNarrative`  | String (2048) | Optional | Detailed and summary notes recorded during the event. |
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `BeginDate` | Date | Required | The date when the IDEA related event started. |
+| `EndDate` | Date | Optional | The date when the IDEA related event concluded. |
+| `EventCompliance` | Descriptor | Optional | The type of compliance represented by this event. |
+| `EventReason` | Descriptor | Optional | The reason the IDEA event occurred. |
+| `EventNarrative` | String (2048) | Optional | Detailed and summary notes recorded during the event. |
 
 ### StudentIEPServicePrescription
 
@@ -161,26 +234,25 @@ The `IDEAEvent` entity captures legally significant events required under IDEA�
 
 **Identity**
 
-| Field                              | Type         | Description                                                                                |
-| ---------------------------------- | ------------ | ------------------------------------------------------------------------------------------ |
-| `StudentIEP`                       | Reference    | The IEP for which the service is prescribed.                                               |
-| `IEPServicePrescriptionIdentifier` | String (120) | A unique identifier assigned by the provider of IEP services for the prescription record.  |
-| `ServicePrescription`              | Descriptor   | The type of service prescribed. Examples include: Auditory Specialist, Vocational Therapy. |
-| `ServicePrescriptionDate`          | Date         | The date the service was prescribed.                                                       |
+| Field | Type | Description |
+|---|---|---|
+| `StudentIEP` | Reference | The IEP for which the service is prescribed. |
+| `ServicePrescription` | Descriptor | The type of service prescribed. Examples include: Auditory Specialist, Vocational Therapy. |
+| `ServicePrescriptionDate` | Date | The date the service was prescribed. |
 
 **Properties**
 
-| Field                 | Type                 | Required | Description                                                                                                                                  |
-| --------------------- | -------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `BeginDate`           | Date                 | Required | The effective date when service is to begin.                                                                                                 |
-| `EndDate`             | Date                 | Optional | The effective date when the prescribed service ended.                                                                                        |
-| `Duration`            | Integer              | Required | The length of time for the prescribed service in minutes.                                                                                    |
-| `DurationInterval`    | Descriptor           | Required | How often the prescribed service is to be provided within the specified duration period. Examples include: Per Session, Per Week, Per Month. |
-| `Frequency`           | Decimal              | Required | The number of times the prescribed service is to be provided within the specified duration period.                                           |
-| `FrequencyInterval`   | Descriptor           | Required | How often the frequency should repeat for the prescribed service. Examples include: Per Session, Weekly, Monthly.                            |
-| `ServiceLocationType` | Descriptor           | Required | The type of location where the prescribed service is to be provided. Examples include: Home, Hospital, School.                               |
-| `Staff`               | Reference collection | Optional | A reference to the staff member(s) assigned to provide the prescribed service.                                                               |
-| `IDEAEvent`           | Reference collection | Optional | A reference to one or more IDEA events associated with a student.                                                                            |
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `BeginDate` | Date | Required | The effective date when service is to begin. |
+| `EndDate` | Date | Optional | The effective date when the prescribed service ended. |
+| `Duration` | Integer | Required | The length of time for the prescribed service in minutes. |
+| `DurationInterval` | Descriptor | Required | How often the prescribed service is to be provided within the specified duration period. Examples include: Per Session, Per Week, Per Month. |
+| `Frequency` | Decimal | Required | The number of times the prescribed service is to be provided within the specified duration period. |
+| `FrequencyInterval` | Descriptor | Required | How often the frequency should repeat for the prescribed service. Examples include: Per Session, Weekly, Monthly. |
+| `ServiceLocationType` | Descriptor | Required | The type of location where the prescribed service is to be provided. Examples include: Home, Hospital, School. |
+| `Staff` | Reference collection | Optional | A reference to the staff member(s) assigned to provide the prescribed service. |
+| `IDEAEvent` | Reference collection | Optional | A reference to one or more IDEA events associated with a student. |
 
 ### StudentIEPServiceDelivery
 
@@ -188,20 +260,20 @@ The `StudentIEPServiceDelivery` entity records the actual delivery of services p
 
 **Identity**
 
-| Field                          | Type         | Description                                                                           |
-| ------------------------------ | ------------ | ------------------------------------------------------------------------------------- |
-| `StudentIEP`                   | Reference    | The student and IEP associated with the delivery of prescribed services.              |
+| Field | Type | Description |
+|---|---|---|
+| `StudentIEP` | Reference | The student and IEP associated with the delivery of prescribed services. |
 | `IEPServiceDeliveryIdentifier` | String (120) | A unique identifier assigned by the provider of IEP services for the delivery record. |
-| `ServiceDelivery`              | Descriptor   | The type of services delivered to the student.                                        |
-| `ServiceDeliveryDate`          | Date         | The date when prescribed services were delivered for a student.                       |
+| `ServiceDelivery` | Descriptor | The type of services delivered to the student. |
+| `ServiceDeliveryDate` | Date | The date when prescribed services were delivered for a student. |
 
 **Properties**
 
-| Field                           | Type                 | Required | Description                                                                |
-| ------------------------------- | -------------------- | -------- | -------------------------------------------------------------------------- |
-| `StudentIEPServicePrescription` | Reference            | Optional | Identifies the service prescribed for the student.                         |
-| `Provider`                      | Common collection    | Optional | The service provider that delivered the prescribed service to the student. |
-| `IDEAEvent`                     | Reference collection | Optional | A reference to one or more student IDEA events.                            |
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `StudentIEPServicePrescription` | Reference | Optional | Identifies the service prescribed for the student. |
+| `Provider` | Common collection | Optional | The service provider that delivered the prescribed service to the student. |
+| `IDEAEvent` | Reference collection | Optional | A reference to one or more student IDEA events. |
 
 ### StudentIEPGoal
 
@@ -209,30 +281,30 @@ The `StudentIEPServiceDelivery` entity records the actual delivery of services p
 
 **Identity**
 
-| Field               | Type         | Description                                                   |
-| ------------------- | ------------ | ------------------------------------------------------------- |
-| `StudentIEP`        | Reference    | The IEP for which the goal is prescribed.                     |
+| Field | Type | Description |
+|---|---|---|
+| `StudentIEP` | Reference | The IEP for which the goal is prescribed. |
 | `IEPGoalIdentifier` | String (120) | A unique identifier assigned by the provider of IEP services. |
 
 **Properties**
 
-| Field                   | Type                 | Required | Description                                                                                                     |
-| ----------------------- | -------------------- | -------- | --------------------------------------------------------------------------------------------------------------- |
-| `IEPGoalType`           | Descriptor           | Required | A focused goal prescribed as part of the IEP. Examples include Academic Goal, Behavioral Goal, Attendance Goal. |
-| `IEPGoalDetails`        | String (2048)        | Required | Instructions or other details specific to the student and/or provider for achieving the stated goal.            |
-| `GoalAchievementPeriod` | Common (Period)      | Optional | The time period for which the goal is applicable or effective.                                                  |
-| `IDEAEvent`             | Reference collection | Optional | A reference to one or more IDEA events associated with a student.                                               |
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `IEPGoalType` | Descriptor | Required | A focused goal prescribed as part of the IEP. Examples include Academic Goal, Behavioral Goal, Attendance Goal. |
+| `IEPGoalDetails` | String (2048) | Required | Instructions or other details specific to the student and/or provider for achieving the stated goal. |
+| `GoalAchievementPeriod` | Common (Period) | Optional | The time period for which the goal is applicable or effective. |
+| `IDEAEvent` | Reference collection | Optional | A reference to one or more IDEA events associated with a student. |
 
 ## API Specifications
 
 This RFC introduces five new REST API resources under the `ed-fi` namespace, following standard Ed-Fi API conventions. Each resource supports `GET`, `POST`, `PUT`, and `DELETE` operations.
 
-| Resource                      | Route                                   |
-| ----------------------------- | --------------------------------------- |
-| StudentIEP                    | `/ed-fi/studentIEPs`                    |
-| IDEAEvent                     | `/ed-fi/ideaEvents`                     |
+| Resource | Route |
+|---|---|
+| StudentIEP | `/ed-fi/studentIEPs` |
+| IDEAEvent | `/ed-fi/ideaEvents` |
 | StudentIEPServicePrescription | `/ed-fi/studentIEPServicePrescriptions` |
-| StudentIEPServiceDelivery     | `/ed-fi/studentIEPServiceDeliveries`    |
-| StudentIEPGoal                | `/ed-fi/studentIEPGoals`                |
+| StudentIEPServiceDelivery | `/ed-fi/studentIEPServiceDeliveries` |
+| StudentIEPGoal | `/ed-fi/studentIEPGoals` |
 
-A full OpenAPI specification will be published with the final version of this RFC. Reviewers are encouraged to test the draft specification using [Swagger Editor](https://editor.swagger.io/), [Postman](https://www.postman.com/), or [Bruno](https://www.usebruno.com/).
+These resources are published as part of Ed-Fi Data Standard v6.1. The full OpenAPI specification is available with the Data Standard v6.1 release, and can be explored using [Swagger Editor](https://editor.swagger.io/), [Postman](https://www.postman.com/), or [Bruno](https://www.usebruno.com/).
