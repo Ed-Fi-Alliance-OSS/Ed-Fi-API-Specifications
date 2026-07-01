@@ -1,4 +1,4 @@
-# Ed-Fi Request for Comment 28b: Special Education Data Model (SEDM)
+# Ed-Fi RFC 28b: Special Education Data Model (SEDM)
 
 Product: Ed-Fi Data Standard \
 Affects: Ed-Fi Data Standard v6.1 \

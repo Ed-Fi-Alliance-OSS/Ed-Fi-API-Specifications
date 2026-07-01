@@ -1,4 +1,4 @@
-# Ed-Fi Request for Comment 28a: Enhancements to Ed-Fi Data Standard 6.1
+# Ed-Fi RFC 28a: Enhancements to Ed-Fi Data Standard 6.1
 
 Product: Ed-Fi Data Standard \
 Affects: Ed-Fi Data Standard v6.1 \
