@@ -41,8 +41,7 @@ The Ed-Fi Data Standard evolves through a community-led process:
 
 2. These ideas are logged as GitHub Issues in the [Product Roadmap](https://github.com/orgs/Ed-Fi-Alliance-OSS/projects/2/views/3).
 
-   > [!TIP]
-   > Not all Issues identified by the community can be acted on by the Ed-Fi Alliance. We attempt to take a market-driven approach, prioritizing updates that will benefit multiple implementations and/or reduce integration friction for multiple vendors.
+   - ⚠️ Not all Issues identified by the community can be acted on by the Ed-Fi Alliance. We attempt to take a market-driven approach, prioritizing updates that will benefit multiple implementations and/or reduce integration friction for multiple vendors.
 
 3. Ed-Fi Alliance staff and/or community members develop a [Draft Request for Comments (RFC)](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-Technology-Roadmap/discussions?discussions_q=label%3ARFC) document and invite comment from the Ed-Fi Community via
 
