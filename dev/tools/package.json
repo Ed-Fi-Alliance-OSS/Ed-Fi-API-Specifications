@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-API-Standards#readme",
   "dependencies": {
-    "@apideck/portman": "^1.26.3"
+    "@apideck/portman": "^1.35.0"
   }
 }
