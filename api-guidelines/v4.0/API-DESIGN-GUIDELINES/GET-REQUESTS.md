@@ -51,17 +51,22 @@ term is therefore simply `?schoolId=xyz`.
 ### Paging
 
 Paging is a mechanism that restricts the number of results returned by an
-operation and has proven critical to the efficient usage of Ed-Fi APIs.  The
-`limit` parameter _should_ be supported in the query string and allow the client
-to set the maximum number of records to return. If no value is supplied, the
-`limit` parameter _should_ default to 25.
+operation and has proven critical to the efficient usage of Ed-Fi APIs. An Ed-Fi
+API _must_ support at least one paging mechanism. Two approaches are defined
+below: limit/offset paging and cursor-based paging.
 
-The `offset` parameter _should_ be available to the client to specify how many
-records to skip when getting the result set. The value for `offset` _should_
+#### Limit/Offset Paging
+
+The `limit` parameter _should_ be supported in the query string and allow the
+client to set the maximum number of records to return. If no value is supplied,
+the `limit` parameter _should_ default to 25.
+
+The `offset` parameter _should_ be available to the client to specify how many
+records to skip when getting the result set. The value for `offset` _should_
 default to 0.
 
-When multiple records are being returned, the total count of all
-records _should_ be returned, as part of the HTTP header information.
+When multiple records are being returned, the total count of all records _should_
+be returned as part of the HTTP response header information.
 
 An Ed-Fi API _must_ use the same sort order on all query requests, so that
 repeated `GET` requests with the same `limit` and `offset` parameters retrieve
@@ -69,9 +74,17 @@ the same records, unless the collection has been modified. If new records are
 inserted or existing records are deleted, these modifications will necessarily
 alter which records are included in the response.
 
-#### Paging Examples
+> [!NOTE]
+> Many databases have known performance limitations when using `offset` beyond
+> around 10,000 records. Before the fourth revision to these guidelines, support
+> for `limit`/`offset` queries was a _required_ feature of an Ed-Fi API. This
+> has been relaxed to a `recommended` feature, so that API hosts may disable use
+> of these parameters if they are concerned about the potential impact of "deep"
+> (beyond 10,000) queries on their databases.
 
-For example, the following request will retrieve the first 25 student records:
+##### Limit/Offset Paging Examples
+
+The following request will retrieve the first 25 student records:
 
 ```none
 https://api.example.com/ed-fi/students
@@ -79,49 +92,92 @@ https://api.example.com/ed-fi/students
 
 If the `total-count` response header has a value greater than 25, then the
 following request will retrieve the next set of students, up to 25. Note that
-the `offset` is zero based, which means the number 25 represents the 26th
-record.
+the `offset` is zero-based, so the number 25 represents the 26th record.
 
 ```none
 https://api.example.com/v1/students?offset=25
 ```
 
-The next example increases the number of records requested to 100, instead of
-25, and it starts with the 101st record in the collection.
+The next example increases the number of records requested to 100 and starts
+with the 101st record in the collection.
 
 ```none
 https://api.example.com/v1/students?offset=100&limit=100
 ```
 
-#### Alternate Paging Mechanisms
+#### Cursor-Based Paging
 
-Many databases have known performance limitations when using `offset` beyond
-around 10,000 records. Before the fourth revision to these guidelines, support
-for `limit`/`offset` queries was a _required_ feature of an Ed-Fi API. This has
-been relaxed to a `recommended` feature, so that API hosts may disable use of
-these parameters if they are concerned about potential impact of "deep" (beyond
-10,000) queries on their databases.
+Cursor-based paging (also called seek-based or keyset paging) resolves the
+performance limitations of limit/offset paging by anchoring each page request to
+a specific record in the underlying data set rather than computing an offset. An
+Ed-Fi API _should_ support cursor-based paging.
 
-Alternate approaches to paging could be implemented, for example using keyset or
-cursor-based parameters. A common approach that resolves the performance
-limitations is to set a lower boundary on a monotonically increasing field, such
-as a numeric identifier or a date. For example, a resource could support paging
-by using the `_lastModifiedDate` metadata attribute instead of `offset`. This
-could be expressed in a query string as `minModifiedDate`:
+##### Page Tokens
+
+When cursor-based paging is supported, the API _must_ communicate the cursor for
+the next page to the client via a response header. The _recommended_ header name
+is `Next-Page-Token`. The token _must_ be an opaque, URL-safe string (e.g., a
+Base64url-encoded representation of an internal cursor position). Clients _must
+not_ attempt to interpret or construct page token values; they _must_ treat them
+as opaque strings.
+
+When there is no next page — that is, the last page of results has been reached —
+the `Next-Page-Token` header _must_ be omitted from the response.
+
+To retrieve the next page, the client passes the token back as a `pageToken`
+query parameter:
 
 ```none
-https://api.example.com/ed-fi/students?minModifiedDate=2024-03-29T18:23:57&limit=100
+GET https://api.example.com/ed-fi/students?pageToken=eyJhZ2dyZWdhdGVJZCI6MTIzNDV9&limit=100
 ```
 
-This query implies that the API will sort the students by a "modified date"
-attribute or column, and return the next 100 records where that modification
-date is strictly greater than `2024-03-29T18:23:57`. The API client would look
-at the modified date of the 100th record in the response, and use that value as
-the `minModifiedDate` in the subsequent request.
+The `limit` parameter _should_ be honored alongside `pageToken` to control page
+size. When `pageToken` is present, the `offset` parameter _must_ be ignored.
 
-> [!NOTE]
-> As an experimental feature, this example is merely one possibility, rather than
-> a prescribed approach.
+##### Partitions Endpoint
+
+Because cursor-based paging is inherently sequential — each page depends on the
+cursor returned by the previous page — it does not naturally support parallel
+processing. To enable clients to parallelize large data extractions, an Ed-Fi
+API that supports cursor-based paging _should_ also provide a `/partitions`
+child endpoint for each resource collection.
+
+A `GET` request to the `/partitions` endpoint _should_ accept a `number` query
+parameter specifying the desired number of partitions, and _must_ return an array
+of page token objects. Each object represents the starting cursor for one
+partition of the full result set, with each partition covering an approximately
+equal share of the available records:
+
+```none
+GET https://api.example.com/ed-fi/students/partitions?number=4
+```
+
+Example response body:
+
+```json
+[
+  { "pageToken": "eyJtaW4iOi0yMTQ3NDgzNjQ4LCJtYXgiOi0xMDczNzQxODI1fQ" },
+  { "pageToken": "eyJtaW4iOi0xMDczNzQxODI0LCJtYXgiOi0xfQ" },
+  { "pageToken": "eyJtaW4iOjAsIm1heCI6MTAwMDAwMH0" },
+  { "pageToken": "eyJtaW4iOjEwMDAwMDEsIm1heCI6MjE0NzQ4MzY0N30" }
+]
+```
+
+Each partition token encodes the range boundaries needed for the API to constrain
+results to that partition's scope. The client uses each token as the `pageToken`
+parameter to start paging through its partition, following successive
+`Next-Page-Token` response headers until no further token is returned, signaling
+the end of the partition.
+
+This design allows a client to distribute partitions across independent
+processing threads, achieving parallel throughput comparable to limit/offset
+paging while retaining the performance benefits of seek-based paging.
+
+Cursor-based paging and the `/partitions` endpoint are _not required_ for Change
+Queries child endpoints (`/keyChanges` and `/deletes`). Those endpoints are
+typically used with `minChangeVersion`/`maxChangeVersion` filter parameters that
+constrain result sets via an indexed column, yielding similar performance
+characteristics to cursor-based paging.
 
 ### Ordering
 

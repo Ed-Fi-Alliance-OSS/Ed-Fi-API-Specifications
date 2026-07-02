@@ -1,13 +1,13 @@
 # Ed-Fi API Design and Implementation Guidelines
 
-Version: 4.0\
-Obsoletes: [Ed-Fi API Design & Implementation Guidelines v3.1](../v3.1/)\
+Version: 4.1\
+Obsoletes: [Ed-Fi API Design & Implementation Guidelines v4.0](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-API-Specifications/tree/API-Guidelines-4.0/api-guidelines/v4.0)\
 Obsoleted By: --\
 Status: Current
 
 Ed-Fi Alliance\
 Contact: Stephen Fuqua\
-May, 2024
+July, 2026
 
 These document describes the properties to which an API specification and
 related implementation must adhere in order to be considered aligned to Ed-Fi
@@ -17,9 +17,10 @@ specific guidelines is also provided.
 
 ## Version History
 
-| Date      | Version | Change                                  |
-| --------- | ------- | --------------------------------------- |
-| May, 2024 | v4.0    | Substantial revisions compared to v3.1. |
+| Date       | Version | Change                                  |
+| ---------- | ------- | --------------------------------------- |
+| May, 2024  | v4.0    | Substantial revisions compared to v3.1. |
+| July, 2026 | v4.1    | Cursor-based paging                     |
 
 Also see [Summary of Changes for Ed-Fi API Guidelines, Version
 4.0](../SUMMARY-GUIDELINES-4.0.md)
