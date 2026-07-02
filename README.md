@@ -42,7 +42,7 @@ What makes an application an "Ed-Fi (compatible) API"? An Ed-Fi API must:
   * Discovery API (current version: [1.0](api-specifications/discovery/1.0),
     draft revision: [2.0](api-specifications/discovery/2.0-draft))
 * And, adhere all of the normative guidance in the [Ed-Fi API
-  Guidelines](./api-guidelines/) (current version: [4.0](api-guidelines/v4.0/).
+  Guidelines](./api-guidelines/) (current version: [4.1](api-guidelines/v4/).
 
 Also see: [Tips for Success in Building an Ed-Fi Compatible
 API](./api-guidelines/TIPS-FOR-SUCCESS.md)
