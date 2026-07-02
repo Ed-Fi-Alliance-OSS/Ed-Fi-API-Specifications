@@ -103,7 +103,7 @@ these parameters if they are concerned about potential impact of "deep" (beyond
 10,000) queries on their databases.
 
 Alternate approaches to paging could be implemented, for example using keyset or
-cursor-based parameters. A common approach the resolves the performance
+cursor-based parameters. A common approach that resolves the performance
 limitations is to set a lower boundary on a monotonically increasing field, such
 as a numeric identifier or a date. For example, a resource could support paging
 by using the `_lastModifiedDate` metadata attribute instead of `offset`. This
