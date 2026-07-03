@@ -334,6 +334,17 @@ of data to retrieve. The _recommended_ approach is use query string
 `?totalCount=true` and respond with an additional header, `total-count:
 [number]` (example: `total-count: 1234`).
 
+## Content Type
+
+An Ed-Fi REST API application _must_ support the JSON content type. The
+application _may_ disregard the requested content type and respond with JSON
+instead.
+
+Alternatively, it _may_ support other content types requested by an API client
+(i.e. via the `accept` header). When it accepts other content types, the
+application _must_ respond to a request for an unsupported content type with
+status code 406 and a response body describing the available representations.
+
 ## Standard Status Codes
 
 The following status codes _must_ be supported for `GET` responses:
