@@ -61,10 +61,28 @@ For example, here is a header value in a PUT or DELETE request:
 If-Match: -8588261538364775808
 ```
 
-The ETag _should_ be generated as a hashed representation of the resource, but
-it _may_ be implemented as a version number, a timestamp representing the last
-modification to the resource, or a unique identifier that is refreshed after
-each modification to the resource.
+## ETag Generation
+
+The ETag _may_ be generated as a hashed representation of the resource, as a
+version number, a timestamp representing the last modification to the resource
+(if timestamp resolution is fine enough), or a unique identifier that is
+refreshed after each modification to the resource.
+
+The ETag value _should_ meet
+strong validation criteria as described in [IETF RFC
+9110](https://www.rfc-editor.org/info/rfc9110/):
+
+> "A "strong validator" is representation metadata that changes value whenever a
+> change occurs to the representation data that would be observable in the
+> content of a 200 (OK) response to GET."
+
+By implication, a strong ETag value for the same object _must_ differ for each
+of the following scenarios:
+
+- Change of content-type (JSON, XML, gzip, etc)
+- Change in the fields surfaced in a GET request due to profiles, field
+  selectors, or changes to the data model
+- Inclusion or exclusion of  metadata in a GET response
 
 ## Ed-Fi API Design and Implementation Guidelines
 
