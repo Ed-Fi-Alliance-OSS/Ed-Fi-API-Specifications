@@ -1,7 +1,13 @@
 # Validation of Natural and Foreign Keys
 
 A _natural key_ is a property or combination of properties that is intrinsic to
-a Resource type and uniquely identifies an individual resource.
+a Resource type and uniquely identifies an individual resource. For example:
+
+- A `Student` resource is identified by its `StudentUniqueId` (typically the
+  identifier provided by the state education agency).
+- An `AcademicWeek` resource is identified by the combination of a `SchoolId`
+  and a `WeekIdentifier` - allowing two objects with identifier "week one", at
+  different schools.
 
 As mentioned in [Resources](./RESOURCES.md), this natural key can always be used
 to lookup a given resource. This section further describes validation of
