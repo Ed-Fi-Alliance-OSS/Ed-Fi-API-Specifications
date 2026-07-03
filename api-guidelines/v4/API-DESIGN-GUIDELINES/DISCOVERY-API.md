@@ -93,8 +93,9 @@ resources in the appropriate order. A client application should read the exact
 URL to the dependencies from the `urls` section of the root Discovery document,
 rather than hard-code the location.
 
-The endpoint _must_ have a JSON implementation and _may_ have an optional a
-GraphML implementation.  A sample of the JSON output is below:
+The endpoint _must_ have a JSON implementation and _may_ provide alternate graph
+representations (e.g., GraphML, DOT) for dependency metadata. A sample of the
+JSON output is below:
 
 ```json
 [
@@ -127,11 +128,12 @@ GraphML implementation.  A sample of the JSON output is below:
 
 An Ed-Fi API implementation _should_ declare itself in OpenAPI; the version of
 OpenAPI is up to the implementation. The OpenAPI specification must be a
-faithful representation of all available resources supported by the API. A given
-API application might support multiple specifications, for example one for the
-core Ed-Fi data model resources, and one for Ed-Fi descriptors. The
-specifications provided by an API application _must_ be consistent with the
-official [Ed-Fi API Specifications](../../../api-specifications/).
+complete and accurate representation of all available resources, endpoints, and
+operations as implemented in the running application. A given API application
+might support multiple specifications, for example one for the core Ed-Fi data
+model resources, and one for Ed-Fi descriptors. The specifications provided by
+an API application _must_ be consistent with the official [Ed-Fi API
+Specifications](../../../api-specifications/).
 
 ### OAuth
 
