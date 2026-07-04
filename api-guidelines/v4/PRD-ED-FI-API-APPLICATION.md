@@ -1,16 +1,15 @@
-# Product Requirements Document: Ed-Fi API Application
+# Product Requirements Document: Ed-Fi ODS/API v7 and Ed-Fi API v8
 
 **Status:** Published \
 **Owner:** Ed-Fi Alliance \
 **Contact:** Stephen Fuqua \
-**Date:** June 2026 \
-**Version:** 4.0 \
-**Guideline source:** Ed-Fi API Design & Implementation Guidelines v4.0 \
+**Version Date:** July 2026 \
+**Guideline source:** Ed-Fi API Design & Implementation Guidelines v4.1 \
 **Related specifications:** Ed-Fi Resources API, Ed-Fi Descriptors API, Ed-Fi Discovery API
 
 ## 1. Product Overview
 
-This document describes the requirements for a new implementation of an Ed-Fi API application that exposes the Ed-Fi Resource API, the Ed-Fi Descriptors API, and the Ed-Fi Discovery API as a unified service. The application is intended to serve as an "Ed-Fi compatible" platform — meaning it supports the entire Resource API and implements the Discovery API — as defined by the Ed-Fi API Design and Implementation Guidelines v4.0.
+This document describes the requirements for the Ed-Fi Alliance's reference implementation of an Ed-Fi API application, which  supports the Ed-Fi Resource API, the Ed-Fi Descriptors API, and the Ed-Fi Discovery API as a unified service. 
 
 The application acts as a data exchange hub for K-12 education data. Client applications (student information systems, assessment platforms, reporting tools, etc.) read and write education data through the API using standard HTTP methods. The API enforces data consistency, referential integrity, and access control, freeing education organizations from managing bespoke, point-to-point integrations.
 
@@ -23,7 +22,7 @@ The application exists to:
 - Enforce data quality through schema validation, referential integrity, and controlled enumeration values (Descriptors)
 - Support FERPA and related student privacy obligations through mandatory authentication, authorization, and audit logging
 
-The application must achieve "Ed-Fi compatible" status as defined in the guidelines: it must implement the full Ed-Fi Resource API, implement the Discovery API, and adhere to all SHALL requirements of the Ed-Fi API Design and Implementation Guidelines v4.0.
+The application must achieve "Ed-Fi compatible" status as defined in the guidelines: it must implement the full Ed-Fi Resource API, implement the Discovery API, and adhere to all SHALL requirements of the Ed-Fi API Design and Implementation Guidelines v4.1.
 
 ### 1.2 Target Users and Personas
 
@@ -87,8 +86,8 @@ Requirements use the following language per the Ed-Fi API Guidelines: SHALL (abs
 - **FR-DISC-4** — The Discovery API response SHALL include a `dataModels` array listing all data models served by the application, including the core Ed-Fi Unifying Data Model with its name and version.
 - **FR-DISC-5** — The Discovery API response SHALL include a `urls` object containing absolute URLs (not relative) for: the OAuth token endpoint (`oauth`), the data management API base path (`dataManagementApi`), and the dependency metadata endpoint (`dependencies`).
 - **FR-DISC-6** — The dependency metadata endpoint SHALL provide a JSON document listing all resources and the order in which they must be loaded, enabling clients to load resources in dependency order.
-- **FR-DISC-7** — The dependency metadata endpoint MAY also provide a GraphML representation.
-- **FR-DISC-8** — The application SHOULD declare itself via an OpenAPI specification document; that specification MUST be a faithful representation of all available resources and MUST be consistent with the official Ed-Fi API specifications.
+- **FR-DISC-7** — The dependency metadata endpoint MAY provide alternate graph representations (e.g., GraphML, DOT) for dependency metadata.
+- **FR-DISC-8** — The application SHOULD declare itself via an OpenAPI specification document; that specification MUST be a complete and accurate representation of all available resources, endpoints, and operations as implemented in the running application
 - **FR-DISC-9** — If an OpenAPI specification is provided, the Discovery API response SHALL include an `openApiMetadata` URL pointing to it.
 - **FR-DISC-10** — The Discovery API response MAY include additional application-specific URLs beyond the required set.
 
@@ -109,6 +108,9 @@ Requirements use the following language per the Ed-Fi API Guidelines: SHALL (abs
 - **FR-RES-8** — Resource names in URLs SHALL be plural and SHALL follow standard English grammar pluralization.
 - **FR-RES-9** — API routes and query string parameter names SHOULD be treated as case-insensitive.
 
+> [!NOTE]
+> This applies to URL route segments and query parameter names (e.g., `/schools` vs `/Schools`). Note: property names in request bodies remain case-sensitive per FR-RES-40.
+
 #### HTTP Verbs
 
 - **FR-RES-10** — The application SHALL support GET, POST, PUT, and DELETE for all non-read-only resources.
@@ -119,7 +121,7 @@ Requirements use the following language per the Ed-Fi API Guidelines: SHALL (abs
 
 - **FR-RES-13** — A POST request body SHALL contain exactly one resource document.
 - **FR-RES-14** — A POST request with natural keys that match an existing resource SHALL perform an upsert (update the existing resource) rather than creating a duplicate.
-- **FR-RES-15** — A POST request SHALL NOT accept a client-supplied unique identifier.
+- **FR-RES-15** — A POST request SHALL NOT accept a client-supplied unique identifier (also see FR-RES-2).
 - **FR-RES-16** — On successful creation, the response SHALL include a `Location` header containing the URL of the new resource.
 - **FR-RES-17** — A POST that creates a new resource SHALL return HTTP 201; a POST that updates an existing resource via upsert SHALL return HTTP 200.
 
@@ -127,18 +129,18 @@ Requirements use the following language per the Ed-Fi API Guidelines: SHALL (abs
 
 - **FR-RES-18** — GET SHALL be an idempotent operation.
 - **FR-RES-19** — A GET by ID request SHALL return the single matching resource if found, or HTTP 404 if not found.
-- **FR-RES-20** — A GET collection request SHALL return a collection (an empty array `[]` when no results match), never a 404.
+- **FR-RES-20** — A GET collection request for valid resource type SHALL return a collection (an empty array `[]` when no results match), never a 404.
 - **FR-RES-21** — The application SHALL support querying a resource collection by property values using query string parameters.
 - **FR-RES-22** — Resources SHALL be queryable by natural key; resources SHOULD also be queryable by other root-level properties as described in the OpenAPI specification.
-- **FR-RES-23** — The application SHOULD support a `limit` query parameter (default: 25) to constrain the number of records returned.
-- **FR-RES-24** — The application SHOULD support an `offset` query parameter (default: 0) to skip records for paging.
-- **FR-RES-25** — When returning multiple records, the application SHOULD support a `?totalCount=true` query parameter and, when requested, return the total record count in a `total-count` response header.
+- **FR-RES-23** — The application SHALL support a `limit` query parameter (default: 25) to constrain the number of records returned.
+- **FR-RES-24** — The application SHALL support an `offset` query parameter (default: 0) to skip records for paging.
+- **FR-RES-25** — When returning multiple records, the application SHALL support a `?totalCount=true` query parameter and, when requested, return the total record count in a `total-count` response header.
 - **FR-RES-26** — The application SHALL use the same sort order on all queries so that repeated GET requests with identical `limit` and `offset` parameters return the same records when the collection has not changed.
-- **FR-RES-27** — The application SHOULD support cursor-based paging via a `pageToken` query parameter as a performant alternative to `offset`-based paging.
+- **FR-RES-27** — The application SHALL support cursor-based paging via a `pageToken` query parameter as a performant alternative to `offset`-based paging.
 - **FR-RES-28** — When cursor-based paging is supported, the application MUST return a `Next-Page-Token` response header containing an opaque, URL-safe token when a next page of results exists; this header MUST be omitted when the last page is returned.
 - **FR-RES-29** — When a `pageToken` parameter is present in a request, the application MUST ignore any `offset` parameter.
-- **FR-RES-30** — When cursor-based paging is supported, the application SHOULD expose a `/partitions` child endpoint for each resource collection. A GET to `/partitions?number={n}` MUST return an array of page token objects, each representing the start of an approximately equal partition of the full result set, enabling parallel client-side processing.
-- **FR-RES-31** — Response bodies MAY include metadata fields: `_etag`, `_lastModifiedDate`, and optionally `_lineage`. New implementations SHOULD NOT include the deprecated `link` construct on references.
+- **FR-RES-30** — When cursor-based paging is supported, the application SHALL expose a `/partitions` child endpoint for each resource collection. A GET to `/partitions?number={n}` MUST return an array of page token objects, each representing the start of an approximately equal partition of the full result set, enabling parallel client-side processing.
+- **FR-RES-31** — Response bodies SHALL include metadata fields: `_etag`, `_lastModifiedDate`.
 
 #### PUT (Update)
 
@@ -146,37 +148,71 @@ Requirements use the following language per the Ed-Fi API Guidelines: SHALL (abs
 - **FR-RES-33** — A PUT request URL SHALL end with the unique identifier of the resource to be replaced.
 - **FR-RES-34** — A PUT against a nonexistent identifier SHALL NOT create a new resource; it SHALL return HTTP 404.
 - **FR-RES-35** — If the request body includes an `id` field, it SHALL match the identifier in the URL; a mismatch SHALL result in HTTP 400.
+- **FR-RES-36** - The application SHALL support cascading natural key updates for the following resources:
+  - `ClassPeriod`
+  - `Grade`
+  - `GradebookEntry`
+  - `Location`
+  - `Section`
+  - `Session`
+  - `StudentSchoolAssociation`
+  - `StudentSectionAssociation`
+- **FR-RES-37** - The application SHALL support customization for cascading key updates on other resources.
 
 #### DELETE (Remove)
 
-- **FR-RES-36** — A DELETE request URL SHALL end with the unique identifier of the resource to be removed.
-- **FR-RES-37** — A DELETE of a resource that is referenced by another resource SHALL return HTTP 409 (Conflict) when cascading is not enabled.
-- **FR-RES-38** — The application is NOT required to cascade deletes; it MAY choose to do so.
+- **FR-RES-38** — A DELETE request URL SHALL end with the unique identifier of the resource to be removed.
+- **FR-RES-39** — A DELETE of a resource that is referenced by another resource SHALL return HTTP 409 (Conflict) when cascading is not enabled.
+- **FR-RES-40** — The application SHALL NOT support cascading deletes for any resources.
 
 #### Data Validation
 
-- **FR-RES-39** — The application SHALL reject POST and PUT request bodies missing any required attribute with HTTP 400.
-- **FR-RES-40** — The application SHALL accept and persist all required and optional attributes in POST and PUT bodies and return them in GET responses.
-- **FR-RES-41** — The application SHOULD silently ignore extra attributes in POST and PUT bodies that are not defined in the API specification (rather than rejecting with HTTP 400).
-- **FR-RES-42** — The application SHALL enforce all data types during validation of POST and PUT request bodies.
-- **FR-RES-43** — All datetime fields SHOULD require both date and time, and SHOULD include timezone/offset per RFC 3339.
-- **FR-RES-44** — Property names in POST and PUT request bodies SHOULD be treated as case-sensitive; property names in GET responses SHALL use the correct casing as defined in the specification.
+- **FR-RES-41** — The application SHALL reject POST and PUT request bodies missing any required attribute with HTTP 400.
+- **FR-RES-42** — The application SHALL accept and persist all required and optional attributes defined in the API specification in POST and PUT bodies and return them in GET responses, except when a Profile is in use.
+- **FR-RES-43** — The application MUST silently ignore extra attributes in POST and PUT bodies that are not defined in the API specification (rather than rejecting with HTTP 400).
+- **FR-RES-44** — The application SHALL enforce all data types during validation of POST and PUT request bodies.
+- **FR-RES-45** — All datetime fields SHOULD require both date and time, and SHOULD include timezone/offset per RFC 3339.
+- **FR-RES-46** — Property names in POST and PUT request bodies MUST be treated as case-insensitive.
+- **FR-RES-47** — Property names in GET responses SHALL use the correct casing as defined in the specification.
+
+> [!NOTE]
+> Some of these requirements go against "SHOULD" requirements in the API Guidelines, to match the behavior
+> of the legacy Ed-Fi ODS/API.
 
 #### Natural Key and Foreign Key Validation
 
-- **FR-RES-45** — All field and key unification scenarios defined in the Ed-Fi UDM SHALL be enforced; a POST or PUT containing mismatched values on unified keys SHALL be rejected with HTTP 400.
-- **FR-RES-46** — The application SHOULD validate that referenced resources (foreign keys) exist on POST and PUT; if a reference does not exist, the application SHOULD return HTTP 400.
-- **FR-RES-47** — PUT and DELETE operations that would break an existing reference to the modified resource SHALL be rejected with HTTP 409 when cascading is not enabled.
+- **FR-RES-48** — All field and key unification scenarios defined in the Ed-Fi UDM SHALL be enforced; a POST or PUT containing mismatched values on unified keys SHALL be rejected with HTTP 400.
+- **FR-RES-49** — The application MUST validate that referenced resources (foreign keys) exist on POST and PUT; if a reference does not exist, the application MUST return HTTP 400.
+- **FR-RES-50** — PUT and DELETE operations that would break an existing reference to the modified resource SHALL be rejected with HTTP 409 when cascading is not enabled.
 
 #### Education Organization Identifiers
 
-- **FR-RES-48** — The `educationOrganizationId` value SHALL be unique across all child entity types (e.g., `schoolId`, `localEducationAgencyId`). A value used as one child entity type SHALL NOT be reused for a different child entity type.
+- **FR-RES-51** — The `educationOrganizationId` value SHALL be unique across all child entity types (e.g., `schoolId`, `localEducationAgencyId`). A value used as one child entity type SHALL NOT be reused for a different child entity type.
 
 #### Resource Extensions
 
-- **FR-RES-49** — Extended resources (additions to the Ed-Fi UDM) SHALL use the `_ext` field with a namespace key to distinguish extension attributes from core attributes (e.g., `"_ext": { "grandbend": { ... } }`).
-- **FR-RES-50** — New domain aggregates created via extensions SHALL use the extension namespace as the model namespace segment in the URL path (e.g., `/grand-bend/applicants`).
-- **FR-RES-51** — Extension namespaces SHOULD NOT be fully dereferenceable URIs; they SHALL be lightweight short identifiers.
+- - **FR-RES-52** — Extended resources (additions to the Ed-Fi UDM) SHALL use the `_ext` field with a namespace key to distinguish extension attributes from core attributes (e.g., `"_ext": { "grandbend": { ... } }`).
+- - **FR-RES-53** — New domain aggregates created via extensions SHALL use the extension namespace as the model namespace segment in the URL path (e.g., `/grand-bend/applicants`).
+- - **FR-RES-54** — Extension namespaces SHOULD NOT be fully dereferenceable URIs; they SHALL be lightweight short identifiers.
+
+#### Content Negotiation and Encoding
+
+- - **FR-RES-55** — GET responses SHALL return JSON content (`application/json`). The application SHALL NOT return HTTP 406 in response to an `Accept` header requesting a non-JSON content type; it SHALL respond with JSON regardless.
+- - **FR-RES-56** — The application SHOULD support gzip content-encoding for GET, POST, and PUT requests (i.e., accept gzip-compressed request bodies and return gzip-compressed response bodies when requested via `Accept-Encoding: gzip`).
+
+#### Reference Links
+
+- **FR-RES-57** — GET responses SHOULD include a `link` object on each reference property. This behavior MUST be consistent across both GET by ID and GET collection responses.
+- **FR-RES-58** — When a `link` object is present on a reference, the `rel` field MUST identify the resource type being referenced (e.g., `"School"`, `"District"`), and the `href` field MUST provide the relative API path to that resource (e.g., `"/ed-fi/schools/550e8400..."`).
+- **FR-RES-59** — For abstract (polymorphic) reference properties that may resolve to multiple resource types (e.g., `educationOrganizationReference`), the `link` MUST reflect the concrete resource type the reference resolves to, revealing the specific type to the client.
+- **FR-RES-60** — Link inclusion MUST NOT be conditioned on the calling client's authorization to access the target resource; a `link` SHALL be emitted regardless of whether the caller has permission to retrieve the referenced resource.
+- **FR-RES-61** — Operators MAY suppress individual reference properties (and their associated `link` objects) from GET responses when the existence of the referenced resource type must remain confidential.
+
+> [!NOTE]
+> FR-RES-62 and FR-RES-63 apply to Ed-Fi API v8 and later implementations only.
+
+- **FR-RES-62** — Operators SHOULD be able to enable or disable `link` emission globally via a configuration setting. The default MUST be enabled (links emitted).
+- **FR-RES-63** — When link emission is toggled, the `_etag` value for affected resources MUST differ between the link-enabled and link-disabled states, accurately reflecting the difference in response content.
 
 ### 3.3 Descriptors API
 
@@ -194,11 +230,10 @@ Requirements use the following language per the Ed-Fi API Guidelines: SHALL (abs
 
 - **FR-AUTH-1** — The application SHALL require authentication and at least one authorization scheme for all data management API endpoints.
 - **FR-AUTH-2** — The application SHALL support the OAuth 2.0 client credentials grant for application-only authentication (used by system-level integrations without user context).
-- **FR-AUTH-3** — The application SHALL support the HTTP `Authorization` header for passing bearer tokens.
-- **FR-AUTH-4** — The application SHOULD support both application authentication and user authentication; when user credentials are available, the application SHALL require both.
+- **FR-AUTH-3** — The application SHALL NOT support user authentication or three-legged OAuth.
+- **FR-AUTH-4** — The application SHALL support the HTTP `Authorization` header for passing bearer tokens.
 - **FR-AUTH-5** — The application SHALL apply the principle of least privilege: default permissions SHALL be no access, with all privileges explicitly granted.
 - **FR-AUTH-6** — Application credentials SHOULD be assigned out-of-band per resource group and per organization, consistent with the intended scope of each client application.
-- **FR-AUTH-7** — For three-legged OAuth scenarios, request authorization SHOULD use claims-based security together with Ed-Fi domain data to scope access to the appropriate students (e.g., a teacher's token limits access to their enrolled sections).
 
 ### 3.5 ETags and Concurrency
 
@@ -251,13 +286,11 @@ Requirements use the following language per the Ed-Fi API Guidelines: SHALL (abs
 
 - **NFR-REL-1** — Upsert (POST) operations SHALL be idempotent: submitting the same document multiple times SHALL produce the same final state.
 - **NFR-REL-2** — The application SHALL enforce referential integrity: resources with foreign key references that cannot be resolved SHALL be rejected.
-- **NFR-REL-3** — The educationOrganizationId namespace SHALL be unique across all child entity types at all times.
 
 ### Performance and Scalability
 
 - **NFR-PERF-1** — The application SHALL support paging; GET collection endpoints SHOULD support `limit` (default 25) and `offset` (default 0) query parameters for limit/offset paging.
 - **NFR-PERF-2** — The application SHOULD support cursor-based paging via a `pageToken` query parameter and a `Next-Page-Token` response header. When cursor-based paging is supported, the application SHOULD also provide a `/partitions` child endpoint on each resource collection to enable parallel data extraction. Cursor-based paging is not required for Change Queries endpoints (`/keyChanges`, `/deletes`).
-- **NFR-PERF-3** — Bulk data ingestion SHOULD accept batches for processing without an immediate synchronous validity check, using asynchronous processing for schema validation and referential integrity checks.
 
 ### Observability
 
@@ -296,30 +329,18 @@ Requirements use the following language per the Ed-Fi API Guidelines: SHALL (abs
 - **Ed-Fi Enrollment API** — Not in scope for this PRD.
 - **Ed-Fi Management API** — Not in scope for this PRD.
 - **XML representations** — JSON is required; XML and other formats are optional and not planned for initial delivery.
-- **Client-generated resource identifiers** — The application will not accept client-supplied IDs on insert; clients must use server-assigned identifiers.
-- **Cascading deletes/updates** — Not required by the guidelines; rejection with HTTP 409 is the default behavior. Cascading is not planned for initial delivery.
-- **`link` metadata on references** — The deprecated `link` construct is explicitly out of scope; new implementations should not include it.
 - **Three-legged OAuth (end-user flows)** — Initial delivery targets the client credentials grant for system applications; three-legged OAuth for user-context authorization is deferred.
 - **`_lineage` metadata** — The lineage proposal in the guidelines is a new, unimplemented concept; it is deferred unless there is a specific implementation requirement.
 
-## 7. Open Questions and Decision Log
-
-| # | Question | Status | Decision / Notes |
-|---|---|---|---|
-| OQ-1 | Will the OAuth token endpoint be built into the application or delegated to a third-party identity provider (e.g., an enterprise IdP)? | Open | Guidelines permit either; choice affects FR-AUTH-1 and system architecture. |
-| OQ-2 | Will the application require the `If-Match` ETag header on all PUT/DELETE operations, or make it optional? | Open | Guidelines permit both; mandatory ETag enforcement provides stronger concurrency safety but increases client complexity. |
-| OQ-3 | Which paging mechanism will be the primary supported approach — `limit`/`offset`, keyset/cursor, or both? | Resolved | Both are now defined standards. `limit`/`offset` is recommended (SHOULD) and may be disabled for deep queries. Cursor-based paging is independently recommended (SHOULD) per FR-RES-27–30 and NFR-PERF-2. Implementations MUST support at least one mechanism. |
-| OQ-4 | Will the application support user-context (three-legged OAuth) authorization in addition to application-only credentials? | Open | Guidelines recommend both; initial scope targets client credentials only (see Out of Scope). Confirm whether this deferral is acceptable. |
-| OQ-5 | What subset of Ed-Fi UDM extensions (if any) will the application expose beyond the core Ed-Fi data model? | Open | Extensions affect the OpenAPI specification, the Discovery API `dataModels` list, and namespace URL segments. |
-| OQ-6 | Will referential integrity validation be enabled by default, or will the application support a mode where it is disabled? | Open | Guidelines recommend enabling it; some deployments disable it for partial-data ingest scenarios. |
-
-## 8. Glossary
+## 7. Glossary
 
 - **Ed-Fi aligned** — An application that exposes a subset of the Ed-Fi Resource API and adheres to the Ed-Fi API Guidelines.
 - **Ed-Fi compatible** — An application that is Ed-Fi aligned, supports the entire Resource API, and implements the Discovery API.
 - **Domain aggregate** — A composition of Ed-Fi UDM entities identified according to Domain-Driven Design principles; the unit of exchange in the Resource API.
 - **Aggregate root** — The top-level entity of a domain aggregate; subordinate entities are only accessible through it.
-- **Natural key** — A property or combination of properties intrinsic to a resource type that uniquely identifies an individual resource (as opposed to a synthetic identifier assigned by the server).
+- **Natural key** — A property or combination of properties intrinsic to a resource type that uniquely identifies an individual resource (as opposed to a synthetic identifier assigned by the server). Examples:
+  - Single key (`studentUniqueId`) for a `Student` resource
+  - Compound key (`schoolId`, `weekIdentifier`) for an `AcademicWeek` resource
 - **Descriptor** — A controlled enumeration value in the Ed-Fi Data Standard, consisting of a namespace and a codeValue. Referenced in resource documents as a URI of the form `uri://[namespace]/[descriptor name]#[codeValue]`.
 - **Discovery API** — The root metadata endpoint of an Ed-Fi API application; provides version information, data model references, and URLs for all other endpoints.
 - **ETag** — An Entity Tag; an opaque value returned in HTTP responses that uniquely identifies a version of a resource, used for optimistic concurrency and cache validation.
@@ -327,3 +348,19 @@ Requirements use the following language per the Ed-Fi API Guidelines: SHALL (abs
 - **FERPA** — Family Educational Rights and Privacy Act; U.S. federal law governing the privacy of student education records; a key driver for mandatory authentication and authorization in Ed-Fi API implementations.
 - **UDM** — Ed-Fi Unifying Data Model; the structured conceptual model of K-12 education data that defines entities, attributes, and associations represented by the Resource API.
 - **ODS/API** — Operational Data Store / API; the Ed-Fi Alliance's reference implementation of an Ed-Fi compatible API platform.
+
+---
+
+## TODO
+
+These things should be "branch PRDs" that augment the core requirements in this document.
+
+- profiles
+- identity API
+- unique ID integration
+- change queries
+- self-contained OAuth and keycloak
+- authorization details
+- configuration service
+- pull info from config service
+- logging
