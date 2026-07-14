@@ -19,6 +19,9 @@ The following RFCs are listed by Ed-Fi Data Standard version, reverse ordered by
 - Data Standard 6.1
   - 28a | [Enhancements to Ed-Fi Data Standard 6.1](./RFC-28a_Data-Standard-6.1-Enhancements.md)
   - 28b | [Special Education Data Model (SEDM)](./RFC-28b_Special-Education-Data-Model.md)
+
+- Data Standard 7.0
+  - 29a | [OpenStaffPosition](./RFC-29a_OpenStaffPosition.md)
   
 > [!TIP]
 > Looking for older RFC documents? Many older documents have not yet been copied from Confluence
