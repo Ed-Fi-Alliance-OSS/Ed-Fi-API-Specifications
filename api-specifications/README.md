@@ -24,6 +24,7 @@ format.
   * [Management API 1.4.3](./management/management-api-1.4.3.yaml) (implemented in Ed-Fi Admin API > v1.4 or > v2.3)
   * [Management API 2.2.0](./management/management-api-2.2.0.yaml) (implemented in Ed-Fi Admin API < v2.2)
   * [Management API 2.3.0](./management/management-api-2.3.0.yaml) (implemented in Ed-Fi Admin API > 2.3)
+  * [Management API 3.0.0](./management/management-api-3.0.0.yaml) (draft proposal for implementation in Ed-Fi Admin API 2.4 / Ed-Fi API v8)
 
 ## OpenAPI Resources
 
