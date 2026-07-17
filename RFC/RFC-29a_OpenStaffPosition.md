@@ -1,7 +1,7 @@
 # Ed-Fi RFC 29a: OpenStaffPosition & Requisition Model Changes (Staff Domain)
 
 Product: Ed-Fi Data Standard \
-Affects: Ed-Fi Data Standard v7.0 (with interim deprecation flags in v6.1) \
+Affects: Ed-Fi Data Standard v7.0 \
 Obsoletes: -- \
 Obsoleted By: -- \
 Status: Draft for community feedback \
@@ -224,19 +224,14 @@ The proposed identity changes are summarized below:
 
 This topic was introduced at the DSWG in June 2026. This RFC consolidates that discussion and the field analysis for broader community feedback ahead of finalization.
 
-1. **`OpenStaffPosition` → `Requisition` cardinality.** We model one position to many requisitions. One-to-one feels natural (one requisition triggers one posting), but a **many-positions-per-requisition** case has been raised (California — one requisition/job code spanning multiple positions). How should multiple positions associated with one requisition be modeled?
-2. **Education-organization level.** We are proceeding with `EducationOrganization`. Does anyone require **school-level** collection of open positions (the field implementer collects at the school level; LEA is district-level)? Note the authorization-pattern implications.
-3. **`GradeLevelRange` naming/approach.** Ed-Fi generally prefers a collection of *specific* grade levels over ranges (except School Category, which groups grades as elementary/middle/etc.). Should this be (a) a range descriptor named `GradeLevelRange`, (b) renamed `InstructionalGradeRange` to avoid confusion, or (c) satisfied by enumerated grade levels / School Category? Field confirmation pending.
-4. **`PositionVacancy` cardinality & optionality.** `DatePositionVacant` + `VacancyReason` as a common. (a) Should the common be optional-single or a multi-instance collection, and should its fields be identity? (b) Within the common, should `VacancyReason` be **optional** — an LEA may record *when* a position became vacant before the *reason* is determined — or required alongside the date? (The field implementation treats both as identity/required.) We are comfortable with a range of answers — input welcome.
-5. **Deprecating `OpenStaffPositionEvent`.** With the posting lifecycle on `Requisition`, is anyone using this entity — particularly for recruitment-event tracking?
-6. **Candidate / applicant tracking.** The model has no fields to track applicants or link hired staff/applications (it currently serves the state-reporting persona). Candidate data likely belongs on the `OpenStaffPosition` side — is this needed in core, or left to extensions for now?
-7. **`Requisition` key composition.** The proposed identity `RequisitionIdentifier` + `OpenStaffPosition` fully resolves to a **three-part key** (`RequisitionIdentifier` + `PositionIdentifier` + `EducationOrganization`). In most HR systems a requisition number is already unique within the organization, which would make including `OpenStaffPosition` in the identity redundant. **Is `RequisitionIdentifier` globally unique within an `EducationOrganization`?** If so, we would key `Requisition` on `RequisitionIdentifier` + `EducationOrganization`, with `OpenStaffPosition` as a **required, non-identity** reference. If the three-part composite is genuinely needed (requisition numbers repeat across positions), we will document why.
-8. **Position-level status / lifecycle.** With `IsActive` removed, a position that has no current requisition has no way to signal whether it is an active slot, a **frozen/unfunded** position, or an **eliminated** role — the `Requisition` dates only indicate whether a posting is currently open. How should position status be represented: retain a lightweight indicator on `OpenStaffPosition` (e.g., `IsActive`), add a **position-status descriptor**, or a **`DatePositionEliminated`**? (This also bears on the stated "status of a position" use case.)
-9. **Compensation / budget common type.** If we group `MinSalary`, `MaxSalary`, `TotalBudgeted`, and `FundingSource` into an optional common type: what should it be **named**, does `HighNeedAcademicSubject` belong with it, and are these fields collected together in practice? (Note: `FundingSource` is a descriptor while the others are decimals — grouping is defensible only if they consistently travel together; to confirm with the field implementer.)
+1. **Education-organization level.** We are proceeding with `EducationOrganization`. Does anyone require **school-level** collection of open positions (the field implementer collects at the school level; LEA is district-level)? Note the authorization-pattern implications.
+2. **`InstructionalGradeRange` naming/approach.** Ed-Fi already has School Category, which groups grades as elementary/middle/etc. Does this satisfy the current need or can this field be used?
+3. **Deprecating `OpenStaffPositionEvent`.** With the posting lifecycle on `Requisition`, is anyone using this entity — particularly for recruitment-event tracking?
+4. **Candidate / applicant tracking.** The model has no fields to track applicants or link hired staff/applications (it currently serves the state-reporting persona). Candidate data likely belongs on the `OpenStaffPosition` side — is this needed in core, or left to extensions for now?
 
 ## Timeline
 
-- **Target release:** DS 7.0, with deprecation flags landing in DS 6.1.
+- **Target release:** DS 7.0.
 - **Community:** introduced at DSWG June 2026; feedback window open now toward finalization.
 
 ## How to Respond
