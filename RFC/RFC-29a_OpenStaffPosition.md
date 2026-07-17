@@ -32,7 +32,7 @@ Under the proposed design, the two concepts are defined as follows:
 
 | Entity | Definition |
 |---|---|
-| **`OpenStaffPosition`** | An approved role that is open for public application — a *position* associated with a vacancy. Carries the position's identity, classification, grade range, instructional subject, and vacancy details. |
+| **`OpenStaffPosition`** | An approved role that is open for public application — a *position* associated with a vacancy. Carries the position's identity, classification, grade range, instructional subject, and vacancy details. One position can be associated to many requisitions. |
 | **`Requisition`** (new) | A posting to fill an open staff position, with open/close dates and hiring outcomes, backed by a corresponding HR approval. A single open position may have **multiple** requisitions over time (e.g., a posting closes, then reopens pending budget). |
 
 Two descriptor-level gaps compound the structural one:
@@ -224,7 +224,7 @@ The proposed identity changes are summarized below:
 
 This topic was introduced at the DSWG in June 2026. This RFC consolidates that discussion and the field analysis for broader community feedback ahead of finalization.
 
-1. **Education-organization level.** We are proceeding with `EducationOrganization`. Does anyone require **school-level** collection of open positions (the field implementer collects at the school level; LEA is district-level)? Note the authorization-pattern implications.
+1. **Education-organization level.** We are proceeding with `EducationOrganization`. Does anyone require a link to a **school** or **schools** associated to the open staff position(s)?
 2. **`InstructionalGradeRange` naming/approach.** Ed-Fi already has School Category, which groups grades as elementary/middle/etc. Does this satisfy the current need or can this field be used?
 3. **Deprecating `OpenStaffPositionEvent`.** With the posting lifecycle on `Requisition`, is anyone using this entity — particularly for recruitment-event tracking?
 4. **Candidate / applicant tracking.** The model has no fields to track applicants or link hired staff/applications (it currently serves the state-reporting persona). Candidate data likely belongs on the `OpenStaffPosition` side — is this needed in core, or left to extensions for now?
