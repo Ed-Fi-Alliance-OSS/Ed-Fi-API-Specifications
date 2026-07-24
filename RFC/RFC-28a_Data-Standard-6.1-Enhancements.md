@@ -65,3 +65,5 @@ In addition, your responses to the below questions are greatly appreciated:
 
 - **Proposal 1:** Would you prefer ResponsibleEdOrg be required in the SEORA (possible implementation in DS v7.0)?
 - **Proposal 1.1:** Would you be impacted by removing StudentSchoolAssociation.ResidencyDescriptor in Data Standard v8.0?
+
+**Community Response**: No additional comments were received by the deadline. However, discussions with state agencies in March and April 2026 indicated that one state agency is unable to use ResponsibleEdOrg as Required. This feedback suggests a potential conflict with making the field mandatory and highlights the need for additional community input.
