@@ -3912,7 +3912,7 @@ components:
         id:
           type: integer
           format: int64
-        claimSetName:
+        name:
           type: string
           description: Claim set name
           nullable: true
@@ -4364,7 +4364,7 @@ components:
       type: object
       description: 'Accepts the same resourceClaims shape returned by the export operations. Per entry, claimName locates the hierarchy node, actions are written to the node for this claim set, and authorizationStrategyOverrides are applied where non-empty. The parentClaimName, _defaultAuthorizationStrategies, id and _isSystemReserved values are ignored. Import is additive and does not create new hierarchy nodes; entries whose claimName cannot be resolved are reported as warnings and do not fail the request.'
       properties:
-        claimSetName:
+        name:
           type: string
           description: Claim set name
         resourceClaims:
