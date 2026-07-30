@@ -402,7 +402,7 @@ paths:
       tags:
         - Vendors
       summary: Creates vendor based on the supplied values.
-      description: 'The POST operation creates a new resource from the supplied values. Clients must NOT include the resource identifier ("id") in the JSON body because it will result in an error. This is a create-only operation: an existing resource is never updated by POST. Use PUT to update an existing resource.'
+      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
       requestBody:
         content:
           application/json:
@@ -484,7 +484,7 @@ paths:
       tags:
         - Vendors
       summary: Updates vendor based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. The identifier is taken from the URL; if the resource identifier ("id") is also provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates, so natural key values for this resource cannot be changed using the PUT operation.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
       parameters:
         - name: id
           in: path
@@ -649,7 +649,7 @@ paths:
       tags:
         - Profiles
       summary: Creates profile based on the supplied values.
-      description: 'The POST operation creates a new resource from the supplied values. Clients must NOT include the resource identifier ("id") in the JSON body because it will result in an error. This is a create-only operation: an existing resource is never updated by POST. Use PUT to update an existing resource.'
+      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
       requestBody:
         content:
           application/json:
@@ -731,7 +731,7 @@ paths:
       tags:
         - Profiles
       summary: Updates profile based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. The identifier is taken from the URL; if the resource identifier ("id") is also provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates, so natural key values for this resource cannot be changed using the PUT operation.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
       parameters:
         - name: id
           in: path
@@ -937,7 +937,7 @@ paths:
       tags:
         - DbDataStores
       summary: Creates dbDataStore based on the supplied values.
-      description: 'The POST operation creates a new resource from the supplied values. Clients must NOT include the resource identifier ("id") in the JSON body because it will result in an error. This is a create-only operation: an existing resource is never updated by POST. Provisioning is asynchronous: the resource record is created immediately and the database is provisioned by a background job, so the operation returns 202 Accepted rather than 201 Created.'
+      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
       requestBody:
         content:
           application/json:
@@ -1141,7 +1141,7 @@ paths:
       tags:
         - DataStores
       summary: Creates dataStore based on the supplied values.
-      description: 'The POST operation creates a new resource from the supplied values. Clients must NOT include the resource identifier ("id") in the JSON body because it will result in an error. This is a create-only operation: an existing resource is never updated by POST. Use PUT to update an existing resource.'
+      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
       requestBody:
         content:
           application/json:
@@ -1223,7 +1223,7 @@ paths:
       tags:
         - DataStores
       summary: Updates dataStore based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. The identifier is taken from the URL; if the resource identifier ("id") is also provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates, so natural key values for this resource cannot be changed using the PUT operation.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
       parameters:
         - name: id
           in: path
@@ -1517,7 +1517,7 @@ paths:
       tags:
         - DataStoreDerivatives
       summary: Creates dataStoreDerivative based on the supplied values.
-      description: 'The POST operation creates a new resource from the supplied values. Clients must NOT include the resource identifier ("id") in the JSON body because it will result in an error. This is a create-only operation: an existing resource is never updated by POST. Use PUT to update an existing resource.'
+      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
       requestBody:
         content:
           application/json:
@@ -1599,7 +1599,7 @@ paths:
       tags:
         - DataStoreDerivatives
       summary: Updates dataStoreDerivative based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. The identifier is taken from the URL; if the resource identifier ("id") is also provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates, so natural key values for this resource cannot be changed using the PUT operation.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
       parameters:
         - name: id
           in: path
@@ -1753,7 +1753,7 @@ paths:
       tags:
         - DataStoreContexts
       summary: Creates dataStoreContext based on the supplied values.
-      description: 'The POST operation creates a new resource from the supplied values. Clients must NOT include the resource identifier ("id") in the JSON body because it will result in an error. This is a create-only operation: an existing resource is never updated by POST. Use PUT to update an existing resource.'
+      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
       requestBody:
         content:
           application/json:
@@ -1835,7 +1835,7 @@ paths:
       tags:
         - DataStoreContexts
       summary: Updates dataStoreContext based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. The identifier is taken from the URL; if the resource identifier ("id") is also provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates, so natural key values for this resource cannot be changed using the PUT operation.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
       parameters:
         - name: id
           in: path
@@ -2043,7 +2043,7 @@ paths:
       tags:
         - ClaimSets
       summary: Creates claimSet based on the supplied values.
-      description: 'The POST operation creates a new resource from the supplied values. Clients must NOT include the resource identifier ("id") in the JSON body because it will result in an error. This is a create-only operation: an existing resource is never updated by POST. Use PUT to update an existing resource.'
+      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
       requestBody:
         content:
           application/json:
@@ -2125,7 +2125,7 @@ paths:
       tags:
         - ClaimSets
       summary: Updates claimSet based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. The identifier is taken from the URL; if the resource identifier ("id") is also provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates, so natural key values for this resource cannot be changed using the PUT operation.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
       parameters:
         - name: id
           in: path
@@ -2363,7 +2363,7 @@ paths:
       tags:
         - Applications
       summary: Creates application based on the supplied values.
-      description: 'The POST operation creates a new resource from the supplied values. Clients must NOT include the resource identifier ("id") in the JSON body because it will result in an error. This is a create-only operation: an existing resource is never updated by POST. Use PUT to update an existing resource.'
+      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
       requestBody:
         content:
           application/json:
@@ -2455,7 +2455,7 @@ paths:
       tags:
         - Applications
       summary: Updates application based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. The identifier is taken from the URL; if the resource identifier ("id") is also provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates, so natural key values for this resource cannot be changed using the PUT operation.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
       parameters:
         - name: id
           in: path
@@ -2675,7 +2675,7 @@ paths:
       tags:
         - Apiclients
       summary: Creates apiclient based on the supplied values.
-      description: 'The POST operation creates a new resource from the supplied values. Clients must NOT include the resource identifier ("id") in the JSON body because it will result in an error. This is a create-only operation: an existing resource is never updated by POST. Use PUT to update an existing resource.'
+      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
       requestBody:
         content:
           application/json:
@@ -2761,7 +2761,7 @@ paths:
       tags:
         - Apiclients
       summary: Updates apiclient based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. The identifier is taken from the URL; if the resource identifier ("id") is also provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates, so natural key values for this resource cannot be changed using the PUT operation.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
       parameters:
         - name: id
           in: path
