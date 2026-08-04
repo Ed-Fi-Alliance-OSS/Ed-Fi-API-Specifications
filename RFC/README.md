@@ -1,9 +1,15 @@
 # Ed-Fi Requests for Comment (RFCs)
 
-This directory contains Ed-Fi Requests for Comment (RFCs): documents that describe
-additions and revisions to Ed-Fi technology and specifications. RFCs are
-published to support community review and comment, and in some cases to support early
-usage. These RFC documents are considered "final": they are no longer open for comment and are either implemented already, or in the process of being implemented for an upcoming release.
+This directory contains Ed-Fi Request for Comments (RFCs): documents that
+describe additions and revisions to Ed-Fi technology and specifications. RFCs
+are written to support community review and comment, and in some cases to
+support early usage. Drafts will be published as [GitHub
+Discussions](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-Technology-Roadmap/discussions)
+for community input.
+
+Once finalized, the RFC document will be published in this directory. These
+copies are no longer open for comment and are either implemented already, or in
+the process of being implemented for an upcoming release.
 
 Each RFC document includes a header block identifying the affected product, its status,
 and any RFCs that it obsoletes or is obsoleted by. Comments and questions from the

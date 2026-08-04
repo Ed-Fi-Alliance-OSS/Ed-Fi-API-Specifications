@@ -19,7 +19,7 @@ Ed-Fi product / program management staff will provide an initial / cursory revie
 
 When requested by product / program management, a staff person, contractor, or community member will provide a deeper review:
 
-1. Change Status to 'Reviewing`.
+1. Change Status to `Reviewing`.
 1. Refine and rewrite the Issue, adding more detail to the Background, Opportunity, Proposal, and Implementation Notes sections as needed to clarify the problem. Expected level of detail: just enough to explain the situation to a broad audience and to set the groundwork for more detailed requirements gathering, analysis, and design. This is _not_ expected to be a full-fledged design.
 1. During or after this refinement, the item can be rejected. Be sure to add a comment explaining the rationale.
 1. Optionally, the Data Standard team may begin drafting an Request for Comments (RFC) document at this time (more detail below).
