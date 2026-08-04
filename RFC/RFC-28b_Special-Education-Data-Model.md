@@ -153,7 +153,7 @@ erDiagram
     IDEAEvent }o--|| EducationOrganization : "HasAssociated"
     StudentIEPServicePrescription }o--|| StudentIEP : "HasAssociated"
     StudentIEP ||--o{ StudentIEPGoal : "HasAssociated"
-    StudentIEPServiceDelivery }o--|| StudentIEPServicePrescription : "HasAssociated"
+    StudentIEPServiceDelivery }o--o| StudentIEPServicePrescription : "HasAssociated"
     Student }|--o{ EducationOrganization : "HasAssociated"
     Student ||--o{ IDEAEvent : "HasAssociated"
     Student ||--o{ StudentIEP : "HasAssociated"
