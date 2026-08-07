@@ -2,6 +2,20 @@
 
 Expanding on the [evolution](../README.md#an-evolving-standard) section of the main readme, internally we will follow this process for developing and refining the Ed-Fi Data Standard:
 
+```mermaid
+flowchart TD
+    A([Intake\nLog GitHub Issue]) --> B[Initial Review\nPrioritize & label]
+    B --> C{Accept?}
+    C -- No --> R1([Rejected])
+    C -- Yes --> D[Deep Review\nRefine issue details]
+    D --> E{Accept?}
+    E -- No --> R2([Rejected])
+    E -- Yes --> F[RFC Development\nResearch & draft RFC]
+    F --> G[Community Discussion\nGather feedback]
+    G --> H[Finalize RFC\nMerge pull request]
+    H --> I([Data Standard Release])
+```
+
 ## Intake
 
 Ed-Fi Alliance staff, contractors, and (potentially) community members log ideas and suggestions for improvements as GitHub Issues in the [Technology Roadmap](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-Technology-Roadmap) repository and attach them to the [Product Roadmap](https://github.com/orgs/Ed-Fi-Alliance-OSS/projects/2) project, with label `data-standard`. They should have Status = `Proposed` until the item has been reviewed and further refined.
