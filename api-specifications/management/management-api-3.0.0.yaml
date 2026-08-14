@@ -4043,7 +4043,7 @@ components:
         derivativeType:
           type: string
           nullable: true
-      additionalProperties: false
+      additionalProperties: true
     dataStoreDetailModel:
       title: DataStoreDetail
       type: object
