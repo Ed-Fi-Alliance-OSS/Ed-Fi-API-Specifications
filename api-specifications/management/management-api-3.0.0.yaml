@@ -1,15 +1,13 @@
 openapi: 3.0.1
 info:
   title: Admin API Documentation
-  description: 'The Ed-Fi Management API is a REST API-based administrative interface for managing vendors, applications, client credentials, and authorization rules for accessing an Ed-Fi API.'
-  version: 3.0.0
+  description: 'The Ed-Fi Admin API is a REST API-based administrative interface for managing vendors, applications, client credentials, and authorization rules for accessing an Ed-Fi API.'
+  version: v3
 paths:
   '/v3/tenants/{tenantName}/dataStores/edOrgs':
     get:
       tags:
         - Tenants
-      summary: Retrieves the data stores and their education organizations for a specific tenant
-      description: 'Returns the tenant along with each of its data stores and the education organizations within them. In multi-tenant mode the tenant header must be supplied and must match the tenantName in the route. In single-tenant mode only the default tenant name is accepted.'
       parameters:
         - name: tenantName
           in: path
@@ -35,24 +33,12 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/problemDetails'
-        '400':
-          description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
-        '404':
-          description: Not found. A resource with given identifier could not be found.
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/tenantDetailsModel'
+                $ref: '#/components/schemas/tenantDetailsResponse'
   /v3/resourceClaims:
     get:
       tags:
@@ -73,7 +59,7 @@ paths:
           schema:
             type: integer
             format: int32
-            default: '0'
+            default: '25'
         - name: orderBy
           in: query
           description: Indicates the property name by which the results will be sorted.
@@ -95,7 +81,7 @@ paths:
           description: Resource Claim Id
           schema:
             type: integer
-            format: int64
+            format: int32
         - name: name
           in: query
           description: Resource Claim Name
@@ -140,7 +126,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -192,7 +178,7 @@ paths:
           schema:
             type: integer
             format: int32
-            default: '0'
+            default: '25'
         - name: orderBy
           in: query
           description: Indicates the property name by which the results will be sorted.
@@ -260,7 +246,7 @@ paths:
           schema:
             type: integer
             format: int32
-            default: '0'
+            default: '25'
         - name: orderBy
           in: query
           description: Indicates the property name by which the results will be sorted.
@@ -328,7 +314,7 @@ paths:
           schema:
             type: integer
             format: int32
-            default: '0'
+            default: '25'
         - name: orderBy
           in: query
           description: Indicates the property name by which the results will be sorted.
@@ -350,7 +336,7 @@ paths:
           description: Vendor/ company id
           schema:
             type: integer
-            format: int64
+            format: int32
         - name: company
           in: query
           description: Vendor/ company name
@@ -436,6 +422,12 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '201':
           description: Created
+          headers:
+            Location:
+              description: URI of the resource that was created.
+              schema:
+                type: string
+                format: uri
   '/v3/vendors/{id}':
     get:
       tags:
@@ -448,7 +440,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -491,7 +483,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       requestBody:
         content:
           application/json:
@@ -542,7 +534,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -590,7 +582,7 @@ paths:
           schema:
             type: integer
             format: int32
-            default: '0'
+            default: '25'
         - name: orderBy
           in: query
           description: Indicates the property name by which the results will be sorted.
@@ -612,7 +604,7 @@ paths:
           description: Profile id
           schema:
             type: integer
-            format: int64
+            format: int32
         - name: name
           in: query
           description: Profile name
@@ -683,6 +675,12 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '201':
           description: Created
+          headers:
+            Location:
+              description: URI of the resource that was created.
+              schema:
+                type: string
+                format: uri
   '/v3/profiles/{id}':
     get:
       tags:
@@ -695,7 +693,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -738,7 +736,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       requestBody:
         content:
           application/json:
@@ -789,7 +787,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -860,206 +858,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/response'
-  /v3/dbDataStores:
-    get:
-      tags:
-        - DbDataStores
-      summary: Retrieves all dbDataStores.
-      description: This GET operation provides access to resources using the "Get" search pattern. The values of any properties of the resource that are specified will be used to return all matching results (if it exists).
-      parameters:
-        - name: offset
-          in: query
-          description: Indicates how many items should be skipped before returning results.
-          schema:
-            type: integer
-            format: int32
-            default: '0'
-        - name: limit
-          in: query
-          description: Indicates the maximum number of items that should be returned in the results.
-          schema:
-            type: integer
-            format: int32
-            default: '0'
-        - name: orderBy
-          in: query
-          description: Indicates the property name by which the results will be sorted.
-          schema:
-            type: string
-            default: ''
-        - name: direction
-          in: query
-          description: Indicates whether the result should be sorted in descending order (DESC) or ascending order (ASC).
-          schema:
-            title: Indicates whether the result should be sorted in descending order (DESC) or ascending order (ASC).
-            enum:
-              - Ascending
-              - Descending
-            type: string
-            default: Descending
-        - name: id
-          in: query
-          schema:
-            type: integer
-            format: int64
-        - name: name
-          in: query
-          schema:
-            type: string
-      responses:
-        '401':
-          description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
-        '403':
-          description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
-        '500':
-          description: Internal server error. An unhandled error occurred on the server. See the response body for details.
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/dbDataStoreModel'
-    post:
-      tags:
-        - DbDataStores
-      summary: Creates dbDataStore based on the supplied values.
-      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/addDbDataStoreRequest'
-        required: true
-      responses:
-        '401':
-          description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
-        '403':
-          description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
-        '500':
-          description: Internal server error. An unhandled error occurred on the server. See the response body for details.
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
-        '400':
-          description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
-        '202':
-          description: 'Accepted. The dbDataStore record has been created and provisioning has been queued; the database is not yet available. The response has no body. Poll the resource identified by the Location header and read its status property, which progresses PendingCreate, CreateInProgress, then Created or CreateFailed.'
-          headers:
-            Location:
-              description: 'Absolute URL of the created dbDataStore, of the form {scheme}://{host}/v3/dbDataStores/{id}.'
-              schema:
-                type: string
-                format: uri
-  '/v3/dbDataStores/{id}':
-    get:
-      tags:
-        - DbDataStores
-      summary: Retrieves a specific dbDataStore based on the identifier.
-      description: This GET operation provides access to resources using the "Get" search pattern. The values of any properties of the resource that are specified will be used to return all matching results (if it exists).
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '401':
-          description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
-        '403':
-          description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
-        '500':
-          description: Internal server error. An unhandled error occurred on the server. See the response body for details.
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
-        '404':
-          description: Not found. A resource with given identifier could not be found.
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/dbDataStoreModel'
-    delete:
-      tags:
-        - DbDataStores
-      summary: Deletes an existing dbDataStore using the resource identifier.
-      description: 'The DELETE operation is used to delete an existing resource by identifier. If the resource doesn''t exist, an error will result (the resource will not be found).'
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '401':
-          description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
-        '403':
-          description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
-        '500':
-          description: Internal server error. An unhandled error occurred on the server. See the response body for details.
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
-        '404':
-          description: Not found. A resource with given identifier could not be found.
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
-        '204':
-          description: No Content
   /v3/dataStores:
     get:
       tags:
@@ -1080,7 +878,7 @@ paths:
           schema:
             type: integer
             format: int32
-            default: '0'
+            default: '25'
         - name: orderBy
           in: query
           description: Indicates the property name by which the results will be sorted.
@@ -1101,7 +899,7 @@ paths:
           in: query
           schema:
             type: integer
-            format: int64
+            format: int32
         - name: name
           in: query
           schema:
@@ -1175,6 +973,12 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '201':
           description: Created
+          headers:
+            Location:
+              description: URI of the resource that was created.
+              schema:
+                type: string
+                format: uri
   '/v3/dataStores/{id}':
     get:
       tags:
@@ -1187,7 +991,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -1230,7 +1034,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       requestBody:
         content:
           application/json:
@@ -1281,7 +1085,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -1309,70 +1113,6 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '204':
           description: No Content
-  /v3/dataStores/edOrgs:
-    get:
-      tags:
-        - DataStores
-      summary: Retrieves all education organizations grouped by data store
-      description: Returns all education organizations from all data stores in a nested structure
-      parameters:
-        - name: offset
-          in: query
-          description: Indicates how many items should be skipped before returning results.
-          schema:
-            type: integer
-            format: int32
-            default: '0'
-        - name: limit
-          in: query
-          description: Indicates the maximum number of items that should be returned in the results.
-          schema:
-            type: integer
-            format: int32
-            default: '0'
-        - name: orderBy
-          in: query
-          description: Indicates the property name by which the results will be sorted.
-          schema:
-            type: string
-            default: ''
-        - name: direction
-          in: query
-          description: Indicates whether the result should be sorted in descending order (DESC) or ascending order (ASC).
-          schema:
-            title: Indicates whether the result should be sorted in descending order (DESC) or ascending order (ASC).
-            enum:
-              - Ascending
-              - Descending
-            type: string
-            default: Descending
-      responses:
-        '401':
-          description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
-        '403':
-          description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
-        '500':
-          description: Internal server error. An unhandled error occurred on the server. See the response body for details.
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/dataStoreWithEducationOrganizationsModel'
   '/v3/dataStores/{dataStoreId}/edOrgs':
     get:
       tags:
@@ -1393,7 +1133,7 @@ paths:
           schema:
             type: integer
             format: int32
-            default: '0'
+            default: '25'
         - name: orderBy
           in: query
           description: Indicates the property name by which the results will be sorted.
@@ -1415,7 +1155,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -1449,6 +1189,200 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/dataStoreWithEducationOrganizationsModel'
+  /v3/dataStores/manage:
+    get:
+      tags:
+        - DataStores
+      summary: Retrieves all dataStores.
+      description: This GET operation provides access to resources using the "Get" search pattern. The values of any properties of the resource that are specified will be used to return all matching results (if it exists).
+      parameters:
+        - name: offset
+          in: query
+          description: Indicates how many items should be skipped before returning results.
+          schema:
+            type: integer
+            format: int32
+            default: '0'
+        - name: limit
+          in: query
+          description: Indicates the maximum number of items that should be returned in the results.
+          schema:
+            type: integer
+            format: int32
+            default: '25'
+        - name: orderBy
+          in: query
+          description: Indicates the property name by which the results will be sorted.
+          schema:
+            type: string
+            default: ''
+        - name: direction
+          in: query
+          description: Indicates whether the result should be sorted in descending order (DESC) or ascending order (ASC).
+          schema:
+            title: Indicates whether the result should be sorted in descending order (DESC) or ascending order (ASC).
+            enum:
+              - Ascending
+              - Descending
+            type: string
+            default: Descending
+        - name: id
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: name
+          in: query
+          schema:
+            type: string
+      responses:
+        '401':
+          description: Unauthorized. The request requires authentication
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '403':
+          description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '500':
+          description: Internal server error. An unhandled error occurred on the server. See the response body for details.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/dataStoreManageModel'
+    post:
+      tags:
+        - DataStores
+      summary: Creates dataStore based on the supplied values.
+      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addDataStoreManageRequest'
+        required: true
+      responses:
+        '401':
+          description: Unauthorized. The request requires authentication
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '403':
+          description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '500':
+          description: Internal server error. An unhandled error occurred on the server. See the response body for details.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '400':
+          description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '202':
+          description: Accepted
+  '/v3/dataStores/manage/{id}':
+    get:
+      tags:
+        - DataStores
+      summary: Retrieves a specific dataStore based on the identifier.
+      description: This GET operation provides access to resources using the "Get" search pattern. The values of any properties of the resource that are specified will be used to return all matching results (if it exists).
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '401':
+          description: Unauthorized. The request requires authentication
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '403':
+          description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '500':
+          description: Internal server error. An unhandled error occurred on the server. See the response body for details.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '404':
+          description: Not found. A resource with given identifier could not be found.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dataStoreManageModel'
+    delete:
+      tags:
+        - DataStores
+      summary: Deletes an existing dataStore using the resource identifier.
+      description: 'The DELETE operation is used to delete an existing resource by identifier. If the resource doesn''t exist, an error will result (the resource will not be found).'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '401':
+          description: Unauthorized. The request requires authentication
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '403':
+          description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '500':
+          description: Internal server error. An unhandled error occurred on the server. See the response body for details.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '404':
+          description: Not found. A resource with given identifier could not be found.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '204':
+          description: No Content
   /v3/dataStoreDerivatives:
     get:
       tags:
@@ -1469,7 +1403,7 @@ paths:
           schema:
             type: integer
             format: int32
-            default: '0'
+            default: '25'
         - name: orderBy
           in: query
           description: Indicates the property name by which the results will be sorted.
@@ -1551,6 +1485,12 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '201':
           description: Created
+          headers:
+            Location:
+              description: URI of the resource that was created.
+              schema:
+                type: string
+                format: uri
   '/v3/dataStoreDerivatives/{id}':
     get:
       tags:
@@ -1563,7 +1503,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -1606,7 +1546,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       requestBody:
         content:
           application/json:
@@ -1657,7 +1597,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -1705,7 +1645,7 @@ paths:
           schema:
             type: integer
             format: int32
-            default: '0'
+            default: '25'
         - name: orderBy
           in: query
           description: Indicates the property name by which the results will be sorted.
@@ -1787,6 +1727,12 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '201':
           description: Created
+          headers:
+            Location:
+              description: URI of the resource that was created.
+              schema:
+                type: string
+                format: uri
   '/v3/dataStoreContexts/{id}':
     get:
       tags:
@@ -1799,7 +1745,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -1842,7 +1788,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       requestBody:
         content:
           application/json:
@@ -1893,7 +1839,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -1932,7 +1878,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -1984,7 +1930,7 @@ paths:
           schema:
             type: integer
             format: int32
-            default: '0'
+            default: '25'
         - name: orderBy
           in: query
           description: Indicates the property name by which the results will be sorted.
@@ -2006,7 +1952,7 @@ paths:
           description: Claim set id
           schema:
             type: integer
-            format: int64
+            format: int32
         - name: name
           in: query
           description: Claim set name
@@ -2077,6 +2023,12 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '201':
           description: Created
+          headers:
+            Location:
+              description: URI of the resource that was created.
+              schema:
+                type: string
+                format: uri
   '/v3/claimSets/{id}':
     get:
       tags:
@@ -2089,7 +2041,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -2132,7 +2084,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       requestBody:
         content:
           application/json:
@@ -2183,7 +2135,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -2231,7 +2183,7 @@ paths:
           schema:
             type: integer
             format: int32
-            default: '0'
+            default: '25'
         - name: orderBy
           in: query
           description: Indicates the property name by which the results will be sorted.
@@ -2295,7 +2247,7 @@ paths:
           schema:
             type: integer
             format: int32
-            default: '0'
+            default: '25'
         - name: orderBy
           in: query
           description: Indicates the property name by which the results will be sorted.
@@ -2317,7 +2269,7 @@ paths:
           description: Application id
           schema:
             type: integer
-            format: int64
+            format: int32
         - name: applicationName
           in: query
           description: Application name
@@ -2403,6 +2355,12 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '201':
           description: Created
+          headers:
+            Location:
+              description: URI of the resource that was created.
+              schema:
+                type: string
+                format: uri
           content:
             application/json:
               schema:
@@ -2419,7 +2377,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -2462,7 +2420,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       requestBody:
         content:
           application/json:
@@ -2513,7 +2471,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -2552,7 +2510,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -2597,7 +2555,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -2631,11 +2589,11 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/applicationModel'
-  /v3/apiclients:
+  /v3/apiClients:
     get:
       tags:
-        - Apiclients
-      summary: Retrieves all apiclients.
+        - ApiClients
+      summary: Retrieves all apiClients.
       description: This GET operation provides access to resources using the "Get" search pattern. The values of any properties of the resource that are specified will be used to return all matching results (if it exists).
       parameters:
         - name: applicationid
@@ -2643,7 +2601,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -2673,8 +2631,8 @@ paths:
                   $ref: '#/components/schemas/apiClientModel'
     post:
       tags:
-        - Apiclients
-      summary: Creates apiclient based on the supplied values.
+        - ApiClients
+      summary: Creates apiClient based on the supplied values.
       description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
       requestBody:
         content:
@@ -2709,15 +2667,21 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '201':
           description: Created
+          headers:
+            Location:
+              description: URI of the resource that was created.
+              schema:
+                type: string
+                format: uri
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/apiClientResult'
-  '/v3/apiclients/{id}':
+  '/v3/apiClients/{id}':
     get:
       tags:
-        - Apiclients
-      summary: Retrieves a specific apiclient based on the identifier.
+        - ApiClients
+      summary: Retrieves a specific apiClient based on the identifier.
       description: This GET operation provides access to resources using the "Get" search pattern. The values of any properties of the resource that are specified will be used to return all matching results (if it exists).
       parameters:
         - name: id
@@ -2725,7 +2689,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -2759,8 +2723,8 @@ paths:
                 $ref: '#/components/schemas/apiClientModel'
     put:
       tags:
-        - Apiclients
-      summary: Updates apiclient based on the resource identifier.
+        - ApiClients
+      summary: Updates apiClient based on the resource identifier.
       description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
       parameters:
         - name: id
@@ -2768,7 +2732,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       requestBody:
         content:
           application/json:
@@ -2810,8 +2774,8 @@ paths:
           description: No Content
     delete:
       tags:
-        - Apiclients
-      summary: Deletes an existing apiclient using the resource identifier.
+        - ApiClients
+      summary: Deletes an existing apiClient using the resource identifier.
       description: 'The DELETE operation is used to delete an existing resource by identifier. If the resource doesn''t exist, an error will result (the resource will not be found).'
       parameters:
         - name: id
@@ -2819,7 +2783,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -2867,7 +2831,7 @@ paths:
           schema:
             type: integer
             format: int32
-            default: '0'
+            default: '25'
         - name: orderBy
           in: query
           description: Indicates the property name by which the results will be sorted.
@@ -2889,7 +2853,7 @@ paths:
           description: Action id
           schema:
             type: integer
-            format: int64
+            format: int32
         - name: name
           in: query
           description: Action name
@@ -2927,7 +2891,6 @@ paths:
       tags:
         - Information
       summary: Retrieve API informational metadata
-      security: []
       responses:
         '200':
           description: OK
@@ -2941,6 +2904,8 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/problemDetails'
+      security:
+        - { }
   /v3/dataStores/edOrgs/refresh:
     post:
       tags:
@@ -2973,19 +2938,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/problemDetails'
         '201':
-          description: 'Created. The refresh has been queued as a background job; it has not completed when this response is returned.'
+          description: Created
           headers:
             Location:
-              description: 'Relative path of the job created for this request, in the form /v3/jobs/{jobId}.'
+              description: URI of the queued job's status endpoint.
               schema:
                 type: string
+                format: uri
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/jobQueuedResult'
-              example:
-                jobId: RefreshEducationOrganizations-default-3f2504e0-4f89-11d3-9a0c-0305e82c3301_9b1deb4d3b7d4bad9bdd2b0d7b3dcb6d
-                message: Education organizations refresh has been queued for all instances
   '/v3/dataStores/{dataStoreId}/edOrgs/refresh':
     post:
       tags:
@@ -2998,7 +2961,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -3031,19 +2994,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/problemDetails'
         '201':
-          description: 'Created. The refresh has been queued as a background job; it has not completed when this response is returned.'
+          description: Created
           headers:
             Location:
-              description: 'Relative path of the job created for this request, in the form /v3/jobs/{jobId}.'
+              description: URI of the queued job's status endpoint.
               schema:
                 type: string
+                format: uri
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/jobQueuedResult'
-              example:
-                jobId: RefreshEducationOrganizations-default-3f2504e0-4f89-11d3-9a0c-0305e82c3301_9b1deb4d3b7d4bad9bdd2b0d7b3dcb6d
-                message: Education organizations refresh has been queued for the specified instance
   /v3/claimSets/copy:
     post:
       tags:
@@ -3082,6 +3043,12 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '201':
           description: Created
+          headers:
+            Location:
+              description: URI of the resource that was created.
+              schema:
+                type: string
+                format: uri
   /v3/claimSets/import:
     post:
       tags:
@@ -3120,6 +3087,12 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '201':
           description: Created
+          headers:
+            Location:
+              description: URI of the resource that was created.
+              schema:
+                type: string
+                format: uri
   '/v3/claimSets/{claimSetId}/resourceClaimActions/{resourceClaimId}/overrideAuthorizationStrategy':
     post:
       tags:
@@ -3132,13 +3105,13 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
         - name: resourceClaimId
           in: path
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       requestBody:
         content:
           application/json:
@@ -3189,13 +3162,13 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
         - name: resourceClaimId
           in: path
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -3241,7 +3214,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       requestBody:
         content:
           application/json:
@@ -3281,13 +3254,18 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '201':
           description: Created
+          headers:
+            Location:
+              description: URI of the resource that was created.
+              schema:
+                type: string
+                format: uri
   /connect/register:
     post:
       tags:
         - Connect
       summary: Registers new client
       description: Registers new client
-      security: []
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -3325,13 +3303,14 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '200':
           description: Application registered successfully.
+      security:
+        - { }
   /connect/token:
     post:
       tags:
         - Connect
       summary: Retrieves bearer token
       description: "\nTo authenticate Swagger requests, execute using \"Authorize\" above, not \"Try It Out\" here."
-      security: []
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -3361,6 +3340,8 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '200':
           description: Sign-in successful.
+      security:
+        - { }
   '/v3/claimSets/{claimSetId}/resourceClaimActions/{resourceClaimId}':
     put:
       tags:
@@ -3373,13 +3354,13 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
         - name: resourceClaimId
           in: path
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       requestBody:
         content:
           application/json:
@@ -3429,13 +3410,13 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
         - name: resourceClaimId
           in: path
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -3474,7 +3455,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -3512,10 +3493,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/applicationResult'
-  '/v3/apiclients/{id}/reset-credential':
+  '/v3/apiClients/{id}/reset-credential':
     put:
       tags:
-        - Apiclients
+        - ApiClients
       summary: Reset apiclient credentials. Returns new key and secret.
       parameters:
         - name: id
@@ -3523,7 +3504,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '401':
           description: Unauthorized. The request requires authentication
@@ -3576,7 +3557,7 @@ components:
       properties:
         id:
           type: integer
-          format: int64
+          format: int32
         name:
           type: string
           nullable: true
@@ -3589,7 +3570,7 @@ components:
       properties:
         actionId:
           type: integer
-          format: int64
+          format: int32
         actionName:
           type: string
           nullable: true
@@ -3612,12 +3593,12 @@ components:
         applicationId:
           type: integer
           description: Application id
-          format: int64
+          format: int32
         dataStoreIds:
           type: array
           items:
             type: integer
-            format: int64
+            format: int32
           description: List of data store id
       additionalProperties: false
     addApplicationRequest:
@@ -3630,7 +3611,7 @@ components:
         vendorId:
           type: integer
           description: Vendor/ company id
-          format: int64
+          format: int32
         claimSetName:
           type: string
           description: Claim set name
@@ -3638,7 +3619,7 @@ components:
           type: array
           items:
             type: integer
-            format: int64
+            format: int32
           description: Profile id
           nullable: true
         educationOrganizationIds:
@@ -3651,7 +3632,7 @@ components:
           type: array
           items:
             type: integer
-            format: int64
+            format: int32
           description: List of data store id
         enabled:
           type: boolean
@@ -3673,7 +3654,7 @@ components:
         dataStoreId:
           type: integer
           description: Data store context data store id.
-          format: int64
+          format: int32
         contextKey:
           type: string
           description: context key.
@@ -3688,13 +3669,24 @@ components:
         dataStoreId:
           type: integer
           description: Data store derivative data store id.
-          format: int64
+          format: int32
         derivativeType:
           type: string
           description: derivative type.
         connectionString:
           type: string
           description: connection string.
+      additionalProperties: false
+    addDataStoreManageRequest:
+      title: AddDataStoreManageRequest
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the DataStore database
+        databaseTemplate:
+          type: string
+          description: Database template to use for the DataStore database
       additionalProperties: false
     addDataStoreRequest:
       title: AddDataStoreRequest
@@ -3710,17 +3702,6 @@ components:
         connectionString:
           type: string
           description: Data store connection string
-      additionalProperties: false
-    addDbDataStoreRequest:
-      title: AddDbDataStoreRequest
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the DataStore database
-        databaseTemplate:
-          type: string
-          description: Database template to use for the DataStore database
       additionalProperties: false
     addProfileRequest:
       title: AddProfileRequest
@@ -3739,11 +3720,11 @@ components:
       properties:
         claimSetId:
           type: integer
-          format: int64
+          format: int32
         resourceClaimId:
           type: integer
           description: ResourceClaim id
-          format: int64
+          format: int32
         resourceClaimActions:
           type: array
           items:
@@ -3766,13 +3747,18 @@ components:
           type: string
           description: Vendor contact email id
       additionalProperties: false
+    adminApiError:
+      title: AdminApiError
+      type: object
+      additionalProperties: false
+      description: Wrapper schema for all error responses
     apiClientModel:
       title: ApiClient
       type: object
       properties:
         id:
           type: integer
-          format: int64
+          format: int32
         clientId:
           type: string
           nullable: true
@@ -3783,7 +3769,7 @@ components:
           type: boolean
         applicationId:
           type: integer
-          format: int64
+          format: int32
         keyStatus:
           type: string
           nullable: true
@@ -3797,7 +3783,7 @@ components:
           type: array
           items:
             type: integer
-            format: int64
+            format: int32
           nullable: true
       additionalProperties: false
     apiClientResult:
@@ -3806,7 +3792,7 @@ components:
       properties:
         id:
           type: integer
-          format: int64
+          format: int32
         name:
           type: string
           nullable: true
@@ -3818,7 +3804,7 @@ components:
           nullable: true
         applicationId:
           type: integer
-          format: int64
+          format: int32
       additionalProperties: false
     applicationModel:
       title: Application
@@ -3826,7 +3812,7 @@ components:
       properties:
         id:
           type: integer
-          format: int64
+          format: int32
         applicationName:
           type: string
           nullable: true
@@ -3841,19 +3827,19 @@ components:
           nullable: true
         vendorId:
           type: integer
-          format: int64
+          format: int32
           nullable: true
         profileIds:
           type: array
           items:
             type: integer
-            format: int64
+            format: int32
           nullable: true
         dataStoreIds:
           type: array
           items:
             type: integer
-            format: int64
+            format: int32
           nullable: true
         enabled:
           type: boolean
@@ -3864,7 +3850,7 @@ components:
       properties:
         id:
           type: integer
-          format: int64
+          format: int32
         key:
           type: string
           nullable: true
@@ -3878,7 +3864,6 @@ components:
       properties:
         authStrategyName:
           type: string
-          description: Name of the authorization strategy. Authorization strategies are identified by name; no surrogate identifier is exposed.
           nullable: true
       additionalProperties: false
     authorizationStrategyModel:
@@ -3887,7 +3872,7 @@ components:
       properties:
         id:
           type: integer
-          format: int64
+          format: int32
         name:
           type: string
           nullable: true
@@ -3900,7 +3885,7 @@ components:
       properties:
         authStrategyId:
           type: integer
-          format: int64
+          format: int32
         authStrategyName:
           type: string
           nullable: true
@@ -3911,10 +3896,9 @@ components:
       properties:
         id:
           type: integer
-          format: int64
-        name:
+          format: int32
+        claimSetName:
           type: string
-          description: Claim set name
           nullable: true
         _isSystemReserved:
           type: boolean
@@ -3937,8 +3921,8 @@ components:
       properties:
         id:
           type: integer
-          format: int64
-        name:
+          format: int32
+        claimSetName:
           type: string
           nullable: true
         _isSystemReserved:
@@ -3957,7 +3941,6 @@ components:
       properties:
         actionName:
           type: string
-          description: 'Name of the action the authorization strategies apply to, for example Create, Read, Update, Delete or ReadChanges.'
           nullable: true
         authorizationStrategies:
           type: array
@@ -3968,19 +3951,15 @@ components:
     claimSetResourceClaimModel:
       title: ClaimSetResourceClaim
       type: object
-      description: 'A single configured node of the authorization hierarchy for a claim set. Entries are returned as a flat list; the parent relationship is expressed through parentClaimName rather than nesting, so a child node appears as a sibling entry rather than inside its parent. Only nodes where authorization is actually configured are returned, not the full expanded set of leaf resources that inherit from them.'
       properties:
         name:
           type: string
-          description: 'Short name of the resource claim, for example school.'
           nullable: true
         claimName:
           type: string
-          description: 'Full claim URI identifying the hierarchy node, for example http://ed-fi.org/identity/claims/ed-fi/school. This is the identifier used on import to locate the node.'
           nullable: true
         parentClaimName:
           type: string
-          description: 'Full claim URI of the parent hierarchy node, or null when this entry is a root node. Clients can reconstruct the tree by grouping on this value.'
           nullable: true
         actions:
           type: array
@@ -3991,14 +3970,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/claimSetResourceClaimActionAuthStrategies'
-          description: 'Authorization strategies configured as the default on this hierarchy node, applying to every claim set that uses it. Read-only context; ignored on import.'
           nullable: true
           readOnly: true
         authorizationStrategyOverrides:
           type: array
           items:
             $ref: '#/components/schemas/claimSetResourceClaimActionAuthStrategies'
-          description: 'Authorization strategies set on this claim set specifically, overriding the node defaults. An empty collection means the node defaults are in effect; a non-empty collection means the difference is deliberate.'
           nullable: true
       additionalProperties: false
     copyClaimSetRequest:
@@ -4008,7 +3985,7 @@ components:
         originalId:
           type: integer
           description: ClaimSet id to copy
-          format: int64
+          format: int32
         name:
           type: string
           description: New claimset name
@@ -4019,10 +3996,10 @@ components:
       properties:
         id:
           type: integer
-          format: int64
+          format: int32
         dataStoreId:
           type: integer
-          format: int64
+          format: int32
         contextKey:
           type: string
           nullable: true
@@ -4036,21 +4013,24 @@ components:
       properties:
         id:
           type: integer
-          format: int64
+          format: int32
         dataStoreId:
           type: integer
-          format: int64
+          format: int32
         derivativeType:
           type: string
           nullable: true
-      additionalProperties: true
+        connectionString:
+          type: string
+          nullable: true
+      additionalProperties: false
     dataStoreDetailModel:
       title: DataStoreDetail
       type: object
       properties:
         id:
           type: integer
-          format: int64
+          format: int32
         name:
           type: string
           nullable: true
@@ -4068,13 +4048,49 @@ components:
             $ref: '#/components/schemas/dataStoreDerivativeModel'
           nullable: true
       additionalProperties: false
+    dataStoreManageModel:
+      title: DataStoreManage
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        dataStoreId:
+          type: integer
+          format: int32
+          nullable: true
+        dataStoreName:
+          type: string
+          nullable: true
+        status:
+          type: string
+          nullable: true
+        databaseTemplate:
+          type: string
+          nullable: true
+        databaseName:
+          type: string
+          nullable: true
+        lastRefreshed:
+          type: string
+          format: date-time
+          nullable: true
+        lastModifiedDate:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
     dataStoreModel:
       title: DataStore
       type: object
       properties:
         id:
           type: integer
-          format: int64
+          format: int32
         name:
           type: string
           nullable: true
@@ -4089,7 +4105,13 @@ components:
         id:
           type: integer
           description: Data store identifier
-          format: int64
+          format: int32
+          nullable: true
+        dataStoreManageId:
+          type: integer
+          description: DataStoreManage identifier for this data store
+          format: int32
+          nullable: true
         name:
           type: string
           description: Data store name
@@ -4116,49 +4138,13 @@ components:
           description: List of education organizations in this data store
           nullable: true
       additionalProperties: false
-    dbDataStoreModel:
-      title: DbDataStore
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        dataStoreId:
-          type: integer
-          format: int64
-          nullable: true
-        dataStoreName:
-          type: string
-          nullable: true
-        status:
-          type: string
-          nullable: true
-        databaseTemplate:
-          type: string
-          nullable: true
-        databaseName:
-          type: string
-          nullable: true
-        lastRefreshed:
-          type: string
-          format: date-time
-          nullable: true
-        lastModifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-      additionalProperties: false
     editApiClientRequest:
       title: EditApiClientRequest
       type: object
       properties:
         id:
           type: integer
-          format: int64
+          format: int32
         name:
           type: string
           description: Api client name
@@ -4168,12 +4154,12 @@ components:
         applicationId:
           type: integer
           description: Application id
-          format: int64
+          format: int32
         dataStoreIds:
           type: array
           items:
             type: integer
-            format: int64
+            format: int32
           description: List of data store id
       additionalProperties: false
     editApplicationRequest:
@@ -4182,14 +4168,14 @@ components:
       properties:
         id:
           type: integer
-          format: int64
+          format: int32
         applicationName:
           type: string
           description: Application name
         vendorId:
           type: integer
           description: Vendor/ company id
-          format: int64
+          format: int32
         claimSetName:
           type: string
           description: Claim set name
@@ -4197,7 +4183,7 @@ components:
           type: array
           items:
             type: integer
-            format: int64
+            format: int32
           description: Profile id
           nullable: true
         educationOrganizationIds:
@@ -4210,7 +4196,7 @@ components:
           type: array
           items:
             type: integer
-            format: int64
+            format: int32
           description: List of data store id
         enabled:
           type: boolean
@@ -4223,7 +4209,7 @@ components:
       properties:
         id:
           type: integer
-          format: int64
+          format: int32
         name:
           type: string
           description: Claim set name
@@ -4235,11 +4221,11 @@ components:
         id:
           type: integer
           description: Data store context id.
-          format: int64
+          format: int32
         dataStoreId:
           type: integer
           description: Data store context data store id.
-          format: int64
+          format: int32
         contextKey:
           type: string
           description: context key.
@@ -4254,11 +4240,11 @@ components:
         id:
           type: integer
           description: Data store derivative id.
-          format: int64
+          format: int32
         dataStoreId:
           type: integer
           description: Data store derivative data store id.
-          format: int64
+          format: int32
         derivativeType:
           type: string
           description: derivative type.
@@ -4283,7 +4269,7 @@ components:
           nullable: true
         id:
           type: integer
-          format: int64
+          format: int32
       additionalProperties: false
     editProfileRequest:
       title: EditProfileRequest
@@ -4298,7 +4284,7 @@ components:
         id:
           type: integer
           description: Profile id
-          format: int64
+          format: int32
       additionalProperties: false
     editResourceClaimOnClaimSetRequest:
       title: EditResourceClaimActionsOnClaimSetRequest
@@ -4306,10 +4292,10 @@ components:
       properties:
         claimSetId:
           type: integer
-          format: int64
+          format: int32
         resourceClaimId:
           type: integer
-          format: int64
+          format: int32
         resourceClaimActions:
           type: array
           items:
@@ -4321,7 +4307,7 @@ components:
       properties:
         id:
           type: integer
-          format: int64
+          format: int32
         company:
           type: string
           description: Vendor/ company name
@@ -4362,7 +4348,6 @@ components:
     importClaimSetRequest:
       title: ImportClaimSetRequest
       type: object
-      description: 'Accepts the same resourceClaims shape returned by the export operations. Per entry, claimName locates the hierarchy node, actions are written to the node for this claim set, and authorizationStrategyOverrides are applied where non-empty. The parentClaimName, _defaultAuthorizationStrategies, id and _isSystemReserved values are ignored. Import is additive and does not create new hierarchy nodes; entries whose claimName cannot be resolved are reported as warnings and do not fail the request.'
       properties:
         name:
           type: string
@@ -4390,16 +4375,14 @@ components:
           description: Admin API specification version
       additionalProperties: false
     jobQueuedResult:
-      title: JobQueued
       type: object
-      description: 'Returned when a request schedules background work. The Location header of the response points at /v3/jobs/{jobId}, which can be polled for progress.'
       properties:
         jobId:
           type: string
-          description: Identifier of the scheduled job. Use this value with /v3/jobs/{jobId} to track progress.
+          nullable: true
         message:
           type: string
-          description: Human-readable confirmation of what was queued.
+          nullable: true
       additionalProperties: false
     overrideAuthStategyOnClaimSetRequest:
       title: OverrideAuthStategyOnClaimSetRequest
@@ -4407,10 +4390,10 @@ components:
       properties:
         claimSetId:
           type: integer
-          format: int64
+          format: int32
         resourceClaimId:
           type: integer
-          format: int64
+          format: int32
         actionName:
           type: string
           nullable: true
@@ -4418,7 +4401,7 @@ components:
           type: array
           items:
             type: integer
-            format: int64
+            format: int32
           nullable: true
         authorizationStrategies:
           type: array
@@ -4427,58 +4410,32 @@ components:
           description: AuthorizationStrategy Names
       additionalProperties: false
     problemDetails:
-      title: ProblemDetails
       type: object
-      description: 'RFC 7807 problem details. Returned for all 4xx and 5xx responses with a content type of application/problem+json.'
       properties:
         type:
           type: string
-          description: 'A URI reference identifying the problem type. Known values are urn:ed-fi:admin-api:bad-request, urn:ed-fi:admin-api:bad-request:data, urn:ed-fi:admin-api:bad-request:validation, urn:ed-fi:admin-api:bad-request:version-mismatch, urn:ed-fi:admin-api:not-found, and urn:ed-fi:admin-api:internal-server-error.'
           nullable: true
         title:
           type: string
-          description: A short, human-readable summary of the problem type.
           nullable: true
         status:
           type: integer
           format: int32
-          description: The HTTP status code generated for this occurrence of the problem.
           nullable: true
         detail:
           type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
           nullable: true
         instance:
           type: string
-          description: A URI reference identifying the specific occurrence of the problem.
           nullable: true
-        correlationId:
-          type: string
-          description: Correlation identifier for this occurrence, present when supplied by the caller or generated by the service.
-          nullable: true
-        validationErrors:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-          description: 'Validation failures keyed by property name. Present on validation failures (type urn:ed-fi:admin-api:bad-request:validation).'
-          nullable: true
-        errors:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-          description: 'Duplicate of validationErrors, retained for compatibility with clients that read this key. Present on validation failures.'
-          nullable: true
+      additionalProperties: { }
     profileDetailsModel:
       title: ProfileDetails
       type: object
       properties:
         id:
           type: integer
-          format: int64
+          format: int32
           nullable: true
         name:
           type: string
@@ -4493,7 +4450,7 @@ components:
       properties:
         id:
           type: integer
-          format: int64
+          format: int32
           nullable: true
         name:
           type: string
@@ -4528,7 +4485,7 @@ components:
       properties:
         resourceClaimId:
           type: integer
-          format: int64
+          format: int32
         resourceName:
           type: string
           nullable: true
@@ -4546,7 +4503,7 @@ components:
       properties:
         resourceClaimId:
           type: integer
-          format: int64
+          format: int32
         resourceName:
           type: string
           nullable: true
@@ -4565,13 +4522,13 @@ components:
       properties:
         id:
           type: integer
-          format: int64
+          format: int32
         name:
           type: string
           nullable: true
         parentId:
           type: integer
-          format: int64
+          format: int32
           nullable: true
         parentName:
           type: string
@@ -4624,21 +4581,52 @@ components:
             type: string
           description: List of available tenant names
       additionalProperties: false
-    tenantDetailsModel:
-      title: TenantDetails
+    tenantDataStoreModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          nullable: true
+        dataStoreManageId:
+          type: integer
+          format: int32
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        dataStoreType:
+          type: string
+          nullable: true
+        status:
+          type: string
+          nullable: true
+        databaseTemplate:
+          type: string
+          nullable: true
+        databaseName:
+          type: string
+          nullable: true
+        educationOrganizations:
+          title: EducationOrganizations
+          type: array
+          items:
+            $ref: '#/components/schemas/educationOrganizationModel'
+          nullable: true
+      additionalProperties: false
+    tenantDetailsResponse:
       type: object
       properties:
         id:
           type: string
-          description: 'Tenant identifier. This is the tenant name, not a numeric surrogate key.'
+          nullable: true
         name:
           type: string
-          description: Tenant name
+          nullable: true
         dataStores:
           type: array
           items:
-            $ref: '#/components/schemas/dataStoreWithEducationOrganizationsModel'
-          description: Data stores associated with the tenant, each with its education organizations
+            $ref: '#/components/schemas/tenantDataStoreModel'
           nullable: true
       additionalProperties: false
     vendorModel:
@@ -4647,7 +4635,7 @@ components:
       properties:
         id:
           type: integer
-          format: int64
+          format: int32
           nullable: true
         company:
           type: string
