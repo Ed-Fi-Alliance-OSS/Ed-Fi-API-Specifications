@@ -44,11 +44,6 @@ Changes** below; implementers should review that section first.
   which requires `tenantName` and returns a new `tenantDetailsResponse`
   schema (`id`, `name`, `dataStores: [tenantDataStoreModel]`).
 
-* **`apiClients` path and tag casing changed.** `/v2/apiclients` →
-  `/v3/apiClients`, `'/v2/apiclients/{id}'` → `'/v3/apiClients/{id}'`,
-  `'/v2/apiclients/{id}/reset-credential'` →
-  `'/v3/apiClients/{id}/reset-credential'`; tag `Apiclients` → `ApiClients`.
-
 * **`apiClient` schema fields changed.** Property `key` renamed to
   `clientId`; properties `useSandbox` (boolean) and `sandboxType` (integer)
   were removed.
@@ -68,10 +63,6 @@ Changes** below; implementers should review that section first.
   claimSets, and apiClients. Clients that parse a response body or check
   strictly for status `200` on these calls must be updated to expect `204`.
 
-* **OAuth scope renamed.** Scope `api` ("Full access to the Management API")
-  is renamed to `edfi_admin_api/full_access` ("Full access to the Admin
-  API"). Clients requesting the old `api` scope explicitly will fail.
-
 ## Non-Breaking Additive Changes
 
 * New paths: `'/v3/jobs/{jobId}'`, `/v3/dataStores/manage` (GET/POST),
@@ -81,8 +72,8 @@ Changes** below; implementers should review that section first.
 * New schema components: `dataStoreManageModel`, `addDataStoreManageRequest`,
   `dataStoreWithEducationOrganizationsModel`, `tenancyResult`,
   `tenantDataStoreModel`, `tenantDetailsResponse`,
-  `educationOrganizationModel`, `jobQueuedResult`, `problemDetails`,
-  `response`.
+  `educationOrganizationModel`, `jobQueuedResult`, `jobStatusResult`,
+  `problemDetails`.
 * `informationResult` gained new properties `tenancy` (`$ref: tenancyResult`)
   and `specificationVersion` (string).
 * A `Location` response header was added to `201 Created` responses across
@@ -101,9 +92,15 @@ Changes** below; implementers should review that section first.
 
 ## Non-Functional / Documentation Changes
 
-* `info.title` changed from "Ed-Fi Management API" to "Admin API
-  Documentation"; `info.description` and `info.version` (`v2.3.0` → `v3`)
-  updated to match.
+* `info.version` format updated from `v2.3.0` to `3.0.0`. `info.title` and
+  `info.description` are unchanged from 2.3.0 ("Ed-Fi Management API").
 * OAuth scope description text updated to reflect "Admin API" wording.
+* Applied correct camel casing to the `apiClients` routes: `apiclients` →
+  `apiClients` (`/v2/apiclients` → `/v3/apiClients`,
+  `'/v2/apiclients/{id}'` → `'/v3/apiClients/{id}'`,
+  `'/v2/apiclients/{id}/reset-credential'` →
+  `'/v3/apiClients/{id}/reset-credential'`), and the same casing correction
+  to the `Apiclients` tag. Real-world application behavior should be
+  unchanged, accepting any casing.
 * Minor description-text removals on the `id`/`name` query parameters for
   `GET /v3/dataStores`.

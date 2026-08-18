@@ -32,8 +32,8 @@ relative to `management-api-2.3.0.yaml`.
   `addOdsInstanceManageRequest`; POST returns `202 Accepted`.
 * `GET '/v2/odsInstances/manage/{id}'` and `DELETE
   '/v2/odsInstances/manage/{id}'` — DELETE returns `204 No Content`.
-* `GET '/v2/jobs/{jobId}'` — retrieves job status via the new `response`
-  schema.
+* `GET '/v2/jobs/{jobId}'` — retrieves job status via the new
+  `jobStatusResult` schema.
 * `POST /v2/odsInstances/edOrgs/refresh` and `POST
   '/v2/odsInstances/{instanceId}/edOrgs/refresh'` — trigger a refresh job;
   both return `201 Created` with a `Location` header pointing at the job
@@ -48,25 +48,15 @@ Both are superseded by `GET '/v2/tenants/{tenantName}/odsInstances/edOrgs'`.
 
 ## Renamed Paths and Tags
 
-* `/v2/apiclients` → `/v2/apiClients`
-* `'/v2/apiclients/{id}'` → `'/v2/apiClients/{id}'`
-* `'/v2/apiclients/{id}/reset-credential'` →
-  `'/v2/apiClients/{id}/reset-credential'`
-* Tag `Apiclients` renamed to `ApiClients`, with matching casing updates to
+* Applied correct camel casing to the `apiClients` routes: `apiclients` →
+  `apiClients` (`/v2/apiclients` → `/v2/apiClients`,
+  `'/v2/apiclients/{id}'` → `'/v2/apiClients/{id}'`,
+  `'/v2/apiclients/{id}/reset-credential'` →
+  `'/v2/apiClients/{id}/reset-credential'`). Real-world application behavior
+  should be unchanged, accepting any casing.
+* Applied the same casing correction to the `Apiclients` tag and its
   operation summaries (e.g., "Retrieves all apiclients." → "Retrieves all
-  apiClients.").
-
-## New Schema Components
-
-* `addOdsInstanceManageRequest`
-* `educationOrganizationModel`
-* `odsInstanceManageModel`
-* `odsInstanceWithEducationOrganizationsModel`
-* `problemDetails`
-* `response`
-* `tenancyResult`
-* `tenantDetailsResponse`
-* `tenantOdsInstanceModel`
+  apiClients."). Documentation-only; does not affect application behavior.
 
 ## Schema Property Changes
 
@@ -75,8 +65,3 @@ Both are superseded by `GET '/v2/tenants/{tenantName}/odsInstances/edOrgs'`.
 * The informational root endpoint's `500` response body changed from
   `application/json` + `informationResult` to `application/problem+json` +
   `problemDetails`; the endpoint also gained `security: [{}]`.
-
-## Documentation-Only Changes
-
-* Line-ending normalization (`\r\n` → `\n`) in the profile example JSON
-  payload. No functional impact.

@@ -1,13 +1,15 @@
 openapi: 3.0.1
 info:
   title: Ed-Fi Management API
-  description: The Ed-Fi Management API is a REST-based administrative interface for the Ed-Fi ODS / API Platform.  It provides functions for vendor, application and other aspects of ODS / API management.  Management API 3.0.0 is a draft proposal targeted for implementation in Ed-Fi Admin API v2.4 / Ed-Fi API v8.
+  description: 'The Ed-Fi Management API is a REST API-based administrative interface for managing vendors, applications, client credentials, and authorization rules for accessing an Ed-Fi API.'
   version: 3.0.0
 paths:
   '/v3/tenants/{tenantName}/dataStores/edOrgs':
     get:
       tags:
         - Tenants
+      summary: Retrieves the data stores and their education organizations for a specific tenant
+      description: 'Returns the tenant along with each of its data stores and the education organizations within them. In multi-tenant mode the tenant header must be supplied and must match the tenantName in the route. In single-tenant mode only the default tenant name is accepted.'
       parameters:
         - name: tenantName
           in: path
@@ -29,6 +31,18 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '400':
+          description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '404':
+          description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
@@ -857,7 +871,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/response'
+                $ref: '#/components/schemas/jobStatusResult'
   /v3/dataStores:
     get:
       tags:
@@ -1299,10 +1313,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/problemDetails'
         '202':
-          description: Accepted
+          description: 'Accepted. The dataStore record has been created and provisioning has been queued; the database is not yet available. The response has no body. Poll the resource identified by the Location header and read its status property, which progresses PendingCreate, CreateInProgress, then Created or CreateFailed.'
           headers:
             Location:
-              description: URI of the resource that was created.
+              description: 'Absolute URL of the created dataStore, of the form {scheme}://{host}/v3/dataStores/manage/{id}.'
               schema:
                 type: string
                 format: uri
@@ -2942,18 +2956,20 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/problemDetails'
-        '201':
-          description: Created
+        '202':
+          description: 'Accepted. The refresh has been queued as a background job; it has not completed when this response is returned.'
           headers:
             Location:
-              description: URI of the queued job's status endpoint.
+              description: 'Relative path of the job created for this request, in the form /v3/jobs/{jobId}.'
               schema:
                 type: string
-                format: uri
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/jobQueuedResult'
+              example:
+                jobId: RefreshEducationOrganizations-default-3f2504e0-4f89-11d3-9a0c-0305e82c3301_9b1deb4d3b7d4bad9bdd2b0d7b3dcb6d
+                message: Education organizations refresh has been queued for all instances
   '/v3/dataStores/{dataStoreId}/edOrgs/refresh':
     post:
       tags:
@@ -2998,18 +3014,20 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/problemDetails'
-        '201':
-          description: Created
+        '202':
+          description: 'Accepted. The refresh has been queued as a background job; it has not completed when this response is returned.'
           headers:
             Location:
-              description: URI of the queued job's status endpoint.
+              description: 'Relative path of the job created for this request, in the form /v3/jobs/{jobId}.'
               schema:
                 type: string
-                format: uri
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/jobQueuedResult'
+              example:
+                jobId: RefreshEducationOrganizations-default-3f2504e0-4f89-11d3-9a0c-0305e82c3301_9b1deb4d3b7d4bad9bdd2b0d7b3dcb6d
+                message: Education organizations refresh has been queued for the specified instance
   /v3/claimSets/copy:
     post:
       tags:
@@ -4373,7 +4391,7 @@ components:
         specificationVersion:
           type: string
           description: Admin API specification version
-      additionalProperties: false
+      additionalProperties: true
     jobQueuedResult:
       type: object
       properties:
@@ -4566,7 +4584,7 @@ components:
           description: Children are collection of SimpleResourceClaimModel
           nullable: true
       additionalProperties: false
-    response:
+    jobStatusResult:
       type: object
       properties:
         jobId:

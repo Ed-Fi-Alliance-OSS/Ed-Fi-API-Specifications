@@ -8,6 +8,8 @@ paths:
     get:
       tags:
         - Tenants
+      summary: Retrieves the ODS instances and their education organizations for a specific tenant
+      description: 'Returns the tenant along with each of its ODS instances and the education organizations within them. In multi-tenant mode the tenant header must be supplied and must match the tenantName in the route. In single-tenant mode only the default tenant name is accepted.'
       parameters:
         - name: tenantName
           in: path
@@ -29,6 +31,18 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '400':
+          description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '404':
+          description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
@@ -1868,7 +1882,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/response'
+                $ref: '#/components/schemas/jobStatusResult'
   '/v2/claimSets/{id}/export':
     get:
       tags:
@@ -4494,7 +4508,7 @@ components:
           description: Children are collection of SimpleResourceClaimModel
           nullable: true
       additionalProperties: false
-    response:
+    jobStatusResult:
       type: object
       properties:
         jobId:
