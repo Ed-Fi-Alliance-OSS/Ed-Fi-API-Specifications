@@ -1300,6 +1300,12 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '202':
           description: Accepted
+          headers:
+            Location:
+              description: URI of the resource that was created.
+              schema:
+                type: string
+                format: uri
   '/v3/dataStores/manage/{id}':
     get:
       tags:
@@ -2904,8 +2910,7 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/problemDetails'
-      security:
-        - { }
+      security: []
   /v3/dataStores/edOrgs/refresh:
     post:
       tags:
@@ -3303,8 +3308,7 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '200':
           description: Application registered successfully.
-      security:
-        - { }
+      security: []
   /connect/token:
     post:
       tags:
@@ -3340,8 +3344,7 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '200':
           description: Sign-in successful.
-      security:
-        - { }
+      security: []
   '/v3/claimSets/{claimSetId}/resourceClaimActions/{resourceClaimId}':
     put:
       tags:
@@ -3897,7 +3900,7 @@ components:
         id:
           type: integer
           format: int32
-        claimSetName:
+        name:
           type: string
           nullable: true
         _isSystemReserved:
@@ -3922,7 +3925,7 @@ components:
         id:
           type: integer
           format: int32
-        claimSetName:
+        name:
           type: string
           nullable: true
         _isSystemReserved:
@@ -4020,10 +4023,7 @@ components:
         derivativeType:
           type: string
           nullable: true
-        connectionString:
-          type: string
-          nullable: true
-      additionalProperties: false
+      additionalProperties: true
     dataStoreDetailModel:
       title: DataStoreDetail
       type: object
