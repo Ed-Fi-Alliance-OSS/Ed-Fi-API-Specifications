@@ -7,11 +7,6 @@ relative to `management-api-2.3.0.yaml`.
 
 ## Document Wide Changes
 
-* `info.title` changed from "Ed-Fi Management API" to "Admin API
-  Documentation", and `info.description` now reads "The Ed-Fi Admin API is a
-  REST API-based administrative interface for managing vendors, applications,
-  client credentials, and authorization rules for accessing an Ed-Fi API."
-* `info.version` changed from `v2.3.0` to `v2`.
 * The OAuth scope was renamed from `api` ("Full access to the Management
   API") to `edfi_admin_api/full_access` ("Full access to the Admin API").
 * Error responses are now consistently documented: `400`/`401`/`403`/`404`/
