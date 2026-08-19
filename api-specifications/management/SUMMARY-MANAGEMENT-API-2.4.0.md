@@ -25,8 +25,6 @@ relative to `management-api-2.3.0.yaml`.
 
 * `GET '/v2/tenants/{tenantName}/odsInstances/edOrgs'` — replaces the two
   removed tenant paths (below); returns a `tenantDetailsResponse`.
-* `GET '/v2/odsInstances/{instanceId}/edOrgs'` — returns an array of
-  `odsInstanceWithEducationOrganizationsModel`.
 * `GET /v2/odsInstances/manage` and `POST /v2/odsInstances/manage` — new
   ODS instance management surface using `odsInstanceManageModel` and
   `addOdsInstanceManageRequest`; POST returns `202 Accepted`.

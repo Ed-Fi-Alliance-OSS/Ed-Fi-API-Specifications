@@ -829,82 +829,6 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '200':
           description: Resource was successfully deleted.
-  '/v2/odsInstances/{instanceId}/edOrgs':
-    get:
-      tags:
-        - OdsInstances
-      summary: Retrieves education organizations for a specific ODS instance
-      description: Returns all education organizations for the specified ODS instance in a nested structure
-      parameters:
-        - name: offset
-          in: query
-          description: Indicates how many items should be skipped before returning results.
-          schema:
-            type: integer
-            format: int32
-            default: '0'
-        - name: limit
-          in: query
-          description: Indicates the maximum number of items that should be returned in the results.
-          schema:
-            type: integer
-            format: int32
-            default: '25'
-        - name: orderBy
-          in: query
-          description: Indicates the property name by which the results will be sorted.
-          schema:
-            type: string
-            default: ''
-        - name: direction
-          in: query
-          description: Indicates whether the result should be sorted in descending order (DESC) or ascending order (ASC).
-          schema:
-            title: Indicates whether the result should be sorted in descending order (DESC) or ascending order (ASC).
-            enum:
-              - Ascending
-              - Descending
-            type: string
-            default: Descending
-        - name: instanceId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '401':
-          description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
-        '403':
-          description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
-        '500':
-          description: Internal server error. An unhandled error occurred on the server. See the response body for details.
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
-        '404':
-          description: Not found. A resource with given identifier could not be found.
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/odsInstanceWithEducationOrganizationsModel'
   /v2/odsInstances:
     get:
       tags:
@@ -4322,46 +4246,6 @@ components:
           nullable: true
         instanceType:
           type: string
-          nullable: true
-      additionalProperties: false
-    odsInstanceWithEducationOrganizationsModel:
-      title: OdsInstanceWithEducationOrganizations
-      type: object
-      properties:
-        id:
-          type: integer
-          description: ODS instance identifier
-          format: int32
-          nullable: true
-        odsInstanceManageId:
-          type: integer
-          description: OdsInstanceManage identifier for this ODS instance
-          format: int32
-          nullable: true
-        name:
-          type: string
-          description: ODS instance name
-        instanceType:
-          type: string
-          description: Type of ODS instance
-          nullable: true
-        status:
-          type: string
-          description: Current provisioning status of the ODS instance
-          nullable: true
-        databaseTemplate:
-          type: string
-          description: Database template used for this ODS instance
-          nullable: true
-        databaseName:
-          type: string
-          description: Database name for this ODS instance
-          nullable: true
-        educationOrganizations:
-          type: array
-          items:
-            $ref: '#/components/schemas/educationOrganizationModel'
-          description: List of education organizations in this instance
           nullable: true
       additionalProperties: false
     overrideAuthStategyOnClaimSetRequest:

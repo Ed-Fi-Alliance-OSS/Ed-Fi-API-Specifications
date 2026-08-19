@@ -67,11 +67,10 @@ Changes** below; implementers should review that section first.
 
 * New paths: `'/v3/jobs/{jobId}'`, `/v3/dataStores/manage` (GET/POST),
   `'/v3/dataStores/manage/{id}'` (GET/DELETE),
-  `'/v3/dataStores/{dataStoreId}/edOrgs'`, `/v3/dataStores/edOrgs/refresh`,
+  `/v3/dataStores/edOrgs/refresh`,
   `'/v3/dataStores/{dataStoreId}/edOrgs/refresh'`.
 * New schema components: `dataStoreManageModel`, `addDataStoreManageRequest`,
-  `dataStoreWithEducationOrganizationsModel`, `tenancyResult`,
-  `tenantDataStoreModel`, `tenantDetailsResponse`,
+  `tenancyResult`, `tenantDataStoreModel`, `tenantDetailsResponse`,
   `educationOrganizationModel`, `jobQueuedResult`, `jobStatusResult`,
   `problemDetails`.
 * `informationResult` gained new properties `tenancy` (`$ref: tenancyResult`)
