@@ -1,0 +1,730 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "Ed-Fi Operational Data Store API",
+    "description": "x",
+    "version": "3"
+  },
+  "servers": [
+    {
+      "url": "https://api.ed-fi.org:443/v7.3.2/api/data/v3"
+    }
+  ],
+  "paths": {
+    "/ed-fi/snap1": {
+      "parameters": [
+        {
+          "name": "Use-Snapshot",
+          "in": "header",
+          "description": "Indicates if the configured Snapshot should be used.",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/snap2": {
+      "parameters": [
+        {
+          "name": "Use-Snapshot",
+          "in": "header",
+          "description": "Indicates if the configured Snapshot should be used.",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/snap3": {
+      "parameters": [
+        {
+          "name": "Use-Snapshot",
+          "in": "header",
+          "description": "Indicates if the configured Snapshot should be used.",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/snap4": {
+      "parameters": [
+        {
+          "name": "Use-Snapshot",
+          "in": "header",
+          "description": "Indicates if the configured Snapshot should be used.",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/items1/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "A resource identifier that uniquely identifies the resource.",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/items2/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "A resource identifier that uniquely identifies the resource.",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/items3/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "A resource identifier that uniquely identifies the resource.",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/itemsById1": {
+      "get": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/itemsById2": {
+      "get": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/itemsById3": {
+      "get": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/matched1": {
+      "put": {
+        "parameters": [
+          {
+            "name": "If-Match",
+            "in": "header",
+            "description": "The ETag header value used to prevent the PUT from updating a resource modified by another consumer.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "name": "If-Match",
+            "in": "header",
+            "description": "The ETag header value used to prevent the DELETE from removing a resource modified by another consumer.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/matched2": {
+      "put": {
+        "parameters": [
+          {
+            "name": "If-Match",
+            "in": "header",
+            "description": "The ETag header value used to prevent the PUT from updating a resource modified by another consumer.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "name": "If-Match",
+            "in": "header",
+            "description": "The ETag header value used to prevent the DELETE from removing a resource modified by another consumer.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/matched3": {
+      "put": {
+        "parameters": [
+          {
+            "name": "If-Match",
+            "in": "header",
+            "description": "The ETag header value used to prevent the PUT from updating a resource modified by another consumer.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "name": "If-Match",
+            "in": "header",
+            "description": "The ETag header value used to prevent the DELETE from removing a resource modified by another consumer.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/resourceA1": {
+      "get": {
+        "parameters": [
+          {
+            "name": "educationOrganizationId",
+            "in": "query",
+            "description": "The identifier assigned to an education organization.",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/resourceA2": {
+      "get": {
+        "parameters": [
+          {
+            "name": "educationOrganizationId",
+            "in": "query",
+            "description": "The identifier assigned to an education organization.",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/resourceA3": {
+      "get": {
+        "parameters": [
+          {
+            "name": "educationOrganizationId",
+            "in": "query",
+            "description": "The identifier assigned to an education organization.",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/resourceB1": {
+      "get": {
+        "parameters": [
+          {
+            "name": "educationOrganizationId",
+            "in": "query",
+            "description": "The identifier assigned to an education organization.",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "x-Ed-Fi-isIdentity": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/resourceB2": {
+      "get": {
+        "parameters": [
+          {
+            "name": "educationOrganizationId",
+            "in": "query",
+            "description": "The identifier assigned to an education organization.",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "x-Ed-Fi-isIdentity": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/resourceB3": {
+      "get": {
+        "parameters": [
+          {
+            "name": "educationOrganizationId",
+            "in": "query",
+            "description": "The identifier assigned to an education organization.",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "x-Ed-Fi-isIdentity": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/resourceC1": {
+      "get": {
+        "parameters": [
+          {
+            "name": "educationOrganizationId",
+            "in": "query",
+            "description": "The identifying number assigned to an education organization, different max length.",
+            "schema": {
+              "type": "string",
+              "maxLength": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/resourceC2": {
+      "get": {
+        "parameters": [
+          {
+            "name": "educationOrganizationId",
+            "in": "query",
+            "description": "The identifying number assigned to an education organization, different max length.",
+            "schema": {
+              "type": "string",
+              "maxLength": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/resourceC3": {
+      "get": {
+        "parameters": [
+          {
+            "name": "educationOrganizationId",
+            "in": "query",
+            "description": "The identifying number assigned to an education organization, different max length.",
+            "schema": {
+              "type": "string",
+              "maxLength": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/notclean1": {
+      "put": {
+        "parameters": [
+          {
+            "name": "Snapshot-Identifier",
+            "in": "header",
+            "description": "Shape A of the snapshot identifier header.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "name": "Snapshot-Identifier",
+            "in": "header",
+            "description": "Shape A of the snapshot identifier header.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/notclean2": {
+      "put": {
+        "parameters": [
+          {
+            "name": "Snapshot-Identifier",
+            "in": "header",
+            "description": "Shape A of the snapshot identifier header.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "name": "Snapshot-Identifier",
+            "in": "header",
+            "description": "Shape A of the snapshot identifier header.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/notclean3": {
+      "put": {
+        "parameters": [
+          {
+            "name": "Snapshot-Identifier",
+            "in": "header",
+            "description": "Shape A of the snapshot identifier header.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "name": "Snapshot-Identifier",
+            "in": "header",
+            "description": "Shape A of the snapshot identifier header.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/notcleanB1": {
+      "put": {
+        "parameters": [
+          {
+            "name": "Snapshot-Identifier",
+            "in": "header",
+            "description": "Shape B of the snapshot identifier header.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/notcleanB2": {
+      "put": {
+        "parameters": [
+          {
+            "name": "Snapshot-Identifier",
+            "in": "header",
+            "description": "Shape B of the snapshot identifier header.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/ed-fi/notcleanB3": {
+      "put": {
+        "parameters": [
+          {
+            "name": "Snapshot-Identifier",
+            "in": "header",
+            "description": "Shape B of the snapshot identifier header.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {}
+}

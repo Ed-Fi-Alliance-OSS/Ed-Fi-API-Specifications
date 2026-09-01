@@ -1,0 +1,22 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "Ed-Fi Operational Data Store API",
+    "description": "generic app description",
+    "version": "3"
+  },
+  "servers": [{ "url": "https://api.ed-fi.org:443/v7.3.2/api/data/v3" }],
+  "paths": {
+    "/ed-fi/academicWeeks": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "The requested resource was successfully retrieved.",
+            "content": { "application/json": { "schema": { "type": "array" } } }
+          }
+        }
+      }
+    }
+  },
+  "components": {}
+}
