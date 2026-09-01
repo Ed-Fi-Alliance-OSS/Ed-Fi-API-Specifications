@@ -3,8 +3,13 @@
   "version": "1.0.0",
   "description": "Collection of OpenAPI documents from the Ed-Fi Alliance",
   "main": "index.js",
+  "bin": {
+    "openapi-build": "./src/cli.js"
+  },
   "scripts": {
-    "testgen": "npx @apideck/portman -o output.postman.json -l"
+    "testgen": "npx @apideck/portman -o output.postman.json -l",
+    "build": "node ./src/cli.js",
+    "test": "node --test test/"
   },
   "repository": {
     "type": "git",
@@ -17,6 +22,11 @@
   },
   "homepage": "https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-API-Standards#readme",
   "dependencies": {
-    "@apideck/portman": "^1.35.0"
+    "@apideck/portman": "^1.35.0",
+    "commander": "^12.0.0",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@apidevtools/swagger-parser": "^10.1.0"
   }
 }
