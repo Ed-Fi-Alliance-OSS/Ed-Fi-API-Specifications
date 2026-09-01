@@ -1,7 +1,9 @@
 # Converting Swagger 2 to Open API 3
 
-To convert Swagger 2 JSON files from the ODS/API to OpenAPI Specification v3
-format:
+- Input: downloaded Swagger.json file from ODS/API
+- Output: An OpenAPI version 3 file in YML format, representing the official "API Specification for Data Standard vX.Y.Z". The file goes into the `api-specifications/{resources or descriptors}` folder with name like `{resources or descriptor}-api-{version}.yaml`.
+
+## Manual Conversion
 
 1. Open the [online Swagger Editor](https://editor.swagger.io/).
 2. Click on `File > Import File` or `File > Import URL` to load the Swagger
@@ -79,3 +81,12 @@ These modifications shrank the resources-ds-3.3.yml file down by roughly 33%.
 > [!WARNING]
 > Don't forget to check the modified file for correctness, for example
 > using the [online swagger editor](https://editor.swagger.io/).
+
+## Standardization
+
+- The downloaded swagger.json contains `"version": "3"` hard-coded. That version number had meaning but it misleading. When creating the official API Specification file, insert the _Data Standard version_ into the `$.info.version` field.
+- The `$.info.title` needs to match the specification name, not the application. For example, `Ed-Fi Resource API` or `Ed-Fi Descriptor API`. For convenience, we also put the Data Standard version into that title, even though this is redundant, for example final value is `Ed-Fi Descriptors API (6.0)` for Data Standard 6.0.
+- Replace the `$.info.description` with:
+  - For Resources API: "The Ed-Fi Resources API enables applications to read and write education data stored in an Ed-Fi-compatible application through a secure REST interface."
+  - For Descriptor API: "The Ed-Fi Descriptors API supports reading and modifying descriptors (enumeration sets) in an Ed-Fi API application".
+
