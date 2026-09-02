@@ -41,6 +41,7 @@ function summarizeOrList(items, verbose, formatItem, noun) {
  * @param {string} ctx.version
  * @param {number} ctx.inputSizeBytes
  * @param {object|undefined} ctx.removedServers the servers array that was removed, if any
+ * @param {object} ctx.changeQueriesReport result of changeQueries.js#stripChangeQueries
  * @param {object} ctx.optimizeReport result of optimizer/index.js#optimize
  * @param {number} ctx.yamlSizeBytes size in bytes of the final emitted YAML
  * @param {boolean} [ctx.verbose]
@@ -72,6 +73,17 @@ function buildReport(ctx) {
   } else {
     out.push(line(1, 'servers: (not present in input)'));
   }
+  out.push('');
+
+  out.push('Change Queries surface stripped');
+  out.push('-'.repeat(70));
+  const cq = ctx.changeQueriesReport;
+  out.push(line(1, `paths removed (/deletes, /keyChanges): ${cq.pathsRemoved.length}`));
+  out.push(
+    ...summarizeOrList(cq.pathsRemoved, verbose, (p) => p, 'removed paths')
+  );
+  out.push(line(1, `parameters removed (MinChangeVersion/MaxChangeVersion/Use-Snapshot): ${cq.parametersRemoved}`));
+  out.push(line(1, `responses repointed (NotFoundUseSnapshot -> NotFound): ${cq.responsesReplaced}`));
   out.push('');
 
   const { responses, parameters, sizeBytes } = ctx.optimizeReport;
