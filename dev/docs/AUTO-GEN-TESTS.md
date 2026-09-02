@@ -16,9 +16,8 @@ To run:
 1. Must have NodeJs (tested with version 18).
 2. Open a  terminal / command prompt
 3. Go to the [api-specifications](../api-specifications/) directory.
-4. First time usage, run `npm install`.
-5. Now, call `npm run testgen -- <path to spec file>`.
-6. This will generate an output file called `output.postman.json` in the same
+4. Call `npx @apideck/portman -o <spec name>.postman.json -l <path to spec file>`.
+5. This will generate an output file called `output.postman.json` in the same
    directory. Move that file into the same directory as the OpenAPI spec file
    and rename to match the OpenAPI spec, but using extension `.postman.json`
    instead of `.yml`.
@@ -27,9 +26,7 @@ Example session:
 
 ```shell
 cd api-specifications
-npm install
-npm run testgen -- ./discovery-api/discovery-api-spec.yml
-mv output.postman.json ./discovery-api/discovery-api-spec.postman.json
+npx @apideck/portman -o ./discovery-api/discovery-api-spec.postman.json -l ./discovery-api/discovery-api-spec.yml
 ```
 
 The generated file will need further modifications, see [Import, Cleaning, and Export with
