@@ -56,21 +56,7 @@ function baseNameForStatus(statusCode) {
   return STATUS_NAME_MAP[Number(statusCode)] || `Status${statusCode}`;
 }
 
-function deriveName(baseName, shapeObj, existingNames) {
-  if (!existingNames.has(baseName)) {
-    return { name: baseName, usedFallback: false, usedQualifier: false };
-  }
-
-  const description = typeof shapeObj.description === 'string' ? shapeObj.description : '';
-  for (const { pattern, suffix } of DESCRIPTION_QUALIFIERS) {
-    if (pattern.test(description)) {
-      const candidate = `${baseName}${suffix}`;
-      if (!existingNames.has(candidate)) {
-        return { name: candidate, usedFallback: false, usedQualifier: true };
-      }
-    }
-  }
-
+function numericFallback(baseName, existingNames) {
   let i = 2;
   let candidate = `${baseName}${i}`;
   while (existingNames.has(candidate)) {
@@ -78,6 +64,32 @@ function deriveName(baseName, shapeObj, existingNames) {
     candidate = `${baseName}${i}`;
   }
   return { name: candidate, usedFallback: true, usedQualifier: false };
+}
+
+// Checks for a matching semantic qualifier *before* claiming the plain
+// baseName. Otherwise, naming depends on discovery order: whichever shape
+// (generic or snapshot-specific) is encountered first claims the plain
+// name, and the other falls back to a numeric suffix -- e.g. reversing the
+// order of two 404 shapes in the document would swap `NotFound` and
+// `NotFound2`. Checking the qualifier first keeps a shape's derived name
+// stable regardless of where it appears in the document.
+function deriveName(baseName, shapeObj, existingNames) {
+  const description = typeof shapeObj.description === 'string' ? shapeObj.description : '';
+  const qualifier = DESCRIPTION_QUALIFIERS.find(({ pattern }) => pattern.test(description));
+
+  if (qualifier) {
+    const candidate = `${baseName}${qualifier.suffix}`;
+    if (!existingNames.has(candidate)) {
+      return { name: candidate, usedFallback: false, usedQualifier: true };
+    }
+    return numericFallback(baseName, existingNames);
+  }
+
+  if (!existingNames.has(baseName)) {
+    return { name: baseName, usedFallback: false, usedQualifier: false };
+  }
+
+  return numericFallback(baseName, existingNames);
 }
 
 /**

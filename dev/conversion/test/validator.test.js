@@ -40,8 +40,15 @@ test('assertOpenApi3 rejects a document missing both openapi and swagger keys wi
 });
 
 test('assertOpenApi3 rejects a document missing a required top-level key', () => {
-  const doc = { openapi: '3.0.4', info: {}, paths: {} }; // missing components
+  const doc = { openapi: '3.0.4', info: {} }; // missing paths
   const err = captureError(() => assertOpenApi3(doc));
   expect(err).toBeInstanceOf(InputFormatError);
-  expect(err.message).toMatch(/components/);
+  expect(err.message).toMatch(/paths/);
+});
+
+test('assertOpenApi3 accepts a document with no top-level components key', () => {
+  // `components` is optional per the OpenAPI 3 spec; the optimizer hoisters
+  // initialize it when absent.
+  const doc = { openapi: '3.0.4', info: {}, paths: {} };
+  expect(() => assertOpenApi3(doc)).not.toThrow();
 });

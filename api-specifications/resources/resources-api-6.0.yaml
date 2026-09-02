@@ -143,7 +143,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -220,7 +220,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -251,7 +251,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -462,7 +462,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -539,7 +539,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -570,7 +570,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -831,7 +831,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -908,7 +908,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -939,7 +939,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -1259,7 +1259,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -1336,7 +1336,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -1367,7 +1367,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -1681,7 +1681,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -1758,7 +1758,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -1789,7 +1789,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -2097,7 +2097,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -2174,7 +2174,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -2205,7 +2205,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -2436,7 +2436,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -2513,7 +2513,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -2544,7 +2544,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -2692,7 +2692,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -2769,7 +2769,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -2800,7 +2800,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -2947,7 +2947,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -3024,7 +3024,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -3055,7 +3055,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -3236,7 +3236,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -3313,7 +3313,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -3344,7 +3344,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -3562,7 +3562,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -3639,7 +3639,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -3670,7 +3670,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -3859,7 +3859,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -3936,7 +3936,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -3967,7 +3967,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -4151,7 +4151,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -4228,7 +4228,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -4259,7 +4259,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -4451,7 +4451,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -4528,7 +4528,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -4559,7 +4559,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -4735,7 +4735,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -4812,7 +4812,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -4843,7 +4843,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -5111,7 +5111,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -5188,7 +5188,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -5219,7 +5219,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -5534,7 +5534,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -5612,7 +5612,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -5643,7 +5643,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -5864,7 +5864,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -5941,7 +5941,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -5972,7 +5972,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -6157,7 +6157,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -6235,7 +6235,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -6266,7 +6266,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -6517,7 +6517,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -6594,7 +6594,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -6625,7 +6625,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -6888,7 +6888,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -6965,7 +6965,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -6996,7 +6996,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -7243,7 +7243,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -7320,7 +7320,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -7351,7 +7351,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -7632,7 +7632,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -7709,7 +7709,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -7740,7 +7740,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -7969,7 +7969,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -8045,7 +8045,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -8077,7 +8077,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -8266,7 +8266,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -8343,7 +8343,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -8374,7 +8374,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -8550,7 +8550,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -8627,7 +8627,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -8658,7 +8658,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -8839,7 +8839,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -8916,7 +8916,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -8947,7 +8947,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -9190,7 +9190,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -9267,7 +9267,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -9298,7 +9298,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -9528,7 +9528,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -9605,7 +9605,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -9636,7 +9636,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -9840,7 +9840,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -9917,7 +9917,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -9948,7 +9948,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -10155,7 +10155,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -10232,7 +10232,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -10263,7 +10263,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -10587,7 +10587,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -10664,7 +10664,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -10695,7 +10695,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -11047,7 +11047,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -11124,7 +11124,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -11155,7 +11155,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -11546,7 +11546,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -11623,7 +11623,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -11654,7 +11654,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -12133,7 +12133,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -12210,7 +12210,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -12241,7 +12241,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -12550,7 +12550,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -12627,7 +12627,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -12658,7 +12658,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -12865,7 +12865,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -12942,7 +12942,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -12973,7 +12973,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -13177,7 +13177,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -13254,7 +13254,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -13285,7 +13285,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -13521,7 +13521,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -13598,7 +13598,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -13629,7 +13629,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -13916,7 +13916,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -13993,7 +13993,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -14024,7 +14024,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -14347,7 +14347,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -14424,7 +14424,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -14455,7 +14455,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -14722,7 +14722,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -14800,7 +14800,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -14831,7 +14831,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -15026,7 +15026,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -15104,7 +15104,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -15135,7 +15135,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -15314,7 +15314,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -15391,7 +15391,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -15422,7 +15422,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -15585,7 +15585,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -15663,7 +15663,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -15694,7 +15694,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -15857,7 +15857,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -15934,7 +15934,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -15965,7 +15965,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -16125,7 +16125,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -16202,7 +16202,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -16233,7 +16233,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -16409,7 +16409,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -16486,7 +16486,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -16517,7 +16517,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -16752,7 +16752,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -16829,7 +16829,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -16860,7 +16860,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -17156,7 +17156,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -17233,7 +17233,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -17264,7 +17264,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -17596,7 +17596,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -17673,7 +17673,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -17704,7 +17704,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -18035,7 +18035,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -18112,7 +18112,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -18143,7 +18143,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -18445,7 +18445,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -18522,7 +18522,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -18553,7 +18553,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -18892,7 +18892,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -18969,7 +18969,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -19000,7 +19000,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -19296,7 +19296,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -19373,7 +19373,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -19404,7 +19404,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -19623,7 +19623,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -19700,7 +19700,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -19731,7 +19731,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -19970,7 +19970,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -20047,7 +20047,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -20078,7 +20078,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -20326,7 +20326,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -20403,7 +20403,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -20434,7 +20434,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -20668,7 +20668,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -20745,7 +20745,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -20776,7 +20776,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -20971,7 +20971,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -21048,7 +21048,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -21079,7 +21079,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -21240,7 +21240,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -21317,7 +21317,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -21348,7 +21348,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -21636,7 +21636,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -21713,7 +21713,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -21744,7 +21744,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -22127,7 +22127,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -22203,7 +22203,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -22235,7 +22235,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -22577,7 +22577,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -22653,7 +22653,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -22685,7 +22685,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -22977,7 +22977,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -23054,7 +23054,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -23085,7 +23085,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -23323,7 +23323,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -23400,7 +23400,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -23431,7 +23431,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -23661,7 +23661,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -23738,7 +23738,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -23769,7 +23769,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -23994,7 +23994,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -24071,7 +24071,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -24102,7 +24102,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -24315,7 +24315,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -24392,7 +24392,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -24423,7 +24423,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -24694,7 +24694,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -24771,7 +24771,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -24802,7 +24802,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -25080,7 +25080,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -25158,7 +25158,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -25189,7 +25189,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -25399,7 +25399,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -25476,7 +25476,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -25507,7 +25507,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -25698,7 +25698,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -25775,7 +25775,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -25806,7 +25806,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -25991,7 +25991,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -26068,7 +26068,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -26099,7 +26099,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -26291,7 +26291,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -26368,7 +26368,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -26399,7 +26399,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -26610,7 +26610,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -26687,7 +26687,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -26718,7 +26718,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -26922,7 +26922,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -26999,7 +26999,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -27030,7 +27030,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -27222,7 +27222,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -27299,7 +27299,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -27330,7 +27330,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -27521,7 +27521,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -27597,7 +27597,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -27629,7 +27629,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -27801,7 +27801,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -27878,7 +27878,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -27909,7 +27909,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -28097,7 +28097,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -28174,7 +28174,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -28205,7 +28205,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -28520,7 +28520,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -28597,7 +28597,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -28628,7 +28628,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -28932,7 +28932,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -29009,7 +29009,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -29040,7 +29040,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -29219,7 +29219,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -29296,7 +29296,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -29327,7 +29327,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -29497,7 +29497,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -29574,7 +29574,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -29605,7 +29605,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -29773,7 +29773,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -29850,7 +29850,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -29881,7 +29881,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -30038,7 +30038,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -30115,7 +30115,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -30146,7 +30146,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -30312,7 +30312,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -30389,7 +30389,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -30420,7 +30420,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -30626,7 +30626,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -30703,7 +30703,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -30734,7 +30734,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -31027,7 +31027,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -31104,7 +31104,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -31135,7 +31135,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -31388,7 +31388,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -31465,7 +31465,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -31496,7 +31496,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -31663,7 +31663,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -31740,7 +31740,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -31771,7 +31771,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -31956,7 +31956,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -32033,7 +32033,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -32064,7 +32064,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -32265,7 +32265,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -32342,7 +32342,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -32373,7 +32373,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -32586,7 +32586,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -32664,7 +32664,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -32695,7 +32695,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -32885,7 +32885,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -32962,7 +32962,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -32993,7 +32993,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -33158,7 +33158,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -33235,7 +33235,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -33266,7 +33266,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -33449,7 +33449,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -33526,7 +33526,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -33557,7 +33557,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -33775,7 +33775,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -33852,7 +33852,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -33883,7 +33883,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -34114,7 +34114,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -34191,7 +34191,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -34222,7 +34222,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -34418,7 +34418,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -34495,7 +34495,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -34526,7 +34526,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -34745,7 +34745,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -34822,7 +34822,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -34853,7 +34853,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -35151,7 +35151,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -35228,7 +35228,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -35259,7 +35259,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -35512,7 +35512,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -35589,7 +35589,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -35620,7 +35620,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -35897,7 +35897,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -35974,7 +35974,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -36005,7 +36005,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -36303,7 +36303,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -36380,7 +36380,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -36411,7 +36411,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -36635,7 +36635,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -36712,7 +36712,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -36743,7 +36743,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -37001,7 +37001,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -37078,7 +37078,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -37109,7 +37109,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -37418,7 +37418,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -37495,7 +37495,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -37526,7 +37526,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -37765,7 +37765,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -37842,7 +37842,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -37873,7 +37873,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -38155,7 +38155,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -38231,7 +38231,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -38263,7 +38263,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -38589,7 +38589,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -38666,7 +38666,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -38697,7 +38697,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -38938,7 +38938,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -39014,7 +39014,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -39046,7 +39046,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -39245,7 +39245,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -39322,7 +39322,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -39353,7 +39353,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -39575,7 +39575,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -39652,7 +39652,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -39683,7 +39683,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -39918,7 +39918,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -39995,7 +39995,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -40026,7 +40026,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -40230,7 +40230,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -40307,7 +40307,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -40338,7 +40338,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -40550,7 +40550,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -40627,7 +40627,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -40658,7 +40658,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -40834,7 +40834,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -40911,7 +40911,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -40942,7 +40942,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -41106,7 +41106,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -41183,7 +41183,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -41214,7 +41214,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -41474,7 +41474,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -41552,7 +41552,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -41583,7 +41583,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -41944,7 +41944,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -42022,7 +42022,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -42053,7 +42053,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -42360,7 +42360,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -42438,7 +42438,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -42469,7 +42469,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -42683,7 +42683,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -42760,7 +42760,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -42791,7 +42791,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -42998,7 +42998,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -43075,7 +43075,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -43106,7 +43106,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -43328,7 +43328,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -43405,7 +43405,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -43436,7 +43436,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -43646,7 +43646,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -43723,7 +43723,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -43754,7 +43754,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -44014,7 +44014,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -44091,7 +44091,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -44122,7 +44122,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -44362,7 +44362,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -44439,7 +44439,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -44470,7 +44470,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -44644,7 +44644,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -44721,7 +44721,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -44752,7 +44752,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -45040,7 +45040,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -45117,7 +45117,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -45148,7 +45148,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -45532,7 +45532,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -45609,7 +45609,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -45640,7 +45640,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -45931,7 +45931,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -46009,7 +46009,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -46040,7 +46040,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -46283,7 +46283,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -46360,7 +46360,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -46391,7 +46391,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -46624,7 +46624,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -46702,7 +46702,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -46733,7 +46733,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -46921,7 +46921,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -46998,7 +46998,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -47029,7 +47029,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -47240,7 +47240,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -47317,7 +47317,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -47348,7 +47348,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -47577,7 +47577,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -47654,7 +47654,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -47685,7 +47685,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -47953,7 +47953,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -48030,7 +48030,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -48061,7 +48061,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -48338,7 +48338,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -48415,7 +48415,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -48446,7 +48446,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -48650,7 +48650,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -48727,7 +48727,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -48758,7 +48758,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -48938,7 +48938,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -49016,7 +49016,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -49047,7 +49047,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -49242,7 +49242,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -49320,7 +49320,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -49351,7 +49351,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -49516,7 +49516,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -49594,7 +49594,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -49625,7 +49625,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -49839,7 +49839,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -49917,7 +49917,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -49948,7 +49948,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -50194,7 +50194,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -50272,7 +50272,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -50303,7 +50303,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -50547,7 +50547,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -50624,7 +50624,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -50655,7 +50655,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -50889,7 +50889,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -50966,7 +50966,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -50997,7 +50997,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -51237,7 +51237,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -51314,7 +51314,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -51345,7 +51345,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -51587,7 +51587,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -51664,7 +51664,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -51695,7 +51695,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -51897,7 +51897,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -51974,7 +51974,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -52005,7 +52005,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -52224,7 +52224,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -52301,7 +52301,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -52332,7 +52332,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -52586,7 +52586,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -52664,7 +52664,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -52695,7 +52695,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -53041,7 +53041,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -53119,7 +53119,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -53150,7 +53150,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -53500,7 +53500,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -53578,7 +53578,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -53609,7 +53609,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -53826,7 +53826,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -53903,7 +53903,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -53934,7 +53934,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -54098,7 +54098,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -54175,7 +54175,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -54206,7 +54206,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -54384,7 +54384,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -54461,7 +54461,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -54492,7 +54492,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -54703,7 +54703,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -54780,7 +54780,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -54811,7 +54811,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -55064,7 +55064,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -55141,7 +55141,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -55172,7 +55172,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -55434,7 +55434,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -55511,7 +55511,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -55542,7 +55542,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -55941,7 +55941,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -56017,7 +56017,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -56049,7 +56049,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -56451,7 +56451,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -56528,7 +56528,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -56559,7 +56559,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -56822,7 +56822,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -56900,7 +56900,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -56931,7 +56931,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -57219,7 +57219,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -57296,7 +57296,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -57327,7 +57327,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -57682,7 +57682,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -57758,7 +57758,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -57790,7 +57790,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -58135,7 +58135,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -58212,7 +58212,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -58243,7 +58243,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -58652,7 +58652,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -58730,7 +58730,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -58761,7 +58761,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -59256,7 +59256,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -59334,7 +59334,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -59365,7 +59365,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -59730,7 +59730,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -59807,7 +59807,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -59838,7 +59838,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -60067,7 +60067,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -60144,7 +60144,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -60175,7 +60175,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -60388,7 +60388,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -60465,7 +60465,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -60496,7 +60496,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -60692,7 +60692,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -60769,7 +60769,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -60800,7 +60800,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -60974,7 +60974,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -61051,7 +61051,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -61082,7 +61082,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -61261,7 +61261,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -61338,7 +61338,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -61369,7 +61369,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -61540,7 +61540,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -61617,7 +61617,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -61648,7 +61648,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -61865,7 +61865,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -61942,7 +61942,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -61973,7 +61973,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -62184,7 +62184,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -62262,7 +62262,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -62293,7 +62293,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -62455,7 +62455,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -62532,7 +62532,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -62563,7 +62563,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -62725,7 +62725,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -62802,7 +62802,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -62833,7 +62833,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -63039,7 +63039,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -63116,7 +63116,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -63147,7 +63147,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -63444,7 +63444,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -63521,7 +63521,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -63552,7 +63552,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -63828,7 +63828,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -63905,7 +63905,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -63936,7 +63936,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -64127,7 +64127,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -64204,7 +64204,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -64235,7 +64235,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -64402,7 +64402,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -64480,7 +64480,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -64511,7 +64511,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -64688,7 +64688,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -64766,7 +64766,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -64797,7 +64797,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -64974,7 +64974,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -65052,7 +65052,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -65083,7 +65083,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedUseSnapshot'
         '409':
           $ref: '#/components/responses/Conflict'
         '412':
@@ -90374,7 +90374,7 @@ components:
                 type: array
                 items:
                   type: string
-    MethodNotAllowed:
+    MethodNotAllowedUseSnapshot:
       description: >-
         Method Is Not Allowed. When the Use-Snapshot header is set to true, the
         method is not allowed.
