@@ -39,6 +39,15 @@ format.
 * [Swagger UI](https://petstore.swagger.io/) - note that you can paste a json or
   yml spec link from above in here to get a nicely formatted view of the API.
 * [OpenAPI Generator](https://openapi-generator.tech/)
+* [Linting with spectral](https://github.com/stoplightio/spectral)
+
+  ```shell
+  cd api-specifications
+  docker run --rm -it -v .:/tmp stoplight/spectral lint --ruleset "/tmp/spectral.yaml" "/tmp/resources/resources-api-6.1.yaml
+  ```
+
+> [!WARNING]
+> The existing files have some warnings and errors, therefore we are not yet building in automated scanning with spectral. Opportunity for future improvement.
 
 ## Using Postman
 
