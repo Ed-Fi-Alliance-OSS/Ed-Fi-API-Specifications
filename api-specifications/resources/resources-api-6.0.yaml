@@ -12788,7 +12788,7 @@ paths:
           description: >-
             The year, month and day on which the crisis affected the student.
             This date may not be the same as the date the crisis occurred if
-            evacuation orders are implemented in anticipation of a crisis. 
+            evacuation orders are implemented in anticipation of a crisis.
             Note: Date interpretation may vary. Ed-Fi recommends inclusive
             dates, but states may define dates as inclusive or exclusive. For
             calculations, align with local guidelines.
@@ -13036,7 +13036,7 @@ paths:
           description: >-
             The year, month and day on which the crisis affected the student.
             This date may not be the same as the date the crisis occurred if
-            evacuation orders are implemented in anticipation of a crisis. 
+            evacuation orders are implemented in anticipation of a crisis.
             Note: Date interpretation may vary. Ed-Fi recommends inclusive
             dates, but states may define dates as inclusive or exclusive. For
             calculations, align with local guidelines.
@@ -15497,7 +15497,7 @@ paths:
         - name: beginDate
           in: query
           description: >-
-            The date on which the education organization joined this network. 
+            The date on which the education organization joined this network.
             Note: Date interpretation may vary. Ed-Fi recommends inclusive
             dates, but states may define dates as inclusive or exclusive. For
             calculations, align with local guidelines.
@@ -15507,7 +15507,7 @@ paths:
         - name: endDate
           in: query
           description: >-
-            The date on which the education organization left this network. 
+            The date on which the education organization left this network.
             Note: Date interpretation may vary. Ed-Fi recommends inclusive
             dates, but states may define dates as inclusive or exclusive. For
             calculations, align with local guidelines.
@@ -15726,7 +15726,7 @@ paths:
         - name: beginDate
           in: query
           description: >-
-            The date on which the education organization joined this network. 
+            The date on which the education organization joined this network.
             Note: Date interpretation may vary. Ed-Fi recommends inclusive
             dates, but states may define dates as inclusive or exclusive. For
             calculations, align with local guidelines.
@@ -15736,7 +15736,7 @@ paths:
         - name: endDate
           in: query
           description: >-
-            The date on which the education organization left this network. 
+            The date on which the education organization left this network.
             Note: Date interpretation may vary. Ed-Fi recommends inclusive
             dates, but states may define dates as inclusive or exclusive. For
             calculations, align with local guidelines.
@@ -43844,7 +43844,7 @@ paths:
         - name: beginDate
           in: query
           description: >-
-            Month, day, and year of a teacher's assignment to the section. 
+            Month, day, and year of a teacher's assignment to the section.
             Note: Date interpretation may vary. Ed-Fi recommends inclusive
             dates, but states may define dates as inclusive or exclusive. For
             calculations, align with local guidelines.
@@ -44146,7 +44146,7 @@ paths:
         - name: beginDate
           in: query
           description: >-
-            Month, day, and year of a teacher's assignment to the section. 
+            Month, day, and year of a teacher's assignment to the section.
             Note: Date interpretation may vary. Ed-Fi recommends inclusive
             dates, but states may define dates as inclusive or exclusive. For
             calculations, align with local guidelines.
@@ -52102,8 +52102,8 @@ paths:
         - name: attendanceEventCategoryDescriptor
           in: query
           description: >-
-            A code describing the attendance event, for example:        
-            Present         Unexcused absence         Excused absence        
+            A code describing the attendance event, for example:
+            Present         Unexcused absence         Excused absence
             Tardy.
           schema:
             maxLength: 306
@@ -52356,8 +52356,8 @@ paths:
         - name: attendanceEventCategoryDescriptor
           in: query
           description: >-
-            A code describing the attendance event, for example:        
-            Present         Unexcused absence         Excused absence        
+            A code describing the attendance event, for example:
+            Present         Unexcused absence         Excused absence
             Tardy.
           schema:
             maxLength: 306
@@ -54926,8 +54926,8 @@ paths:
         - name: attendanceEventCategoryDescriptor
           in: query
           description: >-
-            A code describing the attendance event, for example:        
-            Present         Unexcused absence         Excused absence        
+            A code describing the attendance event, for example:
+            Present         Unexcused absence         Excused absence
             Tardy.
           schema:
             maxLength: 306
@@ -55196,8 +55196,8 @@ paths:
         - name: attendanceEventCategoryDescriptor
           in: query
           description: >-
-            A code describing the attendance event, for example:        
-            Present         Unexcused absence         Excused absence        
+            A code describing the attendance event, for example:
+            Present         Unexcused absence         Excused absence
             Tardy.
           schema:
             maxLength: 306
@@ -56311,8 +56311,8 @@ paths:
         - name: attendanceEventCategoryDescriptor
           in: query
           description: >-
-            A code describing the attendance event, for example:        
-            Present         Unexcused absence         Excused absence        
+            A code describing the attendance event, for example:
+            Present         Unexcused absence         Excused absence
             Tardy.
           schema:
             maxLength: 306
@@ -56583,8 +56583,8 @@ paths:
         - name: attendanceEventCategoryDescriptor
           in: query
           description: >-
-            A code describing the attendance event, for example:        
-            Present         Unexcused absence         Excused absence        
+            A code describing the attendance event, for example:
+            Present         Unexcused absence         Excused absence
             Tardy.
           schema:
             maxLength: 306
@@ -57979,8 +57979,8 @@ paths:
         - name: attendanceEventCategoryDescriptor
           in: query
           description: >-
-            A code describing the attendance event, for example:        
-            Present         Unexcused absence         Excused absence        
+            A code describing the attendance event, for example:
+            Present         Unexcused absence         Excused absence
             Tardy.
           schema:
             maxLength: 306
@@ -58267,8 +58267,8 @@ paths:
         - name: attendanceEventCategoryDescriptor
           in: query
           description: >-
-            A code describing the attendance event, for example:        
-            Present         Unexcused absence         Excused absence        
+            A code describing the attendance event, for example:
+            Present         Unexcused absence         Excused absence
             Tardy.
           schema:
             maxLength: 306
@@ -65764,7 +65764,7 @@ components:
         orderOfDisability:
           type: integer
           description: >-
-            The order by severity of individual's disabilities: 1- Primary, 2 - 
+            The order by severity of individual's disabilities: 1- Primary, 2 -
             Secondary, 3 - Tertiary, etc.
           format: int32
           x-nullable: true
@@ -68190,7 +68190,7 @@ components:
         orderOfDisability:
           type: integer
           description: >-
-            The order by severity of individual's disabilities: 1- Primary, 2 - 
+            The order by severity of individual's disabilities: 1- Primary, 2 -
             Secondary, 3 - Tertiary, etc.
           format: int32
           x-nullable: true
@@ -71593,7 +71593,7 @@ components:
           description: >-
             The year, month and day on which the crisis affected the student.
             This date may not be the same as the date the crisis occurred if
-            evacuation orders are implemented in anticipation of a crisis. 
+            evacuation orders are implemented in anticipation of a crisis.
             Note: Date interpretation may vary. Ed-Fi recommends inclusive
             dates, but states may define dates as inclusive or exclusive. For
             calculations, align with local guidelines.
@@ -72786,7 +72786,7 @@ components:
         beginDate:
           type: string
           description: >-
-            The date on which the education organization joined this network. 
+            The date on which the education organization joined this network.
             Note: Date interpretation may vary. Ed-Fi recommends inclusive
             dates, but states may define dates as inclusive or exclusive. For
             calculations, align with local guidelines.
@@ -72795,7 +72795,7 @@ components:
         endDate:
           type: string
           description: >-
-            The date on which the education organization left this network. 
+            The date on which the education organization left this network.
             Note: Date interpretation may vary. Ed-Fi recommends inclusive
             dates, but states may define dates as inclusive or exclusive. For
             calculations, align with local guidelines.
@@ -79961,7 +79961,7 @@ components:
         orderOfDisability:
           type: integer
           description: >-
-            The order by severity of individual's disabilities: 1- Primary, 2 - 
+            The order by severity of individual's disabilities: 1- Primary, 2 -
             Secondary, 3 - Tertiary, etc.
           format: int32
           x-nullable: true
@@ -82974,7 +82974,7 @@ components:
         beginDate:
           type: string
           description: >-
-            Month, day, and year of a teacher's assignment to the section. 
+            Month, day, and year of a teacher's assignment to the section.
             Note: Date interpretation may vary. Ed-Fi recommends inclusive
             dates, but states may define dates as inclusive or exclusive. For
             calculations, align with local guidelines.
@@ -85243,7 +85243,7 @@ components:
         orderOfDisability:
           type: integer
           description: >-
-            The order by severity of individual's disabilities: 1- Primary, 2 - 
+            The order by severity of individual's disabilities: 1- Primary, 2 -
             Secondary, 3 - Tertiary, etc.
           format: int32
           x-nullable: true
@@ -86802,8 +86802,8 @@ components:
           maxLength: 306
           type: string
           description: >-
-            A code describing the attendance event, for example:        
-            Present         Unexcused absence         Excused absence        
+            A code describing the attendance event, for example:
+            Present         Unexcused absence         Excused absence
             Tardy.
           x-Ed-Fi-isIdentity: true
         eventDate:
@@ -87772,8 +87772,8 @@ components:
           maxLength: 306
           type: string
           description: >-
-            A code describing the attendance event, for example:        
-            Present         Unexcused absence         Excused absence        
+            A code describing the attendance event, for example:
+            Present         Unexcused absence         Excused absence
             Tardy.
           x-Ed-Fi-isIdentity: true
         eventDate:
@@ -88232,8 +88232,8 @@ components:
           maxLength: 306
           type: string
           description: >-
-            A code describing the attendance event, for example:        
-            Present         Unexcused absence         Excused absence        
+            A code describing the attendance event, for example:
+            Present         Unexcused absence         Excused absence
             Tardy.
           x-Ed-Fi-isIdentity: true
         eventDate:
@@ -88711,8 +88711,8 @@ components:
           maxLength: 306
           type: string
           description: >-
-            A code describing the attendance event, for example:        
-            Present         Unexcused absence         Excused absence        
+            A code describing the attendance event, for example:
+            Present         Unexcused absence         Excused absence
             Tardy.
           x-Ed-Fi-isIdentity: true
         eventDate:
@@ -89037,7 +89037,7 @@ components:
         orderOfDisability:
           type: integer
           description: >-
-            The order by severity of individual's disabilities: 1- Primary, 2 - 
+            The order by severity of individual's disabilities: 1- Primary, 2 -
             Secondary, 3 - Tertiary, etc.
           format: int32
           x-nullable: true
@@ -96451,7 +96451,7 @@ components:
         beginDate:
           type: string
           description: >-
-            Month, day, and year of a teacher's assignment to the section. 
+            Month, day, and year of a teacher's assignment to the section.
             Note: Date interpretation may vary. Ed-Fi recommends inclusive
             dates, but states may define dates as inclusive or exclusive. For
             calculations, align with local guidelines.
@@ -97614,8 +97614,8 @@ components:
           maxLength: 306
           type: string
           description: >-
-            A code describing the attendance event, for example:        
-            Present         Unexcused absence         Excused absence        
+            A code describing the attendance event, for example:
+            Present         Unexcused absence         Excused absence
             Tardy.
           x-Ed-Fi-isIdentity: true
         eventDate:
@@ -98087,8 +98087,8 @@ components:
           maxLength: 306
           type: string
           description: >-
-            A code describing the attendance event, for example:        
-            Present         Unexcused absence         Excused absence        
+            A code describing the attendance event, for example:
+            Present         Unexcused absence         Excused absence
             Tardy.
           x-Ed-Fi-isIdentity: true
         eventDate:
@@ -98275,8 +98275,8 @@ components:
           maxLength: 306
           type: string
           description: >-
-            A code describing the attendance event, for example:        
-            Present         Unexcused absence         Excused absence        
+            A code describing the attendance event, for example:
+            Present         Unexcused absence         Excused absence
             Tardy.
           x-Ed-Fi-isIdentity: true
         eventDate:
@@ -98537,8 +98537,8 @@ components:
           maxLength: 306
           type: string
           description: >-
-            A code describing the attendance event, for example:        
-            Present         Unexcused absence         Excused absence        
+            A code describing the attendance event, for example:
+            Present         Unexcused absence         Excused absence
             Tardy.
           x-Ed-Fi-isIdentity: true
         eventDate:

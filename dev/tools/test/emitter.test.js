@@ -52,3 +52,29 @@ test('a $ref string renders single-quoted', () => {
   const output = toYaml(doc);
   expect(output).toMatch(/\$ref: '#\/components\/parameters\/offset'/);
 });
+
+test('toYaml strips trailing whitespace left behind when js-yaml folds a description containing a double space', () => {
+  // A double space inside a long description (a common data-quality artifact
+  // in the raw ODS/API exports) can land exactly on a fold boundary, leaving
+  // js-yaml's `>-` folded scalar with a trailing space on one wrapped line.
+  const description =
+    'The year, month and day on which the crisis affected the student. This date ' +
+    'may not be the same as the date the crisis occurred if evacuation orders are ' +
+    'implemented in anticipation of a crisis.  Note: Date interpretation may vary.';
+  const doc = {
+    paths: {
+      '/ed-fi/crisisEvents': {
+        get: {
+          parameters: [{ name: 'crisisStartDate', in: 'query', description, schema: { type: 'string' } }],
+        },
+      },
+    },
+  };
+
+  const output = toYaml(doc);
+
+  expect(output).toMatch(/anticipation of a crisis\.$/m);
+  for (const line of output.split('\n')) {
+    expect(line).toBe(line.replace(/[ \t]+$/, ''));
+  }
+});

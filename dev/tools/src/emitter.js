@@ -24,9 +24,16 @@ const DEFAULT_DUMP_OPTIONS = {
  * @param {object} [opts] additional/overriding js-yaml dump options
  * @returns {string}
  */
+function stripTrailingWhitespace(text) {
+  return text
+    .split('\n')
+    .map((line) => line.replace(/[ \t]+$/, ''))
+    .join('\n');
+}
+
 function toYaml(doc, opts = {}) {
   const body = yaml.dump(doc, { ...DEFAULT_DUMP_OPTIONS, ...opts });
-  return `${LICENSE_HEADER}\n${body}`;
+  return stripTrailingWhitespace(`${LICENSE_HEADER}\n${body}`);
 }
 
 module.exports = { toYaml, LICENSE_HEADER, DEFAULT_DUMP_OPTIONS };
