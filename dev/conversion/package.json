@@ -8,7 +8,9 @@
   },
   "scripts": {
     "convert": "node ./src/cli.js",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,8 @@
   },
   "devDependencies": {
     "@apidevtools/swagger-parser": "^12.1.0",
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.9.1",
     "jest": "^30.5.1"
   }
 }

@@ -195,9 +195,10 @@ async function runOptionalValidation(outputPath, stdout, stderr) {
   let SwaggerParser;
   try {
     // Optional devDependency -- best-effort only, never fails the build.
-    // eslint-disable-next-line global-require
+
     SwaggerParser = require('@apidevtools/swagger-parser');
   } catch (err) {
+    stderr(err);
     stdout('\n--validate requested but @apidevtools/swagger-parser is not installed; skipping.');
     return;
   }
