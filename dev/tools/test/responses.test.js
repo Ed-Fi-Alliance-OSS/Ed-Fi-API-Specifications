@@ -88,8 +88,10 @@ test('hoists two distinct shapes at the same status code under two distinct comp
 
 test('reuses an existing identically-shaped component instead of creating a duplicate', () => {
   const doc = loadFixture();
-  doc.components.responses.PreExisting = {
-    description: 'Method Is Not Allowed. When the Use-Snapshot header is set to true, the method is not allowed.',
+  doc.components.responses = {
+    PreExisting: {
+      description: 'Method Is Not Allowed. When the Use-Snapshot header is set to true, the method is not allowed.',
+    },
   };
 
   const report = hoistResponses(doc, { minHoistCount: 3 });
