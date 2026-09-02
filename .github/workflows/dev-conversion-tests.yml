@@ -1,0 +1,47 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+name: Dev Conversion Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+      - "patch-*"
+    paths:
+      - "dev/conversion/**"
+      - ".github/workflows/dev-conversion-tests.yml"
+  workflow_dispatch:
+
+permissions: read-all
+
+jobs:
+  test:
+    name: Run conversion tool tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: dev/conversion
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Dependency Review ("Dependabot on PR")
+        if: ${{ github.event_name == 'pull_request' && !github.event.repository.fork }}
+        uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: dev/conversion/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test

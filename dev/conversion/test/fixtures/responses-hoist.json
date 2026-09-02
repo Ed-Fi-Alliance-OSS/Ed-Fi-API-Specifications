@@ -1,0 +1,249 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "Ed-Fi Operational Data Store API",
+    "description": "x",
+    "version": "3"
+  },
+  "servers": [
+    {
+      "url": "https://api.ed-fi.org:443/v7.3.2/api/data/v3"
+    }
+  ],
+  "paths": {
+    "/ed-fi/thing1": {
+      "put": {
+        "tags": [
+          "thing"
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested resource was successfully retrieved.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method Is Not Allowed. When the Use-Snapshot header is set to true, the method is not allowed."
+          }
+        }
+      }
+    },
+    "/ed-fi/thing2": {
+      "put": {
+        "tags": [
+          "thing"
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested resource was successfully retrieved.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method Is Not Allowed. When the Use-Snapshot header is set to true, the method is not allowed."
+          }
+        }
+      }
+    },
+    "/ed-fi/thing3": {
+      "put": {
+        "tags": [
+          "thing"
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested resource was successfully retrieved.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method Is Not Allowed. When the Use-Snapshot header is set to true, the method is not allowed."
+          }
+        }
+      }
+    },
+    "/ed-fi/thing4": {
+      "put": {
+        "tags": [
+          "thing"
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested resource was successfully retrieved.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method Is Not Allowed. When the Use-Snapshot header is set to true, the method is not allowed."
+          }
+        }
+      }
+    },
+    "/ed-fi/gone1": {
+      "get": {
+        "tags": [
+          "thing"
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested resource was successfully retrieved.",
+            "content": {}
+          },
+          "410": {
+            "description": "Gone. An attempt to connect to the database for the snapshot specified by the Snapshot-Identifier header was unsuccessful."
+          }
+        }
+      }
+    },
+    "/ed-fi/gone2": {
+      "get": {
+        "tags": [
+          "thing"
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested resource was successfully retrieved.",
+            "content": {}
+          },
+          "410": {
+            "description": "Gone. An attempt to connect to the database for the snapshot specified by the Snapshot-Identifier header was unsuccessful."
+          }
+        }
+      }
+    },
+    "/ed-fi/generic1": {
+      "delete": {
+        "tags": [
+          "thing"
+        ],
+        "responses": {
+          "404": {
+            "description": "The resource could not be found."
+          }
+        }
+      }
+    },
+    "/ed-fi/generic2": {
+      "delete": {
+        "tags": [
+          "thing"
+        ],
+        "responses": {
+          "404": {
+            "description": "The resource could not be found."
+          }
+        }
+      }
+    },
+    "/ed-fi/generic3": {
+      "delete": {
+        "tags": [
+          "thing"
+        ],
+        "responses": {
+          "404": {
+            "description": "The resource could not be found."
+          }
+        }
+      }
+    },
+    "/ed-fi/snapshotted1": {
+      "delete": {
+        "tags": [
+          "thing"
+        ],
+        "responses": {
+          "404": {
+            "description": "The resource could not be found. If Use-Snapshot header is set to true, this response can indicate the snapshot may have been removed.",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/ed-fi/snapshotted2": {
+      "delete": {
+        "tags": [
+          "thing"
+        ],
+        "responses": {
+          "404": {
+            "description": "The resource could not be found. If Use-Snapshot header is set to true, this response can indicate the snapshot may have been removed.",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/ed-fi/snapshotted3": {
+      "delete": {
+        "tags": [
+          "thing"
+        ],
+        "responses": {
+          "404": {
+            "description": "The resource could not be found. If Use-Snapshot header is set to true, this response can indicate the snapshot may have been removed.",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/ed-fi/coincidence": {
+      "get": {
+        "tags": [
+          "thing"
+        ],
+        "responses": {
+          "200": {
+            "description": "Method Is Not Allowed. When the Use-Snapshot header is set to true, the method is not allowed."
+          }
+        }
+      }
+    }
+  },
+  "components": {}
+}

@@ -3,8 +3,17 @@
   "version": "1.0.0",
   "description": "Collection of OpenAPI documents from the Ed-Fi Alliance",
   "main": "index.js",
+  "bin": {
+    "openapi-build": "./src/cli.js"
+  },
+  "engines": {
+    "node": ">=24.9.0"
+  },
   "scripts": {
-    "testgen": "npx @apideck/portman -o output.postman.json -l"
+    "convert": "node ./src/cli.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -17,6 +26,13 @@
   },
   "homepage": "https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-API-Standards#readme",
   "dependencies": {
-    "@apideck/portman": "^1.35.0"
+    "commander": "^15.0.0",
+    "js-yaml": "^5.4.1"
+  },
+  "devDependencies": {
+    "@apidevtools/swagger-parser": "^12.1.0",
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.9.1",
+    "jest": "^30.5.1"
   }
 }
