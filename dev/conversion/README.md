@@ -3,7 +3,7 @@
 A CLI that converts a raw OpenAPI 3 export from the Ed-Fi ODS/API platform
 into the official published Ed-Fi API Specification YAML. It automates the
 manual process described in
-[`dev/docs/FROM-SWAGGER-TO-OPENAPI.md`](../docs/FROM-SWAGGER-TO-OPENAPI.md):
+[`dev/FROM-SWAGGER-TO-OPENAPI.md`](../FROM-SWAGGER-TO-OPENAPI.md):
 hoisting repeated response/parameter shapes into `components`, standardizing
 `info.title`/`info.description`/`info.version`, and dropping the dev-only
 `servers` key.

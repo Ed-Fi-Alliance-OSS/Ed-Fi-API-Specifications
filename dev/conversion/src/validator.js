@@ -25,7 +25,7 @@ function assertOpenApi3(doc) {
     throw new InputFormatError(
       `Input file declares Swagger 2.0 ("swagger": "${doc.swagger}"). This tool ` +
         'only converts OpenAPI 3.x documents. See the manual process in ' +
-        'dev/docs/FROM-SWAGGER-TO-OPENAPI.md for Swagger 2 inputs.'
+        'dev/FROM-SWAGGER-TO-OPENAPI.md for Swagger 2 inputs.'
     );
   }
 

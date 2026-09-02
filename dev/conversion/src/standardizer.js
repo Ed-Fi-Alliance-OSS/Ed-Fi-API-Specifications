@@ -27,7 +27,7 @@ function titleFor(kind, version) {
 }
 
 /**
- * Applies the "Standardization" step from dev/docs/FROM-SWAGGER-TO-OPENAPI.md:
+ * Applies the "Standardization" step from dev/FROM-SWAGGER-TO-OPENAPI.md:
  * sets info.title/info.description/info.version to the canonical published
  * values for `kind`/`version`, and strips the top-level `servers` key
  * entirely (it always points at one specific dev ODS/API instance and is
