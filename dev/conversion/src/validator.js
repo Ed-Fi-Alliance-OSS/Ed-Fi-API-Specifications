@@ -3,7 +3,10 @@
 const { InputFormatError } = require('./errors');
 
 const OPENAPI_3_VERSION_RE = /^3\.\d+\.\d+$/;
-const REQUIRED_TOP_LEVEL_KEYS = ['info', 'paths', 'components'];
+// `components` is intentionally excluded: it's optional per the OpenAPI 3
+// spec, and both optimizer hoisters (optimizer/parameters.js,
+// optimizer/responses.js) already initialize it when absent.
+const REQUIRED_TOP_LEVEL_KEYS = ['info', 'paths'];
 
 /**
  * Confirms that `doc` is an OpenAPI 3.x document with the top-level keys

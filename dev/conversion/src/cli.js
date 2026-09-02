@@ -122,7 +122,10 @@ async function run(argv, io = {}) {
     }
 
     const rawDoc = await loadDocument(inputFile);
-    const inputSizeBytes = Buffer.byteLength(JSON.stringify(rawDoc), 'utf8');
+    // The file's actual size on disk, not a minified reserialization of the
+    // parsed document -- a pretty-printed raw export would otherwise be
+    // reported as dramatically smaller than it really is.
+    const inputSizeBytes = fs.statSync(inputFile).size;
 
     // assertOpenApi3 throws InputFormatError -> exit code 2, caught below.
     assertOpenApi3(rawDoc);
@@ -131,11 +134,15 @@ async function run(argv, io = {}) {
 
     const { report: changeQueriesReport } = stripChangeQueries(rawDoc);
 
-    const { doc: optimizedDoc, report: optimizeReport } = optimize(rawDoc, {
+    // Standardize a clone first, then optimize that standardized document,
+    // so optimize()'s before/after sizes describe the "Standardized,
+    // unoptimized" -> "Optimized" stages the report actually labels them as.
+    const standardizedDoc = JSON.parse(JSON.stringify(rawDoc));
+    standardize(standardizedDoc, { kind: opts.kind, version: opts.dataStandardVersion });
+
+    const { doc: optimizedDoc, report: optimizeReport } = optimize(standardizedDoc, {
       minHoistCount: opts.minHoistCount,
     });
-
-    standardize(optimizedDoc, { kind: opts.kind, version: opts.dataStandardVersion });
 
     const yamlText = toYaml(optimizedDoc);
     const yamlSizeBytes = Buffer.byteLength(yamlText, 'utf8');

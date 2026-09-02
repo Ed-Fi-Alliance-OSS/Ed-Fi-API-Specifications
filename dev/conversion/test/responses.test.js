@@ -86,6 +86,38 @@ test('hoists two distinct shapes at the same status code under two distinct comp
   }
 });
 
+test('naming is stable regardless of discovery order: a snapshot-specific shape never claims the plain status name', () => {
+  const genericShape = { description: 'The resource could not be found.' };
+  const snapshotShape = {
+    description:
+      'The resource could not be found. If Use-Snapshot header is set to true, this response can indicate the snapshot may have been removed.',
+  };
+
+  function makeDoc(order) {
+    const paths = {};
+    for (let i = 1; i <= 3; i += 1) {
+      paths[`/ed-fi/${order[0]}${i}`] = {
+        delete: { responses: { 404: JSON.parse(JSON.stringify(order[0] === 'generic' ? genericShape : snapshotShape)) } },
+      };
+      paths[`/ed-fi/${order[1]}${i}`] = {
+        delete: { responses: { 404: JSON.parse(JSON.stringify(order[1] === 'generic' ? genericShape : snapshotShape)) } },
+      };
+    }
+    return { openapi: '3.0.4', info: {}, paths, components: {} };
+  }
+
+  const genericFirst = hoistResponses(makeDoc(['generic', 'snapshotted']), { minHoistCount: 3 });
+  const snapshotFirst = hoistResponses(makeDoc(['snapshotted', 'generic']), { minHoistCount: 3 });
+
+  for (const report of [genericFirst, snapshotFirst]) {
+    const fourOhFours = report.hoisted.filter((r) => r.statusCode === '404');
+    const generic = fourOhFours.find((r) => !/Snapshot/i.test(r.name));
+    const snapshot = fourOhFours.find((r) => /Snapshot/i.test(r.name));
+    expect(generic.name).toBe('NotFound');
+    expect(snapshot.name).toBe('NotFoundUseSnapshot');
+  }
+});
+
 test('reuses an existing identically-shaped component instead of creating a duplicate', () => {
   const doc = loadFixture();
   doc.components.responses = {
