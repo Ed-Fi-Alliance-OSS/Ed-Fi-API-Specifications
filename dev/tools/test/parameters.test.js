@@ -171,7 +171,7 @@ test('leaves a single-shape group inline when below minHoistCount and reports it
 test('reuses an existing identically-shaped parameter component instead of creating a duplicate', () => {
   const doc = loadFixture();
   const shape = doc.paths['/ed-fi/snap1'].parameters[0];
-  doc.components.parameters.PreExistingSnapshotFlag = JSON.parse(JSON.stringify(shape));
+  doc.components.parameters = { PreExistingSnapshotFlag: JSON.parse(JSON.stringify(shape)) };
 
   const report = hoistParameters(doc, { minHoistCount: 3 });
   const useSnapshot = report.hoisted.find((p) => p.in === 'header' && p.count === 4);

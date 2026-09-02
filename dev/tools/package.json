@@ -9,7 +9,7 @@
   "scripts": {
     "testgen": "npx @apideck/portman -o output.postman.json -l",
     "build": "node ./src/cli.js",
-    "test": "jest"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "repository": {
     "type": "git",
