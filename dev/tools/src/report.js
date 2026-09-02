@@ -84,6 +84,7 @@ function buildReport(ctx) {
   );
   out.push(line(1, `parameters removed (MinChangeVersion/MaxChangeVersion/Use-Snapshot): ${cq.parametersRemoved}`));
   out.push(line(1, `responses repointed (NotFoundUseSnapshot -> NotFound): ${cq.responsesReplaced}`));
+  out.push(line(1, `schemas removed (trackedChanges_*): ${cq.schemasRemoved.length}`));
   out.push('');
 
   const { responses, parameters, sizeBytes } = ctx.optimizeReport;

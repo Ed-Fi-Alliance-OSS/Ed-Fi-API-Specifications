@@ -44,6 +44,16 @@ function baseDoc() {
     components: {
       parameters: { MinChangeVersion: {}, MaxChangeVersion: {} },
       responses: { NotFound: { description: 'not found' }, NotFoundUseSnapshot: { description: 'snapshot' } },
+      schemas: {
+        edFi_academicWeek: { type: 'object', properties: { weekIdentifier: { type: 'string' } } },
+        trackedChanges_edFi_academicWeekKey: { type: 'object', properties: { id: { type: 'string' } } },
+        trackedChanges_edFi_academicWeekDelete: {
+          allOf: [{ $ref: '#/components/schemas/trackedChanges_edFi_academicWeekKey' }],
+        },
+        trackedChanges_edFi_academicWeekKeyChange: {
+          allOf: [{ $ref: '#/components/schemas/trackedChanges_edFi_academicWeekKey' }],
+        },
+      },
     },
   };
 }
@@ -85,6 +95,16 @@ test('leaves unrelated component definitions untouched', () => {
   expect(doc.components.parameters.MinChangeVersion).toBeTruthy();
   expect(doc.components.parameters.MaxChangeVersion).toBeTruthy();
   expect(doc.components.responses.NotFoundUseSnapshot).toBeTruthy();
+  expect(doc.components.schemas.edFi_academicWeek).toBeTruthy();
+});
+
+test('removes all trackedChanges_* schemas', () => {
+  const { doc } = stripChangeQueries(baseDoc());
+
+  expect(doc.components.schemas.trackedChanges_edFi_academicWeekKey).toBeUndefined();
+  expect(doc.components.schemas.trackedChanges_edFi_academicWeekDelete).toBeUndefined();
+  expect(doc.components.schemas.trackedChanges_edFi_academicWeekKeyChange).toBeUndefined();
+  expect(Object.keys(doc.components.schemas)).toStrictEqual(['edFi_academicWeek']);
 });
 
 test('reports what was removed/replaced', () => {
@@ -96,6 +116,11 @@ test('reports what was removed/replaced', () => {
   ]);
   expect(report.parametersRemoved).toBe(4);
   expect(report.responsesReplaced).toBe(2);
+  expect(report.schemasRemoved.sort()).toStrictEqual([
+    'trackedChanges_edFi_academicWeekDelete',
+    'trackedChanges_edFi_academicWeekKey',
+    'trackedChanges_edFi_academicWeekKeyChange',
+  ]);
 });
 
 test('is a no-op on a doc with no Change Queries surface', () => {
@@ -105,7 +130,7 @@ test('is a no-op on a doc with no Change Queries surface', () => {
     paths: {
       '/ed-fi/schools': { get: { parameters: [{ $ref: '#/components/parameters/offset' }], responses: { 200: {} } } },
     },
-    components: {},
+    components: { schemas: { edFi_school: { type: 'object' } } },
   };
 
   const { doc: result, report } = stripChangeQueries(doc);
@@ -113,5 +138,11 @@ test('is a no-op on a doc with no Change Queries surface', () => {
   expect(result.paths['/ed-fi/schools'].get.parameters).toStrictEqual([
     { $ref: '#/components/parameters/offset' },
   ]);
-  expect(report).toStrictEqual({ pathsRemoved: [], parametersRemoved: 0, responsesReplaced: 0 });
+  expect(result.components.schemas.edFi_school).toBeTruthy();
+  expect(report).toStrictEqual({
+    pathsRemoved: [],
+    schemasRemoved: [],
+    parametersRemoved: 0,
+    responsesReplaced: 0,
+  });
 });

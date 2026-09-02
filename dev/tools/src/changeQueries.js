@@ -39,18 +39,36 @@ function replaceNotFoundUseSnapshot(responses) {
   return count;
 }
 
+// Every trackedChanges_* schema exists only to shape the responses of the
+// /deletes and /keyChanges endpoints removed above, and only ever references
+// other trackedChanges_* schemas -- never a schema outside that family. Once
+// the paths are gone, the whole family is orphaned and safe to drop as a
+// group.
+function stripTrackedChangesSchemas(doc) {
+  const schemas = (doc.components && doc.components.schemas) || {};
+  const schemasRemoved = [];
+  for (const name of Object.keys(schemas)) {
+    if (name.startsWith('trackedChanges_')) {
+      delete schemas[name];
+      schemasRemoved.push(name);
+    }
+  }
+  return schemasRemoved;
+}
+
 /**
  * Strips the "Change Queries" surface from `doc`: the `/deletes` and
- * `/keyChanges` tracked-change path items, the MinChangeVersion /
- * MaxChangeVersion / Use-Snapshot parameters that support them, and the
- * NotFoundUseSnapshot response (replaced with the plain NotFound response).
- * This matches the historical, hand-edited published specs, which never
- * included this surface.
+ * `/keyChanges` tracked-change path items, the schemas that shape their
+ * responses, the MinChangeVersion / MaxChangeVersion / Use-Snapshot
+ * parameters that support them, and the NotFoundUseSnapshot response
+ * (replaced with the plain NotFound response). This matches the
+ * historical, hand-edited published specs, which never included this
+ * surface.
  *
  * Mutates `doc` in place and also returns it, alongside a report.
  *
  * @param {object} doc
- * @returns {{ doc: object, report: { pathsRemoved: string[], parametersRemoved: number, responsesReplaced: number } }}
+ * @returns {{ doc: object, report: { pathsRemoved: string[], schemasRemoved: string[], parametersRemoved: number, responsesReplaced: number } }}
  */
 function stripChangeQueries(doc) {
   const paths = doc.paths || {};
@@ -78,7 +96,9 @@ function stripChangeQueries(doc) {
     }
   }
 
-  return { doc, report: { pathsRemoved, parametersRemoved, responsesReplaced } };
+  const schemasRemoved = stripTrackedChangesSchemas(doc);
+
+  return { doc, report: { pathsRemoved, schemasRemoved, parametersRemoved, responsesReplaced } };
 }
 
 module.exports = { stripChangeQueries };
