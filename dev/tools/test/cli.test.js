@@ -1,7 +1,5 @@
 'use strict';
 
-const test = require('node:test');
-const assert = require('node:assert/strict');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
@@ -43,8 +41,8 @@ test('--dry-run does not write any file', async () => {
     ],
     io
   );
-  assert.equal(code, 0);
-  assert.equal(fs.existsSync(outPath), false);
+  expect(code).toBe(0);
+  expect(fs.existsSync(outPath)).toBe(false);
 });
 
 test('refuses to overwrite an existing output file without --force', async () => {
@@ -64,9 +62,9 @@ test('refuses to overwrite an existing output file without --force', async () =>
     ],
     io
   );
-  assert.equal(code, 1);
-  assert.ok(stderr.some((s) => /already exists/.test(s)));
-  assert.equal(fs.readFileSync(outPath, 'utf8'), 'placeholder');
+  expect(code).toBe(1);
+  expect(stderr.some((s) => /already exists/.test(s))).toBe(true);
+  expect(fs.readFileSync(outPath, 'utf8')).toBe('placeholder');
 });
 
 test('overwrites an existing output file with --force', async () => {
@@ -87,10 +85,10 @@ test('overwrites an existing output file with --force', async () => {
     ],
     io
   );
-  assert.equal(code, 0);
+  expect(code).toBe(0);
   const written = fs.readFileSync(outPath, 'utf8');
-  assert.match(written, /SPDX-License-Identifier/);
-  assert.doesNotMatch(written, /placeholder/);
+  expect(written).toMatch(/SPDX-License-Identifier/);
+  expect(written).not.toMatch(/placeholder/);
 });
 
 test('a Swagger 2.0 input produces exit code 2', async () => {
@@ -108,9 +106,9 @@ test('a Swagger 2.0 input produces exit code 2', async () => {
     ],
     io
   );
-  assert.equal(code, 2);
-  assert.ok(stderr.some((s) => /Swagger 2\.0/.test(s)));
-  assert.equal(fs.existsSync(outPath), false);
+  expect(code).toBe(2);
+  expect(stderr.some((s) => /Swagger 2\.0/.test(s))).toBe(true);
+  expect(fs.existsSync(outPath)).toBe(false);
 });
 
 test('a missing input file produces exit code 1', async () => {
@@ -127,8 +125,8 @@ test('a missing input file produces exit code 1', async () => {
     ],
     io
   );
-  assert.equal(code, 1);
-  assert.ok(stderr.some((s) => /not found/.test(s)));
+  expect(code).toBe(1);
+  expect(stderr.some((s) => /not found/.test(s))).toBe(true);
 });
 
 test('--verbose prints the report without crashing and a successful run writes valid content', async () => {
@@ -147,7 +145,7 @@ test('--verbose prints the report without crashing and a successful run writes v
     ],
     io
   );
-  assert.equal(code, 0);
-  assert.ok(stdout.join('\n').includes('openapi-build report'));
-  assert.ok(fs.existsSync(outPath));
+  expect(code).toBe(0);
+  expect(stdout.join('\n').includes('openapi-build report')).toBe(true);
+  expect(fs.existsSync(outPath)).toBe(true);
 });

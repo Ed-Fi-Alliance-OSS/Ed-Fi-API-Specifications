@@ -1,7 +1,5 @@
 'use strict';
 
-const test = require('node:test');
-const assert = require('node:assert/strict');
 const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
@@ -69,7 +67,8 @@ function refResolves(doc, ref) {
 }
 
 for (const { label, input, kind, version } of REAL_FILES) {
-  test(`smoke: ${label} raw export produces a valid, optimized spec`, { skip: !fs.existsSync(input) }, async () => {
+  const runner = fs.existsSync(input) ? test : test.skip;
+  runner(`smoke: ${label} raw export produces a valid, optimized spec`, async () => {
     const raw = await loadDocument(input);
     assertOpenApi3(raw);
 
@@ -84,37 +83,28 @@ for (const { label, input, kind, version } of REAL_FILES) {
 
     // Output is valid YAML (js-yaml ignores the leading '#' license comment lines).
     const roundTripped = yaml.load(yamlText);
-    assert.ok(roundTripped);
+    expect(roundTripped).toBeTruthy();
 
     // No servers key survives.
-    assert.equal(Object.prototype.hasOwnProperty.call(roundTripped, 'servers'), false);
-    assert.equal(Object.prototype.hasOwnProperty.call(optimizedDoc, 'servers'), false);
+    expect(Object.prototype.hasOwnProperty.call(roundTripped, 'servers')).toBe(false);
+    expect(Object.prototype.hasOwnProperty.call(optimizedDoc, 'servers')).toBe(false);
 
     // info.title/info.version reflect what was requested.
-    assert.equal(optimizedDoc.info.version, version);
-    assert.ok(optimizedDoc.info.title.includes(version.split('.').slice(0, 2).join('.')));
+    expect(optimizedDoc.info.version).toBe(version);
+    expect(optimizedDoc.info.title.includes(version.split('.').slice(0, 2).join('.'))).toBe(true);
 
     // At least one hoisted response and one hoisted parameter exist.
-    assert.ok(
-      Object.keys(optimizedDoc.components.responses || {}).length > 0,
-      'expected at least one hoisted response component'
-    );
-    assert.ok(
-      Object.keys(optimizedDoc.components.parameters || {}).length > 0,
-      'expected at least one hoisted parameter component'
-    );
+    expect(Object.keys(optimizedDoc.components.responses || {}).length).toBeGreaterThan(0);
+    expect(Object.keys(optimizedDoc.components.parameters || {}).length).toBeGreaterThan(0);
 
     // No dangling $refs anywhere in the document.
     const refs = [];
     collectRefs(optimizedDoc, refs);
     const dangling = refs.filter((ref) => !refResolves(optimizedDoc, ref));
-    assert.deepEqual(dangling, [], `found dangling $refs: ${dangling.join(', ')}`);
+    expect(dangling).toStrictEqual([]);
 
     // Meaningful byte-size reduction vs. a naive (standardized-but-unoptimized) dump.
     const optimizedSize = Buffer.byteLength(JSON.stringify(optimizedDoc), 'utf8');
-    assert.ok(
-      optimizedSize < naiveSize,
-      `expected optimized size (${optimizedSize}) < naive size (${naiveSize})`
-    );
+    expect(optimizedSize).toBeLessThan(naiveSize);
   });
 }

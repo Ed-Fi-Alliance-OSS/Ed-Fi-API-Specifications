@@ -9,7 +9,7 @@
   "scripts": {
     "testgen": "npx @apideck/portman -o output.postman.json -l",
     "build": "node ./src/cli.js",
-    "test": "node --test test/"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
     "js-yaml": "^5.4.1"
   },
   "devDependencies": {
-    "@apidevtools/swagger-parser": "^12.1.0"
+    "@apidevtools/swagger-parser": "^12.1.0",
+    "jest": "^30.5.1"
   }
 }
