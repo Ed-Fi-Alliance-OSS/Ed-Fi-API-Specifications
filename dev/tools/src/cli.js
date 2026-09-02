@@ -7,6 +7,7 @@ const { Command } = require('commander');
 
 const { loadDocument } = require('./loader');
 const { assertOpenApi3 } = require('./validator');
+const { stripChangeQueries } = require('./changeQueries');
 const { optimize } = require('./optimizer');
 const { standardize, majorMinor } = require('./standardizer');
 const { toYaml } = require('./emitter');
@@ -128,6 +129,8 @@ async function run(argv, io = {}) {
 
     const removedServers = rawDoc.servers;
 
+    const { report: changeQueriesReport } = stripChangeQueries(rawDoc);
+
     const { doc: optimizedDoc, report: optimizeReport } = optimize(rawDoc, {
       minHoistCount: opts.minHoistCount,
     });
@@ -147,6 +150,7 @@ async function run(argv, io = {}) {
       description: optimizedDoc.info.description,
       inputSizeBytes,
       removedServers,
+      changeQueriesReport,
       optimizeReport,
       yamlSizeBytes,
       verbose: Boolean(opts.verbose),
