@@ -103,6 +103,14 @@ function stripChangeQueries(doc) {
 
   const schemasRemoved = stripTrackedChangesSchemas(doc);
 
+  if (doc.components && doc.components.parameters) {
+    delete doc.components.parameters.MinChangeVersion;
+    delete doc.components.parameters.MaxChangeVersion;
+  }
+  if (doc.components && doc.components.responses) {
+    delete doc.components.responses.NotFoundUseSnapshot;
+  }
+
   return { doc, report: { pathsRemoved, schemasRemoved, parametersRemoved, responsesReplaced } };
 }
 

@@ -94,12 +94,18 @@ test('removes /deletes and /keyChanges path items entirely', () => {
   ]);
 });
 
+test('removes the now-unreferenced MinChangeVersion/MaxChangeVersion/NotFoundUseSnapshot component definitions', () => {
+  const { doc } = stripChangeQueries(baseDoc());
+
+  expect(doc.components.parameters.MinChangeVersion).toBeUndefined();
+  expect(doc.components.parameters.MaxChangeVersion).toBeUndefined();
+  expect(doc.components.responses.NotFoundUseSnapshot).toBeUndefined();
+});
+
 test('leaves unrelated component definitions untouched', () => {
   const { doc } = stripChangeQueries(baseDoc());
 
-  expect(doc.components.parameters.MinChangeVersion).toBeTruthy();
-  expect(doc.components.parameters.MaxChangeVersion).toBeTruthy();
-  expect(doc.components.responses.NotFoundUseSnapshot).toBeTruthy();
+  expect(doc.components.responses.NotFound).toBeTruthy();
   expect(doc.components.schemas.edFi_academicWeek).toBeTruthy();
 });
 

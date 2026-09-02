@@ -56649,10 +56649,6 @@ components:
         be allowed.
     NotFound:
       description: The resource could not be found.
-    NotFoundUseSnapshot:
-      description: >-
-        The resource could not be found. If Use-Snapshot header is set to true,
-        this response can indicate the snapshot may have been removed.
     Conflict:
       description: >-
         Conflict.  The request cannot be completed because it would result in an
@@ -56695,20 +56691,6 @@ components:
         type: integer
         format: int32
         default: 25
-    MinChangeVersion:
-      name: minChangeVersion
-      in: query
-      description: Used in synchronization to set sequence minimum ChangeVersion
-      schema:
-        type: integer
-        format: int64
-    MaxChangeVersion:
-      name: maxChangeVersion
-      in: query
-      description: Used in synchronization to set sequence maximum ChangeVersion
-      schema:
-        type: integer
-        format: int64
     If-None-Match:
       name: If-None-Match
       in: header
