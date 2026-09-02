@@ -7,7 +7,6 @@
     "openapi-build": "./src/cli.js"
   },
   "scripts": {
-    "testgen": "npx @apideck/portman -o output.postman.json -l",
     "convert": "node ./src/cli.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
@@ -22,7 +21,6 @@
   },
   "homepage": "https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-API-Standards#readme",
   "dependencies": {
-    "@apideck/portman": "^1.35.0",
     "commander": "^15.0.0",
     "js-yaml": "^5.4.1"
   },
