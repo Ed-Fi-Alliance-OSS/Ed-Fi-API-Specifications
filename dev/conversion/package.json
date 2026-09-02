@@ -6,6 +6,9 @@
   "bin": {
     "openapi-build": "./src/cli.js"
   },
+  "engines": {
+    "node": ">=24.9.0"
+  },
   "scripts": {
     "convert": "node ./src/cli.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
