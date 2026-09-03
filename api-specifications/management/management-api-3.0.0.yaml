@@ -4321,7 +4321,7 @@ components:
           type: string
           description: Informational/semantic version
         urls:
-          $ref: "#/components/schemas/apiUrlsResult"
+          $ref: '#/components/schemas/apiUrlsResult'
       additionalProperties: false
     jobQueuedResult:
       type: object
