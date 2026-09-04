@@ -32,6 +32,11 @@ format.
   * [Management API 2.3.0](./management/management-api-2.3.0.yaml) (implemented in Ed-Fi ODS Admin API > 2.3)
   * [Management API 2.4.0](./management/management-api-2.4.0.yaml) (implemented in Ed-Fi Admin API 2.4. See [change summary](./management/SUMMARY-MANAGEMENT-API-2.4.0.md))
   * [Management API 3.0.0](./management/management-api-3.0.0.yaml) (implemented in Ed-Fi ODS Admin API 2.4 / Ed-Fi Configuration Service 8.0. See [change summary](./management/SUMMARY-MANAGEMENT-API-3.0.0.md) for more information)
+* Ed-Fi OneRoster API
+  * [Ed-Fi OneRoster API 1.2](./oneroster/) (the OpenAPI description of the
+    [Ed-Fi OneRoster Service](https://docs.ed-fi.org/reference/oneroster), which
+    conforms to the [1EdTech® OneRoster®
+    1.2](https://www.imsglobal.org/spec/oneroster/v1p2) Rostering service)
 
 ## OpenAPI Resources
 
