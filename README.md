@@ -91,6 +91,17 @@ What makes an application an "Ed-Fi (compatible) API"? An Ed-Fi API must:
 Also see: [Tips for Success in Building an Ed-Fi Compatible
 API](./api-guidelines/TIPS-FOR-SUCCESS.md)
 
+## Related Specifications
+
+This repository also publishes specifications that are not part of the Ed-Fi API
+compatibility requirements above:
+
+- [Ed-Fi OneRoster API 1.2](api-specifications/oneroster/) — the OpenAPI
+  description of the [Ed-Fi OneRoster
+  Service](https://docs.ed-fi.org/reference/oneroster), which conforms to the
+  [1EdTech® OneRoster® 1.2](https://www.imsglobal.org/spec/oneroster/v1p2)
+  Rostering service published by 1EdTech Consortium, Inc.
+
 ## Legal Information
 
 Copyright (c) 2026 Ed-Fi Alliance, LLC and contributors.
