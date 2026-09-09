@@ -23,7 +23,7 @@ community are welcomed on any aspect of an active proposal.
 The following RFCs are listed by Ed-Fi Data Standard version, reverse ordered by Data Standard version.
 
 - Data Standard 6.1
-  - 28a | Enhancements to Ed-Fi Data Standard 6.1 - _coming soon_
+  - 28a | [Enhancements to Ed-Fi Data Standard 6.1](./RFC-28a_Data-Standard-6.1-Enhancements.md)
   - 28b | [Special Education Data Model (SEDM)](./RFC-28b_Special-Education-Data-Model.md)
   
 > [!TIP]
