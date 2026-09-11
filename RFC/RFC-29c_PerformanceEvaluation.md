@@ -399,34 +399,15 @@ A repeating structure carrying one piece of typed feedback. Added to `Evaluation
 
 #### Why the name is `FeedbackEntry` and not `Feedback`
 
-The obvious name is `Feedback`. It is not available, and the reason matters
-beyond this RFC.
+The obvious name is `Feedback`. It is not available, and the reason matters beyond this RFC.
 
-`Feedback` already exists in DS 6.0 and DS 6.1 as a core `string` on
-`EvaluationElementRating` (String, 2048). Within a single entity an object
-array and a string property cannot share a name, so an object called
-`Feedback` on `EvaluationElementRating` collides with a field that ships today.
+`Feedback` already exists in DS 6.0 and DS 6.1 as a core `string` on `EvaluationElementRating` (String, 2048). Within a single entity an object array and a string property cannot share a name, so an object called `Feedback` on `EvaluationElementRating` collides with a field that ships today.
 
-The deciding constraint, however, is not the collision inside this RFC — it is
-that **this object must be deployable as an extension to DS 6.x now**, ahead of
-the v7.0 release that brings it into core. Implementers need typed feedback
-before v7.0 ships, and an extension is the only way to get it. That extension
-adds the object to entities in a live DS 6.x model where the core `Feedback`
-string is present and cannot be removed, so the extension is obliged to pick a
-non-colliding name.
+The deciding constraint, however, is not the collision inside this RFC — it is that **this object must be deployable as an extension to DS 6.x now**, ahead of the v7.0 release that brings it into core. Implementers need typed feedback before v7.0 ships, and an extension is the only way to get it. That extension adds the object to entities in a live DS 6.x model where the core `Feedback` string is present and cannot be removed, so the extension is obliged to pick a non-colliding name.
 
-Choosing `FeedbackEntry` now means the name used in a DS 6.x extension today is
-the same name that arrives in core at v7.0. An implementer who adopts the
-extension early carries their data, integrations, and API clients forward
-without a rename when core catches up, and the eventual migration is a change of
-namespace rather than a change of shape.
+Choosing `FeedbackEntry` now means the name used in a DS 6.x extension today is the same name that arrives in core at v7.0. An implementer who adopts the extension early carries their data, integrations, and API clients forward without a rename when core catches up, and the eventual migration is a change of namespace rather than a change of shape.
 
-This also explains why the name is not reconsidered at v7.0 even though
-`Feedback` is deprecated there. Freeing the name would require removing the core
-string outright, which would break every DS 6.x implementation still using it
-and would strand the early adopters whose extension is named `FeedbackEntry`.
-The name is chosen for continuity across the 6.x-to-7.0 boundary, not for
-elegance in isolation.
+This also explains why the name is not reconsidered at v7.0 even though `Feedback` is deprecated there. Freeing the name would require removing the core string outright, which would break every DS 6.x implementation still using it and would strand the early adopters whose extension is named `FeedbackEntry`. The name is chosen for continuity across the 6.x-to-7.0 boundary, not for elegance in isolation.
 
 ### New Descriptors
 
