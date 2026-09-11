@@ -488,8 +488,6 @@ Change by change:
 - `Comments` on `EvaluationRating`, `EvaluationObjectiveRating`, and `EvaluationElementRating` is **deprecated, not removed**, superseded by `FeedbackEntry`. `Goal.Comments` is unaffected, since `FeedbackEntry` is not added to `Goal`.
 - `Goal`'s `EvaluationObjective` and `EvaluationElement` references are **deprecated, not removed**.
 
-**Interim (DS 6.1):** the elements and entities slated for removal would be **flagged as deprecated in v6.1** to give the community advance notice. No structural change occurs in 6.1.
-
 ---
 
 ## Questions for the Community
@@ -512,7 +510,7 @@ Change by change:
 
 ## Timeline
 
-- **Target release:** DS 7.0, with deprecation flags applied in DS 6.1 as advance notice.
+- **Target release:** DS 7.0
 - **Community:** open for feedback now, ahead of finalization and review by the Data Standard Workgroup.
 
 ---
