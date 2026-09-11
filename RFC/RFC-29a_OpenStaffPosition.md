@@ -4,25 +4,30 @@ Product: Ed-Fi Data Standard \
 Affects: Ed-Fi Data Standard v7.0 \
 Obsoletes: -- \
 Obsoleted By: -- \
-Status: Draft for community feedback \
-Author: --
+Status: Published \
+Author: Maria Ragone
 
-August 17, 2026
+September 10, 2026
 
 ## Synopsis
 
 This Request for Comments (RFC) includes materials that describe proposed revisions to the Ed-Fi Data Standard. This draft material is intended to support review and comment; users of this material are advised that this work is still under development.
 
-RFC 29a proposes separating the current `OpenStaffPosition` entity into two concepts — the open position and the requisition to fill it — by introducing a new `Requisition` entity, promoting a renamed `PositionIdentifier` to the position's identity, adding a `PositionVacancy` common type, and introducing staffing-scoped `GradeLevelRange` and `InstructionalSubject` descriptors. This aligns the core Data Standard with how the concept is implemented in the field today.
+RFC 29a separates the current `OpenStaffPosition` entity into two concepts — the open position and the requisition to fill it — by introducing a new `Requisition` entity, promoting a renamed `PositionIdentifier` to the position's identity, adding a `PositionVacancy` common type, and `InstructionalSubject` descriptors. This aligns the core Data Standard with how the concept is implemented in the field today.
 
-This is a **breaking change** for the Staff domain, targeted for Ed-Fi Data Standard v7.0 with interim deprecation flags in v6.1. It is being published for community feedback **before** it is finalized. The design intentionally stays close to the field implementation while remaining flexible enough for other states to adopt.
+This is a **breaking change** for the Staff domain, targeted for Ed-Fi Data Standard v7.0. The fundamental changes in the Staff Domain are as follows:
+
+* The OpenStaffPositionEvent entity will be marked for deprecation v7.0 and will be removed in DS 8.0
+* The OpenStaffPosition entity has changes in the identity and other attributes. Obsolete elements will be deleted and not marked for deprecation, because these are mostly moved to a new entity and keeping them in the older location will cause confusion and duplication of fields. OpenStaffPosition maintains the meaning and function of storing approved roles associated with a vacancy.
+* A new entity is created: Requisition, which represents the postings to fill an open staff position backed by a corresponding approval, and will now maintain requisition attributes previously stored in OpenStaffPosition in DS v6.1
+* A new Vacancy object (common) is created.
 
 ## Overview
 
-The Staff domain currently (DS 6.0) represents staff vacancies with two entities:
+Starting with DS 6.0, the Staff domain models staff vacancies using two entities:
 
 - **`OpenStaffPosition`** — identity is `RequisitionNumber` + `EducationOrganization`, and it carries both *position* attributes (`StaffClassification`, grade levels, subjects, salary ranges, etc.) **and** *requisition/posting* attributes (`DatePosted`, `DatePostingRemoved`, `PostingResult`, `EmploymentStatus`).
-- **`OpenStaffPositionEvent`** — added in DS 6.0 to record position milestones.
+- **`OpenStaffPositionEvent`** — moved from EPDM community extensions into core in DS 6.0.
 
 The current model combines two distinct concepts: the *position* (an approved role open for application) and the *requisition* (a posting for it, with its own dates and outcome — and a posting may close without a hire). Because both share one entity keyed on `RequisitionNumber`, it is hard to track a position independently of the requisition(s) used to fill it, or to key the position by its durable HR-assigned identifier. Separating them, as the field implementation does, resolves this and supports multiple requisitions per position.
 
@@ -68,7 +73,7 @@ erDiagram
         date DatePosted "R, moves to Requisition"
         string PositionTitle "O"
         date DatePostingRemoved "O, moves to Requisition"
-        descriptor InstructionalGradeLevel "OC, replaced by GradeLevelRange"
+        descriptor InstructionalGradeLevel "OC, replaced by InstructionalGradeRange"
         descriptor AcademicSubject "OC, replaced by InstructionalSubject"
         descriptor ProgramAssignment "O"
         descriptor PostingResult "O, moves to Requisition"
@@ -99,7 +104,7 @@ erDiagram
         common PositionVacancy "O, NEW"
             date DatePositionVacant "R"
             descriptor VacancyReason "R"
-        descriptor GradeLevelRange "OC, NEW"
+        descriptor SchoolCategory named as InstructionalGradeRange "OC"
         descriptor InstructionalSubject "OC, NEW"
         descriptor ProgramAssignment "O"
         string PositionTitle "O"
@@ -147,7 +152,7 @@ The abstract `EducationOrganization` reference is retained at this time (not nar
 |---|---|---|---|
 | `StaffClassification` | Descriptor | Required | The classification of the position (existing field, unchanged). |
 | `PositionVacancy` | Common | Optional | Vacancy details for the position: `DatePositionVacant` and `VacancyReason`. New common type; replaces `OpenStaffPositionReason` (deprecated). |
-| `GradeLevelRange` | Descriptor collection | Optional | The grade-level range(s) served by the position. New descriptor; replaces `InstructionalGradeLevel` on this entity. |
+| `InstructionalGradeRange` | Descriptor collection | Optional | The one or more categories of school. |
 | `InstructionalSubject` | Descriptor collection | Optional | The subject(s) of instruction for the position. New descriptor; replaces `AcademicSubject` usage on this entity (`AcademicSubject` itself is not renamed or removed). |
 | `ProgramAssignment` | Descriptor | Optional | Existing field, unchanged. |
 | `PositionTitle` | String | Optional | Existing field, unchanged. |
@@ -189,7 +194,6 @@ Deprecation of `OpenStaffPositionEvent` is **proposed** to the community — its
 
 | Descriptor | Notes |
 |---|---|
-| `GradeLevelRange` | New; range-based grade values for staffing (see open question on naming/approach). |
 | `InstructionalSubject` | New descriptor (not a rename of `AcademicSubject`). Values sourced from the field list plus the applicable `AcademicSubject` values. Rationale: `AcademicSubject` is assessment-scoped and used in 26/37 subdomains; a distinct descriptor keeps staffing subjects separate. TEA confirmed (March 2026) `AcademicSubject` should not be reused for this purpose. |
 | `VacancyReason` | New; field definition to be used. |
 | `PostingClosedReason` | Replaces `PostingResult` (same description reused). |
@@ -211,14 +215,14 @@ The proposed identity changes are summarized below:
 | `OpenStaffPosition` | `RequisitionNumber` + `EducationOrganization` | `PositionIdentifier` + `EducationOrganization` |
 | `Requisition` (new) | — | `RequisitionIdentifier` + `OpenStaffPosition` |
 
-- `RequisitionNumber` removed from the `OpenStaffPosition` identity and relocated to `Requisition` as `RequisitionIdentifier`.
-- `PositionControlNumber` **renamed** to `PositionIdentifier` and promoted to identity — existing implementations must remap.
-- `InstructionalGradeLevel` on this entity replaced by `GradeLevelRange`; `AcademicSubject` usage on this entity replaced by the new `InstructionalSubject` (core `AcademicSubject` unchanged for other domains).
-- `OpenStaffPositionReason` deprecated in favor of `PositionVacancy`; `IsActive` removed.
-- Posting/hiring attributes relocate to `Requisition`, with renames `DatePostingRemoved → DatePostingClosed`, `PostingResult → PostingClosedReason`; new `HireDate`.
-- `OpenStaffPositionEvent` deprecation is **proposed** (pending community input).
+* `RequisitionNumber` removed from the `OpenStaffPosition` identity and relocated to `Requisition` as `RequisitionIdentifier`.
+* `PositionControlNumber` **renamed** to `PositionIdentifier` and promoted to identity — existing implementations must remap.
+* `InstructionalGradeLevel` on this entity replaced by `InstructionalGradeRange`; `AcademicSubject` usage on this entity replaced by the new `InstructionalSubject` (core `AcademicSubject` unchanged for other domains).
+* `OpenStaffPositionReason` deprecated in favor of `PositionVacancy`; `IsActive` removed.
+* Posting/hiring attributes relocate to `Requisition`, with renames `DatePostingRemoved → DatePostingClosed`, `PostingResult → PostingClosedReason`; new `HireDate`.
+* `OpenStaffPositionEvent` deprecation is **proposed** (pending community input).
 
-**Interim (DS 6.1):** the elements/entity slated for change would be **flagged as deprecated in v6.1** to give the community advance notice. No structural change occurs in 6.1.
+DS 7.0 the entity will be flagged as deprecated, and the elements slated for deletion will be deleting in OpenStaffPosition.
 
 ## Questions for the Community
 
