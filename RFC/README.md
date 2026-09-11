@@ -22,6 +22,8 @@ community are welcomed on any aspect of an active proposal.
 
 The following RFCs are listed by Ed-Fi Data Standard version, reverse ordered by Data Standard version.
 
+- Data Standard 7.0
+  - 29c | Performance Evaluation Observation, Feedback, and Metadata Grain - _coming soon_
 - Data Standard 6.1
   - 28a | Enhancements to Ed-Fi Data Standard 6.1 - _coming soon_
   - 28b | [Special Education Data Model (SEDM)](./RFC-28b_Special-Education-Data-Model.md)
