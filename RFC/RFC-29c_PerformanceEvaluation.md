@@ -7,15 +7,24 @@ Obsoleted By: -- \
 Status: Draft for community feedback \
 Author: Steven Arnold (Ed-Fi Alliance)
 
-September 3, 2026
+September 11, 2026
 
 ## Synopsis
 
 This Request for Comments (RFC) includes materials that describe proposed revisions to the Ed-Fi Data Standard. This draft material is intended to support review and comment; users of this material are advised that this work is still under development.
 
-RFC 29(b) restructures the Performance Evaluation domain for Ed-Fi Data Standard v7.0. It removes `PerformanceEvaluation` and `PerformanceEvaluationRating`, folding their definition-level metadata into `Evaluation` and their occurrence-level metadata into `EvaluationRating`. It then places evaluation metadata at the grain it actually varies with, and adds observation context, typed feedback, action-step linkage to the scored occurrence, and metadata versioning. This design was developed in collaboration with EdGraph.
+RFC 29(c) restructures the Performance Evaluation domain for Ed-Fi Data Standard v7.0. It removes `PerformanceEvaluation` and `PerformanceEvaluationRating`, folding their definition-level metadata into `Evaluation` and their occurrence-level metadata into `EvaluationRating`. It then places evaluation metadata at the grain it actually varies with, and adds observation context, typed feedback, action-step linkage to the scored occurrence, and metadata versioning. This design was developed in collaboration with EdGraph.
 
 This is a **breaking change** for the Performance Evaluation domain. It is being published for community feedback before it is finalized.
+
+---
+
+## Glossary
+
+- **Descriptor** — A reference to a value drawn from an extensible, namespaced code list. Unlike a fixed `Enumeration`, an implementation can add new Descriptor values without a change to the Data Standard itself.
+- **Grain** — The level of detail at which a piece of data is captured. In this RFC, *definition grain* describes the evaluation instrument as a whole (`Evaluation`), and *occurrence grain* describes one scored instance of it (`EvaluationRating`). The same kind of information — subject, grade level — can exist at both grains without being redundant, because each grain answers a different question: what the instrument is scoped to, versus what a particular observation actually covered.
+- **Object** — A reusable, named group of fields embedded directly within an entity's own data. In the API, an Object appears as a nested JSON object; an **Object array** is a repeatable group of them. Unlike a `Reference`, an Object does not point to another resource — its fields belong to the entity itself.
+- **Reference** — An object containing the natural key (identity) values of another resource, used to link one entity to another without embedding that resource's own data. In the API, a Reference appears as a nested object holding only the identifying fields of the resource it points to.
 
 ---
 
@@ -63,9 +72,9 @@ erDiagram
         enumeration SchoolYear "I, moves to Evaluation"
         descriptor EvaluationPeriod "I, moves to Evaluation"
         string PerformanceEvaluationDescription "O, dropped as redundant"
-        common PerformanceEvaluationRatingLevel "OC, dropped as redundant"
+        object PerformanceEvaluationRatingLevel "OA, dropped as redundant"
         descriptor AcademicSubject "O, moves to Evaluation and EvaluationRating"
-        descriptor GradeLevel "OC, moves to Evaluation and EvaluationRating"
+        descriptor GradeLevel "OA, moves to Evaluation and EvaluationRating"
     }
     PerformanceEvaluationRating-6 ["PerformanceEvaluationRating (DS 6.1 Current - REMOVED in 7.0)"] {
         reference Person "I, moves to EvaluationRating identity"
@@ -75,9 +84,9 @@ erDiagram
         string Comments "O, dropped as redundant"
         descriptor CoteachingStyleObserved "O, moves to EvaluationRating"
         integer ActualDuration "O, merges into EvaluationRating.ActualDuration"
-        common PerformanceEvaluationRatingResult "OC, dropped as redundant"
+        object PerformanceEvaluationRatingResult "OA, dropped as redundant"
         descriptor PerformanceEvaluationRatingLevel "O, dropped as redundant"
-        common Reviewer "OC, dropped as redundant"
+        object Reviewer "OA, dropped as redundant"
         date ScheduleDate "O, moves to EvaluationRating"
         time ActualTime "O, moves to EvaluationRating"
     }
@@ -88,15 +97,15 @@ erDiagram
         decimal MinNumericRating "O"
         decimal MaxNumericRating "O"
         descriptor EvaluationType "O, unchanged"
-        common EvaluationRatingLevel "OC"
+        object EvaluationRatingLevel "OA"
         integer InterRaterReliabilityScore "O"
     }
     EvaluationRating-6 ["EvaluationRating (DS 6.1 Current)"] {
         reference PerformanceEvaluationRating "I, reference removed"
         reference Evaluation "I"
         datetime EvaluationDate "I"
-        common Reviewer "OC"
-        common EvaluationRatingResult "OC"
+        object Reviewer "OA"
+        object EvaluationRatingResult "OA"
         descriptor EvaluationRatingLevel "O"
         reference Section "O"
         descriptor EvaluationRatingStatus "O, relieved of observation-setting overloading"
@@ -116,11 +125,11 @@ erDiagram
         string EvaluationDescription "O"
         descriptor Term "O, moved from PerformanceEvaluation - was identity, now optional"
         descriptor AcademicSubject "O, moved from PerformanceEvaluation"
-        descriptor GradeLevel "OC, moved from PerformanceEvaluation"
+        descriptor GradeLevel "OA, moved from PerformanceEvaluation"
         decimal MinNumericRating "O"
         decimal MaxNumericRating "O"
         descriptor EvaluationType "O, unchanged"
-        common EvaluationRatingLevel "OC"
+        object EvaluationRatingLevel "OA"
         integer InterRaterReliabilityScore "O"
         string EvaluationVersion "O, NEW"
     }
@@ -132,16 +141,16 @@ erDiagram
         descriptor ObservationSetting "O, NEW"
         date PreConferenceDate "O, NEW"
         date PostConferenceDate "O, NEW"
-        common FeedbackEntry "OC, NEW"
+        object FeedbackEntry "OA, NEW"
         descriptor AcademicSubject "O, NEW at occurrence grain"
-        descriptor GradeLevel "OC, NEW at occurrence grain"
+        descriptor GradeLevel "OA, NEW at occurrence grain"
         bool Announced "O, moved from PerformanceEvaluationRating"
         descriptor CoteachingStyleObserved "O, moved from PerformanceEvaluationRating"
         date ScheduleDate "O, moved from PerformanceEvaluationRating"
         time ActualTime "O, moved from PerformanceEvaluationRating"
         integer ActualDuration "O, merged"
-        common Reviewer "OC"
-        common EvaluationRatingResult "OC"
+        object Reviewer "OA"
+        object EvaluationRatingResult "OA"
         descriptor EvaluationRatingLevel "O"
         reference Section "O"
         descriptor EvaluationRatingStatus "O"
@@ -155,16 +164,16 @@ erDiagram
         decimal MinNumericRating "O"
         decimal MaxNumericRating "O"
         descriptor EvaluationType "O"
-        common ObjectiveRatingLevel "OC"
+        object ObjectiveRatingLevel "OA"
         string EvaluationObjectiveVersion "O, NEW"
     }
     EvaluationObjectiveRating-7 ["EvaluationObjectiveRating (DS 7.0 Future)"] {
         reference EvaluationRating "I"
         reference EvaluationObjective "I"
-        common ObjectiveRatingResult "OC"
+        object ObjectiveRatingResult "OA"
         descriptor ObjectiveRatingLevel "O"
         string Comments "O, DEPRECATE"
-        common FeedbackEntry "OC, NEW"
+        object FeedbackEntry "OA, NEW"
     }
     EvaluationElement-7 ["EvaluationElement (DS 7.0 Future)"] {
         reference EvaluationObjective "I"
@@ -174,15 +183,15 @@ erDiagram
         decimal MinNumericRating "O"
         decimal MaxNumericRating "O"
         descriptor EvaluationType "O"
-        common ElementRatingLevel "OC"
+        object ElementRatingLevel "OA"
         string EvaluationElementVersion "O, NEW"
     }
     EvaluationElementRating-7 ["EvaluationElementRating (DS 7.0 Future)"] {
         reference EvaluationObjectiveRating "I"
         reference EvaluationElement "I"
-        common ElementRatingResult "OC"
+        object ElementRatingResult "OA"
         descriptor EvaluationElementRatingLevel "O"
-        common FeedbackEntry "OC, NEW"
+        object FeedbackEntry "OA, NEW"
         string AreaOfRefinement "O, DEPRECATE"
         string AreaOfReinforcement "O, DEPRECATE"
         string Feedback "O, DEPRECATE"
@@ -226,7 +235,7 @@ erDiagram
     EvaluationRatingFieldworkExperienceAssociation-7 }o--|| FieldworkExperience-7 : "links"
 ```
 
-> **Notation:** `I` = identity / key · `R` = required · `O` = optional · `C` = collection (`RC`/`OC`) · flags: `NEW`, `DEPRECATE`, and inline notes for relocations and merges. Entities suffixed `-6` show DS 6.1 as it is today; `-7` shows the proposal. All DS 6.1 field names, types, cardinalities and identity components in this document were verified against `@edfi/ed-fi-model-6.1`, MetaEd `projectVersion` 6.1.0.
+> **Notation:** `I` = identity / key · `R` = required · `O` = optional · `A` = array (`RA`/`OA`) · flags: `NEW`, `DEPRECATE`, and inline notes for relocations and merges. Entities suffixed `-6` show DS 6.1 as it is today; `-7` shows the proposal. All DS 6.1 field names, types, cardinalities and identity components in this document were verified against `@edfi/ed-fi-model-6.1`, MetaEd `projectVersion` 6.1.0.
 
 `Evaluation` relates to `EvaluationRating` as **1 → 0..\***: one instrument definition may be scored many times, for many people, on many dates. That relationship is the point of this RFC — under DS 6.1 the same reuse requires a duplicated definition tree per variation in term, type, or period.
 
@@ -258,11 +267,11 @@ erDiagram
 | `EvaluationDescription` | String (255) | Optional | Existing field, unchanged. |
 | `Term` | Descriptor | Optional | Moved from `PerformanceEvaluation`, where it was an identity component. Now optional and non-identifying. |
 | `AcademicSubject` | Descriptor | Optional | Moved from `PerformanceEvaluation`. The subject the instrument is scoped to, where it is scoped to one. |
-| `GradeLevel` | Descriptor collection | Optional | Moved from `PerformanceEvaluation`. The grade level(s) the instrument is scoped to. |
+| `GradeLevel` | Descriptor array | Optional | Moved from `PerformanceEvaluation`. The grade level(s) the instrument is scoped to. |
 | `MinNumericRating` | Decimal | Optional | Existing field, unchanged. |
 | `MaxNumericRating` | Decimal | Optional | Existing field, unchanged. |
 | `EvaluationType` | Descriptor | Optional | Existing field, unchanged. Describes the kind of instrument, at definition grain. Distinct from the new `EvaluationRatingType` — see New Descriptors. |
-| `EvaluationRatingLevel` | Common collection | Optional | Existing field, unchanged. |
+| `EvaluationRatingLevel` | Object array | Optional | Existing field, unchanged. |
 | `InterRaterReliabilityScore` | Integer | Optional | Existing field, unchanged. |
 | `EvaluationVersion` | String | Optional | New. The revision of the instrument in effect. Non-identifying. |
 
@@ -292,16 +301,16 @@ Four additions give the occurrence the context it has been missing. `Observation
 | `ObservationSetting` | Descriptor | Optional | New. The setting in which the observation was conducted, such as in person or virtual. Replaces the practice of overloading `EvaluationRatingStatus`. |
 | `PreConferenceDate` | Date | Optional | New. The date of the pre-observation conference. |
 | `PostConferenceDate` | Date | Optional | New. The date of the post-observation conference. |
-| `FeedbackEntry` | Common collection | Optional | New. Typed feedback provided for this occurrence. See New Common Type. |
+| `FeedbackEntry` | Object array | Optional | New. Typed feedback provided for this occurrence. See New Object Type. |
 | `AcademicSubject` | Descriptor | Optional | New at this grain. The subject observed in this occurrence. |
-| `GradeLevel` | Descriptor collection | Optional | New at this grain. The grade level(s) observed in this occurrence. |
+| `GradeLevel` | Descriptor array | Optional | New at this grain. The grade level(s) observed in this occurrence. |
 | `Announced` | Boolean | Optional | Moved from `PerformanceEvaluationRating`, unchanged. |
 | `CoteachingStyleObserved` | Descriptor | Optional | Moved from `PerformanceEvaluationRating`, unchanged. |
 | `ScheduleDate` | Date | Optional | Moved from `PerformanceEvaluationRating`, unchanged. |
 | `ActualTime` | Time | Optional | Moved from `PerformanceEvaluationRating`, unchanged. |
 | `ActualDuration` | Integer | Optional | Existing field. `PerformanceEvaluationRating.ActualDuration` merges into it; equivalent meaning, no rename. |
-| `Reviewer` | Common collection | Optional | Existing field, unchanged. The `PerformanceEvaluationRating` copy is dropped as redundant. |
-| `EvaluationRatingResult` | Common collection | Optional | Existing field, unchanged. |
+| `Reviewer` | Object array | Optional | Existing field, unchanged. The `PerformanceEvaluationRating` copy is dropped as redundant. |
+| `EvaluationRatingResult` | Object array | Optional | Existing field, unchanged. |
 | `EvaluationRatingLevel` | Descriptor | Optional | Existing field, unchanged. |
 | `Section` | Reference | Optional | Existing field, unchanged. |
 | `EvaluationRatingStatus` | Descriptor | Optional | Existing field, unchanged in structure. Its intended meaning — lifecycle state, such as in progress or completed — is restored now that `ObservationSetting` exists. |
@@ -325,7 +334,7 @@ Gains `FeedbackEntry`, so that typed feedback can be recorded at the objective l
 
 | Field | Type | Required | Description |
 |---|---|---|---|
-| `FeedbackEntry` | Common collection | Optional | New. Typed feedback provided against this objective rating. |
+| `FeedbackEntry` | Object array | Optional | New. Typed feedback provided against this objective rating. |
 | `Comments` | String (1024) | Optional | Existing field, **deprecated**. Superseded by `FeedbackEntry`. |
 
 ### EvaluationElement
@@ -347,7 +356,7 @@ Gains `FeedbackEntry`. Four existing free-text fields are **proposed for depreca
 
 | Field | Type | Required | Description |
 |---|---|---|---|
-| `FeedbackEntry` | Common collection | Optional | New. Typed feedback provided against this element rating. |
+| `FeedbackEntry` | Object array | Optional | New. Typed feedback provided against this element rating. |
 | `AreaOfRefinement` | String (1024) | Optional | Existing field, **deprecated**. Superseded by `FeedbackEntry` with an appropriate `FeedbackType`. |
 | `AreaOfReinforcement` | String (1024) | Optional | Existing field, **deprecated**. Superseded by `FeedbackEntry` with an appropriate `FeedbackType`. |
 | `Feedback` | String (2048) | Optional | Existing field, **deprecated**. Superseded by `FeedbackEntry`. |
@@ -379,7 +388,7 @@ This is modeled as an **association entity rather than an embedded reference on 
 | `EvaluationRating` | Reference | The scored evaluation occurrence. |
 | `FieldworkExperience` | Reference | The fieldwork placement the occurrence took place within. |
 
-### New Common Type: FeedbackEntry
+### New Object Type: FeedbackEntry
 
 A repeating structure carrying one piece of typed feedback. Added to `EvaluationRating`, `EvaluationObjectiveRating`, and `EvaluationElementRating`.
 
@@ -393,16 +402,16 @@ A repeating structure carrying one piece of typed feedback. Added to `Evaluation
 The obvious name is `Feedback`. It is not available, and the reason matters
 beyond this RFC.
 
-`Feedback` already exists in DS 6.0 and DS 6.1 as a core `shared string` on
-`EvaluationElementRating` (String, 2048). Within a single entity a common
-collection and a string property cannot share a name, so a common called
+`Feedback` already exists in DS 6.0 and DS 6.1 as a core `string` on
+`EvaluationElementRating` (String, 2048). Within a single entity an object
+array and a string property cannot share a name, so an object called
 `Feedback` on `EvaluationElementRating` collides with a field that ships today.
 
 The deciding constraint, however, is not the collision inside this RFC — it is
-that **this common must be deployable as an extension to DS 6.x now**, ahead of
+that **this object must be deployable as an extension to DS 6.x now**, ahead of
 the v7.0 release that brings it into core. Implementers need typed feedback
 before v7.0 ships, and an extension is the only way to get it. That extension
-adds the common to entities in a live DS 6.x model where the core `Feedback`
+adds the object to entities in a live DS 6.x model where the core `Feedback`
 string is present and cannot be removed, so the extension is obliged to pick a
 non-colliding name.
 
