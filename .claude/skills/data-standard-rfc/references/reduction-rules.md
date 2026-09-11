@@ -159,7 +159,7 @@ that point forward at the proposed one.
 | Claim shape | Action |
 |---|---|
 | "existing field, unchanged" · "retained" · "renamed from X" · "relocated from Y" · "deprecate Z" · "the current key is K" · any `Type` or `Required` value for an existing field | **Verify** |
-| "new entity / field / descriptor / common" | **Never look up for existence** |
+| "new entity / field / descriptor / object" | **Never look up for existence** |
 | A proposed name that already exists | **Flag as a collision** |
 
 Use the scripts; they encode the directionality so it cannot be got wrong by

@@ -16,6 +16,15 @@ domain work takes.
 > — it holds RFC 28**b** content as an earlier 258-line draft. Always read
 > conventions from the repository, never from a local copy.
 
+**Every paragraph is one unwrapped line**, however long. Verified across all
+three RFCs: zero hard-wrapped prose lines: no paragraph is split across
+multiple source lines at ~80 columns. Markdown doesn't need the wrap, and a
+hard-wrapped paragraph edited later (a word added or changed) leaves a
+visibly short ragged line where the wrap wasn't redone -- which is exactly
+what happened in RFC-29c and had to be fixed after the fact. Tables, lists,
+headings, and the Mermaid diagram are unaffected -- this is about prose
+paragraphs only.
+
 ---
 
 ## Variant A — model reshape (28b, 29a)
@@ -31,6 +40,7 @@ renames, deprecations, or breaking migration.
 <Month D, YYYY>
 
 ## Synopsis
+## Glossary                     optional -- only terms this RFC actually uses
 ## Overview
 ## Use Cases
 ### <Named use case>            x3, thematic
@@ -43,9 +53,9 @@ renames, deprecations, or breaking migration.
 ## How to Respond
 ```
 
-Optional sections, all from 29a, include only when there is real content:
-`### New Descriptors`, `### Naming Conventions`,
-`### Design Principle: <name>`.
+Optional sections, all from 29a or 29c, include only when there is real
+content: `### New Descriptors`, `### New Object Type: <Name>`,
+`### Naming Conventions`, `### Design Principle: <name>`.
 
 ### Synopsis
 
@@ -62,6 +72,27 @@ Two paragraphs. The first is near-boilerplate; match the corpus:
 The second paragraph is one to three sentences: what this RFC does, in the
 present tense. 28b: "RFC 28(b) merges the Special Education Data Model
 (SEDM)... It introduces five new domain entities that model..."
+
+### Glossary
+
+Optional. Include a term only because **this RFC uses it**, never as a fixed
+list copied from another RFC or from this file. If the RFC doesn't use a
+term, it doesn't get an entry, even if a prior RFC defined it.
+
+Placed directly after `## Synopsis`, before `## Overview` -- jargon can appear
+as early as the Overview's first paragraphs, or in the title itself (29c's
+"Metadata Grain").
+
+One bullet per term, alphabetical, bolded lead-in, defined in terms of what
+the reader actually encounters (the API shape), not the modeling tool that
+produced it. 29c's four, as a calibration for tone and length -- reuse the
+wording where the same term recurs, don't redraft it:
+
+> - **Object** — A reusable, named group of fields embedded directly within
+>   an entity's own data. In the API, an Object appears as a nested JSON
+>   object; an **Object array** is a repeatable group of them. Unlike a
+>   `Reference`, an Object does not point to another resource -- its fields
+>   belong to the entity itself.
 
 ### Overview
 
@@ -93,10 +124,13 @@ a particular tool does, and not which vendor asked.
 ### Model
 
 `### Entity Relationship Overview` holds a Mermaid `erDiagram`, followed by a
-notation legend. 29a's, verbatim, is a good default:
+notation legend. This default supersedes 29a and 28b's `collection`/`RC`/`OC`
+wording -- as of 29c, the corpus uses `array`/`RA`/`OA` throughout, since a
+Data Standard field is never called a "collection" anywhere else and the
+term added no value:
 
 > **Notation:** `I` = identity / key · `R` = required · `O` = optional ·
-> `C` = collection (`RC`/`OC`) · flags: `NEW`, `DEPRECATE`, and inline notes
+> `A` = array (`RA`/`OA`) · flags: `NEW`, `DEPRECATE`, and inline notes
 > for relocations/renames.
 
 29a also cites its diagram source file by name
@@ -116,16 +150,18 @@ Then one `### <EntityName>` subsection per entity, each with:
 An entity whose only change is a proposed deprecation gets a short prose
 subsection with no tables (29a's `### OpenStaffPositionEvent`).
 
-Type column vocabulary, as used in the corpus: `Reference`, `Descriptor`,
-`Descriptor collection`, `Common`, `String`, `String (20)`, `Date`, `Decimal`,
-`Boolean`, `Enumeration`. Get lengths and cardinality from the model, not from
-the need doc — see reduction-rules.md R3.
+Type column vocabulary, as of 29c: `Reference`, `Descriptor`,
+`Descriptor array`, `Object`, `Object array`, `String`, `String (20)`,
+`Date`, `Decimal`, `Boolean`, `Enumeration`. (29a and 28b instead say
+`Descriptor collection` and `Common`/`Common collection` -- superseded; see
+the notation-legend note above.) Get lengths and cardinality from the model,
+not from the need doc — see reduction-rules.md R3.
 
 Required column: `Required` or `Optional`, capitalized.
 
 Descriptions carry change provenance inline: "Existing field, unchanged.",
 "Renamed from `PositionControlNumber` and promoted to the identity.",
-"New common type; replaces `OpenStaffPositionReason` (deprecated)."
+"New object type; replaces `OpenStaffPositionReason` (deprecated)."
 
 ### Breaking Changes & Migration
 
@@ -135,9 +171,29 @@ A key-change table, then a bullet list of every individual change:
 | Entity | DS 6.0 key | Proposed DS 7.0 key |
 ```
 
-Close with an interim note when one applies: 29a's "**Interim (DS 6.1):** the
-elements/entity slated for change would be **flagged as deprecated in v6.1**
-to give the community advance notice. No structural change occurs in 6.1."
+An interim deprecation note is only valid when the version it names is
+**planned but not yet released** — a version that will ship before the target
+release. A released version is frozen; deprecation flags cannot be
+back-ported into it.
+
+- Check the resolved `projectVersion` from `resolve_model_package.py` against
+  any version you are about to name. If that version is already released
+  (`projectVersion` is at or past it), drop the interim note — deprecation
+  applies only in the target release itself.
+- Whether a further interim release (e.g. a 6.2 between a released 6.1 and a
+  target 7.0) is even planned is not something this skill can see — like the
+  numbering rule, the release roadmap is undocumented here. Ask the human
+  rather than assume one exists, and default to no interim note if none is
+  confirmed.
+- Only when a genuinely unreleased interim version is confirmed, write 29a's
+  pattern: "**Interim (DS <N>):** the elements/entity slated for change would
+  be **flagged as deprecated in v<N>** to give the community advance notice.
+  No structural change occurs in <N>."
+
+RFC-29c initially copied 29a's wording verbatim, saying elements would be
+"flagged as deprecated in v6.1 as advance notice" — but DS 6.1 was already
+released and no 6.2 was planned, so the note was factually wrong and had to
+be retracted; deprecation applies only at the target release (7.0).
 
 Every current-state key in this table is a baseline claim. Verify all of them.
 

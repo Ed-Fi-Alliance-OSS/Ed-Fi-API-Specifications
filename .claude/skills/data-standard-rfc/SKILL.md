@@ -140,6 +140,7 @@ collisions found.
 | "Presenting both options is more even-handed" | It hands the reader the analysis instead of a proposal. Resolve it, or make it a numbered question. |
 | "Each source use case deserves its own subsection" | The corpus is three. Detail belongs in the entity prose under `## Model`. |
 | "The workgroup needs to see the risks and tradeoffs" | Then brief them. The RFC has `Questions for the Community` for genuinely open items. |
+| "29a flagged deprecation in v6.1, so this RFC can too" | 29a's v6.1 was unreleased at the time. Check `projectVersion` first — a released version cannot retroactively gain a deprecation flag. |
 
 ## Red flags — stop and re-read the rules
 
@@ -151,6 +152,8 @@ collisions found.
 - Use case subsections are lettered, or number more than three
 - A `Type` or `Required` value came from a Mermaid diagram
 - You typed a `[Verify]` and then removed it without running the script
+- You are naming a version as the target of a new deprecation flag without
+  checking whether `projectVersion` already reached or passed it
 - You are recording a rule violation in a report rather than not committing it
 
 **Each of these means: stop, re-read `references/reduction-rules.md`, and fix
