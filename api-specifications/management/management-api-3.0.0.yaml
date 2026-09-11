@@ -53,6 +53,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tenantDetailsResponse'
+  /v3/tenancy:
+    get:
+      tags:
+        - Tenancy
+      summary: Retrieves the list of configured tenant names
+      description: Returns the list of tenant names when multi-tenant mode is enabled;
+        an empty list otherwise.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tenancyResult'
+        '503':
+          description: Service Unavailable. MultiTenancy is enabled but no tenants are configured. Check the Tenants section of appsettings.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '500':
+          description: Internal server error. An unhandled error occurred on the server.
+            See the response body for details.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+      security:
+        - { }
   /v3/resourceClaims:
     get:
       tags:
@@ -3751,6 +3780,18 @@ components:
           type: integer
           format: int32
       additionalProperties: false
+    apiUrlsResult:
+      title: ApiUrls
+      type: object
+      properties:
+        openApiMetadata:
+          type: string
+          description: Absolute URL to the OpenAPI/metadata document
+        tenancy:
+          type: string
+          description: Absolute URL to the tenancy endpoint; empty for V1, which has no
+            tenancy endpoint
+      additionalProperties: false
     applicationModel:
       title: Application
       type: object
@@ -4264,8 +4305,6 @@ components:
       title: Information
       type: object
       properties:
-        tenancy:
-          $ref: '#/components/schemas/tenancyResult'
         version:
           type: string
           description: Application version
@@ -4275,6 +4314,14 @@ components:
         specificationVersion:
           type: string
           description: Management API specification version
+        applicationName:
+          type: string
+          description: Application name
+        informationalVersion:
+          type: string
+          description: Informational/semantic version
+        urls:
+          $ref: '#/components/schemas/apiUrlsResult'
       additionalProperties: true
     jobQueuedResult:
       type: object
@@ -4500,9 +4547,6 @@ components:
       title: Tenancy
       type: object
       properties:
-        multitenantMode:
-          type: boolean
-          description: Indicates whether multi-tenant mode is enabled
         tenants:
           type: array
           items:
