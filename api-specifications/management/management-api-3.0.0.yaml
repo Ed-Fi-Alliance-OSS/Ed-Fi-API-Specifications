@@ -4365,7 +4365,7 @@ components:
       properties:
         type:
           type: string
-          description: 'A URI reference identifying the problem type. Known values are urn:ed-fi:admin-api:bad-request, urn:ed-fi:admin-api:bad-request:data, urn:ed-fi:admin-api:bad-request:validation, urn:ed-fi:admin-api:bad-request:version-mismatch, urn:ed-fi:admin-api:not-found, and urn:ed-fi:admin-api:internal-server-error.'
+          description: 'A URI reference identifying the problem type. Known values are urn:ed-fi:management-api:bad-request, urn:ed-fi:management-api:bad-request:data, urn:ed-fi:management-api:bad-request:validation, urn:ed-fi:management-api:bad-request:version-mismatch, urn:ed-fi:management-api:not-found, and urn:ed-fi:management-api:internal-server-error.'
           nullable: true
         title:
           type: string
@@ -4394,7 +4394,7 @@ components:
             type: array
             items:
               type: string
-          description: 'Validation failures keyed by property name. Present on validation failures (type urn:ed-fi:admin-api:bad-request:validation).'
+          description: 'Validation failures keyed by property name. Present on validation failures (type urn:ed-fi:management-api:bad-request:validation).'
           nullable: true
         errors:
           type: object
