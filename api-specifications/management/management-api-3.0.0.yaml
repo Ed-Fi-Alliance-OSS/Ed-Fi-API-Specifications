@@ -4135,16 +4135,6 @@ components:
             type: integer
             format: int64
           description: Education organization ids
-        dataStoreIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: List of data store id
-        enabled:
-          type: boolean
-          description: Indicates whether the ApiClient's credetials is enabled. Defaults to true if not provided.
-          nullable: true
       additionalProperties: false
     editClaimSetRequest:
       title: EditClaimSetRequest
