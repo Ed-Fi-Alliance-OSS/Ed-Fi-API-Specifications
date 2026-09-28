@@ -1,9 +1,57 @@
 openapi: 3.0.1
 info:
-  title: Admin API Documentation
-  description: 'The Ed-Fi Admin API is a REST API-based administrative interface for managing vendors, applications, client credentials, and authorization rules for accessing an Ed-Fi API.'
+  title: Ed-Fi Management API
+  description: 'The Ed-Fi Management API is a REST API-based administrative interface for managing vendors, applications, client credentials, and authorization rules for accessing an Ed-Fi API.'
   version: v2
 paths:
+  /v2/tenants:
+    get:
+      tags:
+        - Tenants
+      summary: Retrieves the list of tenants
+      description: Returns a list of tenants with their connection string information.
+      responses:
+        '401':
+          description: Unauthorized. The request requires authentication
+        '403':
+          description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
+        '500':
+          description: Internal server error. An unhandled error occurred on the server. See the response body for details.
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/tenantsResponse'
+  '/v2/tenants/{tenantName}':
+    get:
+      tags:
+        - Tenants
+      summary: Retrieves a specific tenant by tenant name
+      description: Returns a specific tenant with its connection string information.
+      parameters:
+        - name: tenantName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '401':
+          description: Unauthorized. The request requires authentication
+        '403':
+          description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
+        '500':
+          description: Internal server error. An unhandled error occurred on the server. See the response body for details.
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tenantsResponse'
+        '404':
+          description: Not found. A resource with given identifier could not be found.
   '/v2/tenants/{tenantName}/odsInstances/edOrgs':
     get:
       tags:
@@ -339,7 +387,7 @@ paths:
       tags:
         - Vendors
       summary: Creates vendor based on the supplied values.
-      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
+      description: 'The POST operation is used to create a new resource. Clients should NOT include the resource "id" in the JSON body; doing so will result in an error. The web service will check whether a resource with matching natural key values already exists; if a match is found, the request is rejected with an error and no data is changed. Use PUT to update an existing resource by identifier instead.'
       requestBody:
         content:
           application/json:
@@ -395,7 +443,7 @@ paths:
       tags:
         - Vendors
       summary: Updates vendor based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates.'
       parameters:
         - name: id
           in: path
@@ -512,7 +560,7 @@ paths:
       tags:
         - Profiles
       summary: Creates profile based on the supplied values.
-      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
+      description: 'The POST operation is used to create a new resource. Clients should NOT include the resource "id" in the JSON body; doing so will result in an error. The web service will check whether a resource with matching natural key values already exists; if a match is found, the request is rejected with an error and no data is changed. Use PUT to update an existing resource by identifier instead.'
       requestBody:
         content:
           application/json:
@@ -568,7 +616,7 @@ paths:
       tags:
         - Profiles
       summary: Updates profile based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates.'
       parameters:
         - name: id
           in: path
@@ -689,7 +737,7 @@ paths:
       tags:
         - OdsInstances
       summary: Creates odsInstance based on the supplied values.
-      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
+      description: 'The POST operation is used to create a new resource. Clients should NOT include the resource "id" in the JSON body; doing so will result in an error. The web service will check whether a resource with matching natural key values already exists; if a match is found, the request is rejected with an error and no data is changed. Use PUT to update an existing resource by identifier instead.'
       requestBody:
         content:
           application/json:
@@ -745,7 +793,7 @@ paths:
       tags:
         - OdsInstances
       summary: Updates odsInstance based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates.'
       parameters:
         - name: id
           in: path
@@ -859,8 +907,8 @@ paths:
     post:
       tags:
         - OdsInstances
-      summary: Creates odsInstance based on the supplied values.
-      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
+      summary: Asynchronously creates an ODS instance based on the supplied values
+      description: Asynchronously creates an ODS instance based on the supplied values. The request is accepted and the creation process is queued for processing.
       requestBody:
         content:
           application/json:
@@ -877,7 +925,13 @@ paths:
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
         '202':
-          description: Accepted
+          description: 'Accepted. The ODS instance record has been created and provisioning has been queued; the database is not yet available. The response has no body. Poll the resource identified by the Location header and read its status property, which progresses PendingCreate, CreateInProgress, then Created or CreateFailed.'
+          headers:
+            Location:
+              description: 'Absolute URL of the created ODS instance, of the form {scheme}://{host}/v3/odsInstances/manage/{id}.'
+              schema:
+                type: string
+                format: uri
   '/v2/odsInstances/manage/{id}':
     get:
       tags:
@@ -909,8 +963,8 @@ paths:
     delete:
       tags:
         - OdsInstances
-      summary: Deletes an existing odsInstance using the resource identifier.
-      description: 'The DELETE operation is used to delete an existing resource by identifier. If the resource doesn''t exist, an error will result (the resource will not be found).'
+      summary: Asynchronously deletes an ODS instance based on the supplied values
+      description: Asynchronously deletes an ODS instance. The request is accepted and the deletion process is queued for processing.
       parameters:
         - name: id
           in: path
@@ -985,7 +1039,7 @@ paths:
       tags:
         - OdsInstanceDerivatives
       summary: Creates odsInstanceDerivative based on the supplied values.
-      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
+      description: 'The POST operation is used to create a new resource. Clients should NOT include the resource "id" in the JSON body; doing so will result in an error. The web service will check whether a resource with matching natural key values already exists; if a match is found, the request is rejected with an error and no data is changed. Use PUT to update an existing resource by identifier instead.'
       requestBody:
         content:
           application/json:
@@ -1041,7 +1095,7 @@ paths:
       tags:
         - OdsInstanceDerivatives
       summary: Updates odsInstanceDerivative based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates.'
       parameters:
         - name: id
           in: path
@@ -1147,7 +1201,7 @@ paths:
       tags:
         - OdsInstanceContexts
       summary: Creates odsInstanceContext based on the supplied values.
-      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
+      description: 'The POST operation is used to create a new resource. Clients should NOT include the resource "id" in the JSON body; doing so will result in an error. The web service will check whether a resource with matching natural key values already exists; if a match is found, the request is rejected with an error and no data is changed. Use PUT to update an existing resource by identifier instead.'
       requestBody:
         content:
           application/json:
@@ -1203,7 +1257,7 @@ paths:
       tags:
         - OdsInstanceContexts
       summary: Updates odsInstanceContext based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates.'
       parameters:
         - name: id
           in: path
@@ -1374,7 +1428,7 @@ paths:
       tags:
         - ClaimSets
       summary: Creates claimSet based on the supplied values.
-      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
+      description: 'The POST operation is used to create a new resource. Clients should NOT include the resource "id" in the JSON body; doing so will result in an error. The web service will check whether a resource with matching natural key values already exists; if a match is found, the request is rejected with an error and no data is changed. Use PUT to update an existing resource by identifier instead.'
       requestBody:
         content:
           application/json:
@@ -1430,7 +1484,7 @@ paths:
       tags:
         - ClaimSets
       summary: Updates claimSet based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates.'
       parameters:
         - name: id
           in: path
@@ -1608,7 +1662,7 @@ paths:
       tags:
         - Applications
       summary: Creates application based on the supplied values.
-      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
+      description: 'The POST operation is used to create a new resource. Clients should NOT include the resource "id" in the JSON body; doing so will result in an error. The web service will check whether a resource with matching natural key values already exists; if a match is found, the request is rejected with an error and no data is changed. Use PUT to update an existing resource by identifier instead.'
       requestBody:
         content:
           application/json:
@@ -1670,7 +1724,7 @@ paths:
       tags:
         - Applications
       summary: Updates application based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates.'
       parameters:
         - name: id
           in: path
@@ -1810,7 +1864,7 @@ paths:
       tags:
         - ApiClients
       summary: Creates apiClient based on the supplied values.
-      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
+      description: 'The POST operation is used to create a new resource. Clients should NOT include the resource "id" in the JSON body; doing so will result in an error. The web service will check whether a resource with matching natural key values already exists; if a match is found, the request is rejected with an error and no data is changed. Use PUT to update an existing resource by identifier instead.'
       requestBody:
         content:
           application/json:
@@ -1870,7 +1924,7 @@ paths:
       tags:
         - ApiClients
       summary: Updates apiClient based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates.'
       parameters:
         - name: id
           in: path
@@ -2015,11 +2069,11 @@ paths:
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
-        '201':
-          description: Created
+        '202':
+          description: Accepted. The refresh has been queued as a background job; it has not completed when this response is returned.
           headers:
             Location:
-              description: URI of the queued job's status endpoint.
+              description: 'Relative path of the job created for this request, in the form /v3/jobs/{jobId}.'
               schema:
                 type: string
                 format: uri
@@ -2047,11 +2101,11 @@ paths:
           description: Not found. A resource with given identifier could not be found.
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
-        '201':
-          description: Created
+        '202':
+          description: Accepted. The refresh has been queued as a background job; it has not completed when this response is returned.
           headers:
             Location:
-              description: URI of the queued job's status endpoint.
+              description: 'Relative path of the job created for this request, in the form /v3/jobs/{jobId}.'
               schema:
                 type: string
                 format: uri
@@ -2549,7 +2603,7 @@ components:
       properties:
         name:
           type: string
-          description: Name of the database instance
+          description: Name of the database instance (46 characters or fewer)
         databaseTemplate:
           type: string
           description: Database template to use for the instance
@@ -2580,7 +2634,7 @@ components:
           type: string
           description: Profile definition
       additionalProperties: false
-      example: "{\n  \"name\": \"Test-Profile\",\n  \"definition\": \"<Profile name=\\\"Test-Profile\\\"><Resource name=\\\"Resource1\\\"><ReadContentType memberSelection=\\\"IncludeOnly\\\"><Collection name=\\\"Collection1\\\" memberSelection=\\\"IncludeOnly\\\"><Property name=\\\"Property1\\\" /><Property name=\\\"Property2\\\" /></Collection></ReadContentType><WriteContentType memberSelection=\\\"IncludeOnly\\\"><Collection name=\\\"Collection2\\\" memberSelection=\\\"IncludeOnly\\\"><Property name=\\\"Property1\\\" /><Property name=\\\"Property2\\\" /></Collection></WriteContentType></Resource></Profile>\"\n}"
+      example: "{\r\n  \"name\": \"Test-Profile\",\r\n  \"definition\": \"<Profile name=\\\"Test-Profile\\\"><Resource name=\\\"Resource1\\\"><ReadContentType memberSelection=\\\"IncludeOnly\\\"><Collection name=\\\"Collection1\\\" memberSelection=\\\"IncludeOnly\\\"><Property name=\\\"Property1\\\" /><Property name=\\\"Property2\\\" /></Collection></ReadContentType><WriteContentType memberSelection=\\\"IncludeOnly\\\"><Collection name=\\\"Collection2\\\" memberSelection=\\\"IncludeOnly\\\"><Property name=\\\"Property1\\\" /><Property name=\\\"Property2\\\" /></Collection></WriteContentType></Resource></Profile>\"\r\n}"
     addResourceClaimOnClaimSetRequest:
       title: AddResourceClaimActionsOnClaimSetRequest
       type: object
@@ -2883,6 +2937,16 @@ components:
         name:
           type: string
           description: New claimset name
+      additionalProperties: false
+    edfiConnectionString:
+      type: object
+      properties:
+        host:
+          type: string
+          nullable: true
+        database:
+          type: string
+          nullable: true
       additionalProperties: false
     editApiClientRequest:
       title: EditApiClientRequest
@@ -3409,6 +3473,17 @@ components:
           items:
             $ref: '#/components/schemas/educationOrganizationModel'
           nullable: true
+      additionalProperties: false
+    tenantsResponse:
+      type: object
+      properties:
+        tenantName:
+          type: string
+          nullable: true
+        adminConnectionString:
+          $ref: '#/components/schemas/edfiConnectionString'
+        securityConnectionString:
+          $ref: '#/components/schemas/edfiConnectionString'
       additionalProperties: false
     vendorModel:
       title: Vendor
