@@ -27,15 +27,17 @@ relative to `management-api-2.3.0.yaml`.
   removed tenant paths (below); returns a `tenantDetailsResponse`.
 * `GET /v2/odsInstances/manage` and `POST /v2/odsInstances/manage` — new
   ODS instance management surface using `odsInstanceManageModel` and
-  `addOdsInstanceManageRequest`; POST returns `202 Accepted`.
+  `addOdsInstanceManageRequest`; POST returns `202 Accepted` with a
+  `jobQueuedResult` body containing the `jobId` for the queued creation job.
 * `GET '/v2/odsInstances/manage/{id}'` and `DELETE
-  '/v2/odsInstances/manage/{id}'` — DELETE returns `204 No Content`.
+  '/v2/odsInstances/manage/{id}'` — DELETE returns `202 Accepted` with a
+  `jobQueuedResult` body containing the `jobId` for the queued deletion job.
 * `GET '/v2/jobs/{jobId}'` — retrieves job status via the new
   `jobStatusResult` schema.
 * `POST /v2/odsInstances/edOrgs/refresh` and `POST
   '/v2/odsInstances/{instanceId}/edOrgs/refresh'` — trigger a refresh job;
-  both return `201 Created` with a `Location` header pointing at the job
-  status endpoint.
+  both return `202 Accepted` with a `Location` header pointing at the job
+  status endpoint and a `jobQueuedResult` body containing the `jobId`.
 
 ## Removed Paths
 
@@ -58,6 +60,8 @@ Both are superseded by `GET '/v2/tenants/{tenantName}/odsInstances/edOrgs'`.
 
 ## Schema Property Changes
 
+* New `jobQueuedResult` schema (`jobId`, `message`, both nullable strings) —
+  the response body for background job queue operations.
 * `informationResult` gained two properties: `tenancy` (`$ref:
   tenancyResult`) and `specificationVersion` (string).
 * The informational root endpoint's `500` response body changed from

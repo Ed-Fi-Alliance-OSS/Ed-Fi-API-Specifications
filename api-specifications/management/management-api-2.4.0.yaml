@@ -1125,13 +1125,20 @@ paths:
                   - $ref: '#/components/schemas/validationErrorResult'
                   - $ref: '#/components/schemas/messageResult'
         '202':
-          description: 'Accepted. The ODS instance record has been created and provisioning has been queued; the database is not yet available. The response has no body. Poll the resource identified by the Location header and read its status property, which progresses PendingCreate, CreateInProgress, then Created or CreateFailed.'
+          description: 'Accepted. The ODS instance record has been created and provisioning has been queued; the database is not yet available. The response body includes the jobId that can be used to check progress via GET /v2/jobs/{jobId}. Poll the resource identified by the Location header and read its status property, which progresses PendingCreate, CreateInProgress, then Created or CreateFailed.'
           headers:
             Location:
               description: 'Absolute URL of the created ODS instance, of the form {scheme}://{host}/v3/odsInstances/manage/{id}.'
               schema:
                 type: string
                 format: uri
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/jobQueuedResult'
+              example:
+                jobId: CreateInstanceJob-1_9b1deb4d3b7d4bad9bdd2b0d7b3dcb6d
+                message: The ODS Instance has been queued to be created.
   '/v2/odsInstances/manage/{id}':
     get:
       tags:
@@ -1197,8 +1204,15 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/notFoundResult'
-        '204':
-          description: No Content
+        '202':
+          description: 'Accepted. The ODS instance deletion has been queued for processing. The response body includes the jobId that can be used to check progress via GET /v2/jobs/{jobId}.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/jobQueuedResult'
+              example:
+                jobId: DeleteInstanceJob-1_9b1deb4d3b7d4bad9bdd2b0d7b3dcb6d
+                message: The ODS Instance has been queued to be deleted.
   /v2/odsInstanceDerivatives:
     get:
       tags:
@@ -2567,10 +2581,17 @@ paths:
           description: Accepted. The refresh has been queued as a background job; it has not completed when this response is returned.
           headers:
             Location:
-              description: 'Relative path of the job created for this request, in the form /v3/jobs/{jobId}.'
+              description: 'Relative path of the job created for this request, in the form /v2/jobs/{jobId}.'
               schema:
                 type: string
                 format: uri
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/jobQueuedResult'
+              example:
+                jobId: RefreshEducationOrganizations-default-3f2504e0-4f89-11d3-9a0c-0305e82c3301_9b1deb4d3b7d4bad9bdd2b0d7b3dcb6d
+                message: Education organizations refresh has been queued for all instances
   '/v2/odsInstances/{instanceId}/edOrgs/refresh':
     post:
       tags:
@@ -2613,10 +2634,17 @@ paths:
           description: Accepted. The refresh has been queued as a background job; it has not completed when this response is returned.
           headers:
             Location:
-              description: 'Relative path of the job created for this request, in the form /v3/jobs/{jobId}.'
+              description: 'Relative path of the job created for this request, in the form /v2/jobs/{jobId}.'
               schema:
                 type: string
                 format: uri
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/jobQueuedResult'
+              example:
+                jobId: RefreshEducationOrganizations-default-3f2504e0-4f89-11d3-9a0c-0305e82c3301_9b1deb4d3b7d4bad9bdd2b0d7b3dcb6d
+                message: Education organizations refresh has been queued for the specified instance
   /v2/claimSets/copy:
     post:
       tags:
@@ -4071,6 +4099,16 @@ components:
           items:
             $ref: '#/components/schemas/resourceClaimModel'
           description: Children are collection of SimpleResourceClaimModel
+          nullable: true
+      additionalProperties: false
+    jobQueuedResult:
+      type: object
+      properties:
+        jobId:
+          type: string
+          nullable: true
+        message:
+          type: string
           nullable: true
       additionalProperties: false
     jobStatusResult:
