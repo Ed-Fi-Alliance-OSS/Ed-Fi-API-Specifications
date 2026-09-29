@@ -1,9 +1,69 @@
 openapi: 3.0.1
 info:
-  title: Admin API Documentation
-  description: 'The Ed-Fi Admin API is a REST API-based administrative interface for managing vendors, applications, client credentials, and authorization rules for accessing an Ed-Fi API.'
+  title: Ed-Fi Management API
+  description: 'The Ed-Fi Management API is a REST API-based administrative interface for managing vendors, applications, client credentials, and authorization rules for accessing an Ed-Fi API.'
   version: v2
 paths:
+  /v2/tenants:
+    get:
+      tags:
+        - Tenants
+      summary: Retrieves the list of tenants
+      description: Returns a list of tenants with their connection string information.
+      responses:
+        '401':
+          description: Unauthorized. The request requires authentication
+        '403':
+          description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
+        '500':
+          description: Internal server error. An unhandled error occurred on the server. See the response body for details.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/messageResult'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/tenantsResponse'
+  '/v2/tenants/{tenantName}':
+    get:
+      tags:
+        - Tenants
+      summary: Retrieves a specific tenant by tenant name
+      description: Returns a specific tenant with its connection string information.
+      parameters:
+        - name: tenantName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '401':
+          description: Unauthorized. The request requires authentication
+        '403':
+          description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
+        '500':
+          description: Internal server error. An unhandled error occurred on the server. See the response body for details.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/messageResult'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tenantsResponse'
+        '404':
+          description: Not found. A resource with given identifier could not be found.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/notFoundResult'
   '/v2/tenants/{tenantName}/odsInstances/edOrgs':
     get:
       tags:
@@ -19,40 +79,63 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/tenantDetailsResponse'
+  '/v2/tenancy':
+    get:
+      tags:
+        - Tenancy
+      summary: Retrieves the list of configured tenant names
+      description: Returns the list of tenant names when multi-tenant mode is enabled;
+        an empty list otherwise.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tenancyResult'
+        '503':
+          description: MultiTenancy is enabled but no tenants are configured. Check the Tenants section of appsettings.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/messageResult'
+        '500':
+          description: Internal server error. An unhandled error occurred on the server.
+            See the response body for details.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/messageResult'
+      security:
+        - { }
   /v2/resourceClaims:
     get:
       tags:
@@ -104,22 +187,14 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
           content:
@@ -144,28 +219,20 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: OK
           content:
@@ -216,22 +283,14 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
           content:
@@ -284,22 +343,14 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
           content:
@@ -374,22 +425,14 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
           content:
@@ -402,7 +445,7 @@ paths:
       tags:
         - Vendors
       summary: Creates vendor based on the supplied values.
-      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
+      description: 'The POST operation is used to create a new resource. Clients should NOT include the resource "id" in the JSON body; doing so will result in an error. The web service will check whether a resource with matching natural key values already exists; if a match is found, the request is rejected with an error and no data is changed. Use PUT to update an existing resource by identifier instead.'
       requestBody:
         content:
           application/json:
@@ -412,28 +455,22 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '201':
           description: Created
           headers:
@@ -458,28 +495,20 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: OK
           content:
@@ -490,7 +519,7 @@ paths:
       tags:
         - Vendors
       summary: Updates vendor based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates.'
       parameters:
         - name: id
           in: path
@@ -507,34 +536,28 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
     delete:
@@ -552,28 +575,20 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: Resource was successfully deleted.
   /v2/profiles:
@@ -627,22 +642,14 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
           content:
@@ -655,7 +662,7 @@ paths:
       tags:
         - Profiles
       summary: Creates profile based on the supplied values.
-      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
+      description: 'The POST operation is used to create a new resource. Clients should NOT include the resource "id" in the JSON body; doing so will result in an error. The web service will check whether a resource with matching natural key values already exists; if a match is found, the request is rejected with an error and no data is changed. Use PUT to update an existing resource by identifier instead.'
       requestBody:
         content:
           application/json:
@@ -665,28 +672,22 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '201':
           description: Created
           headers:
@@ -711,28 +712,20 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: OK
           content:
@@ -743,7 +736,7 @@ paths:
       tags:
         - Profiles
       summary: Updates profile based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates.'
       parameters:
         - name: id
           in: path
@@ -760,34 +753,28 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
     delete:
@@ -805,28 +792,20 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: Resource was successfully deleted.
   /v2/odsInstances:
@@ -884,22 +863,14 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
           content:
@@ -912,7 +883,7 @@ paths:
       tags:
         - OdsInstances
       summary: Creates odsInstance based on the supplied values.
-      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
+      description: 'The POST operation is used to create a new resource. Clients should NOT include the resource "id" in the JSON body; doing so will result in an error. The web service will check whether a resource with matching natural key values already exists; if a match is found, the request is rejected with an error and no data is changed. Use PUT to update an existing resource by identifier instead.'
       requestBody:
         content:
           application/json:
@@ -922,28 +893,22 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '201':
           description: Created
           headers:
@@ -968,28 +933,20 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: OK
           content:
@@ -1000,7 +957,7 @@ paths:
       tags:
         - OdsInstances
       summary: Updates odsInstance based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates.'
       parameters:
         - name: id
           in: path
@@ -1017,34 +974,28 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
     delete:
@@ -1062,28 +1013,20 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: Resource was successfully deleted.
   /v2/odsInstances/manage:
@@ -1135,22 +1078,14 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
           content:
@@ -1162,8 +1097,8 @@ paths:
     post:
       tags:
         - OdsInstances
-      summary: Creates odsInstance based on the supplied values.
-      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
+      summary: Asynchronously creates an ODS instance based on the supplied values
+      description: Asynchronously creates an ODS instance based on the supplied values. The request is accepted and the creation process is queued for processing.
       requestBody:
         content:
           application/json:
@@ -1173,30 +1108,37 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '202':
-          description: Accepted
+          description: 'Accepted. The ODS instance record has been created and provisioning has been queued; the database is not yet available. The response body includes the jobId that can be used to check progress via GET /v2/jobs/{jobId}. Poll the resource identified by the Location header and read its status property, which progresses PendingCreate, CreateInProgress, then Created or CreateFailed.'
+          headers:
+            Location:
+              description: 'Absolute URL of the created ODS instance, of the form {scheme}://{host}/v3/odsInstances/manage/{id}.'
+              schema:
+                type: string
+                format: uri
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/jobQueuedResult'
+              example:
+                jobId: CreateInstanceJob-1_9b1deb4d3b7d4bad9bdd2b0d7b3dcb6d
+                message: The ODS Instance has been queued to be created.
   '/v2/odsInstances/manage/{id}':
     get:
       tags:
@@ -1213,28 +1155,20 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: OK
           content:
@@ -1244,8 +1178,8 @@ paths:
     delete:
       tags:
         - OdsInstances
-      summary: Deletes an existing odsInstance using the resource identifier.
-      description: 'The DELETE operation is used to delete an existing resource by identifier. If the resource doesn''t exist, an error will result (the resource will not be found).'
+      summary: Asynchronously deletes an ODS instance based on the supplied values
+      description: Asynchronously deletes an ODS instance. The request is accepted and the deletion process is queued for processing.
       parameters:
         - name: id
           in: path
@@ -1256,30 +1190,29 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
-        '204':
-          description: No Content
+                $ref: '#/components/schemas/notFoundResult'
+        '202':
+          description: 'Accepted. The ODS instance deletion has been queued for processing. The response body includes the jobId that can be used to check progress via GET /v2/jobs/{jobId}.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/jobQueuedResult'
+              example:
+                jobId: DeleteInstanceJob-1_9b1deb4d3b7d4bad9bdd2b0d7b3dcb6d
+                message: The ODS Instance has been queued to be deleted.
   /v2/odsInstanceDerivatives:
     get:
       tags:
@@ -1320,22 +1253,14 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
           content:
@@ -1348,7 +1273,7 @@ paths:
       tags:
         - OdsInstanceDerivatives
       summary: Creates odsInstanceDerivative based on the supplied values.
-      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
+      description: 'The POST operation is used to create a new resource. Clients should NOT include the resource "id" in the JSON body; doing so will result in an error. The web service will check whether a resource with matching natural key values already exists; if a match is found, the request is rejected with an error and no data is changed. Use PUT to update an existing resource by identifier instead.'
       requestBody:
         content:
           application/json:
@@ -1358,28 +1283,22 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '201':
           description: Created
           headers:
@@ -1404,28 +1323,20 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: OK
           content:
@@ -1436,7 +1347,7 @@ paths:
       tags:
         - OdsInstanceDerivatives
       summary: Updates odsInstanceDerivative based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates.'
       parameters:
         - name: id
           in: path
@@ -1453,34 +1364,28 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
     delete:
@@ -1498,28 +1403,20 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: Resource was successfully deleted.
   /v2/odsInstanceContexts:
@@ -1562,22 +1459,14 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
           content:
@@ -1590,7 +1479,7 @@ paths:
       tags:
         - OdsInstanceContexts
       summary: Creates odsInstanceContext based on the supplied values.
-      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
+      description: 'The POST operation is used to create a new resource. Clients should NOT include the resource "id" in the JSON body; doing so will result in an error. The web service will check whether a resource with matching natural key values already exists; if a match is found, the request is rejected with an error and no data is changed. Use PUT to update an existing resource by identifier instead.'
       requestBody:
         content:
           application/json:
@@ -1600,28 +1489,22 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '201':
           description: Created
           headers:
@@ -1646,28 +1529,20 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: OK
           content:
@@ -1678,7 +1553,7 @@ paths:
       tags:
         - OdsInstanceContexts
       summary: Updates odsInstanceContext based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates.'
       parameters:
         - name: id
           in: path
@@ -1695,34 +1570,28 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
     delete:
@@ -1740,28 +1609,20 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: Resource was successfully deleted.
   '/v2/jobs/{jobId}':
@@ -1779,28 +1640,20 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: OK
           content:
@@ -1822,28 +1675,20 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: OK
           content:
@@ -1901,22 +1746,14 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
           content:
@@ -1929,7 +1766,7 @@ paths:
       tags:
         - ClaimSets
       summary: Creates claimSet based on the supplied values.
-      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
+      description: 'The POST operation is used to create a new resource. Clients should NOT include the resource "id" in the JSON body; doing so will result in an error. The web service will check whether a resource with matching natural key values already exists; if a match is found, the request is rejected with an error and no data is changed. Use PUT to update an existing resource by identifier instead.'
       requestBody:
         content:
           application/json:
@@ -1939,28 +1776,22 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '201':
           description: Created
           headers:
@@ -1985,28 +1816,20 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: OK
           content:
@@ -2017,7 +1840,7 @@ paths:
       tags:
         - ClaimSets
       summary: Updates claimSet based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates.'
       parameters:
         - name: id
           in: path
@@ -2034,34 +1857,28 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
     delete:
@@ -2079,28 +1896,20 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: Resource was successfully deleted.
   /v2/authorizationStrategies:
@@ -2143,22 +1952,14 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
           content:
@@ -2227,22 +2028,14 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
           content:
@@ -2255,7 +2048,7 @@ paths:
       tags:
         - Applications
       summary: Creates application based on the supplied values.
-      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
+      description: 'The POST operation is used to create a new resource. Clients should NOT include the resource "id" in the JSON body; doing so will result in an error. The web service will check whether a resource with matching natural key values already exists; if a match is found, the request is rejected with an error and no data is changed. Use PUT to update an existing resource by identifier instead.'
       requestBody:
         content:
           application/json:
@@ -2265,34 +2058,28 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '409':
           description: 'Conflict. The request is authenticated, but it has a conflict with an existing element'
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '201':
           description: Created
           headers:
@@ -2321,28 +2108,20 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: OK
           content:
@@ -2353,7 +2132,7 @@ paths:
       tags:
         - Applications
       summary: Updates application based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates.'
       parameters:
         - name: id
           in: path
@@ -2370,34 +2149,28 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
     delete:
@@ -2415,28 +2188,20 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: Resource was successfully deleted.
   '/v2/odsInstances/{id}/applications':
@@ -2454,28 +2219,20 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: OK
           content:
@@ -2499,28 +2256,20 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: OK
           content:
@@ -2545,22 +2294,14 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
           content:
@@ -2573,7 +2314,7 @@ paths:
       tags:
         - ApiClients
       summary: Creates apiClient based on the supplied values.
-      description: 'The POST operation can be used to create or update resources. In database terms, this is often referred to as an "upsert" operation (insert + update). Clients should NOT include the resource "id" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.'
+      description: 'The POST operation is used to create a new resource. Clients should NOT include the resource "id" in the JSON body; doing so will result in an error. The web service will check whether a resource with matching natural key values already exists; if a match is found, the request is rejected with an error and no data is changed. Use PUT to update an existing resource by identifier instead.'
       requestBody:
         content:
           application/json:
@@ -2583,28 +2324,22 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '201':
           description: Created
           headers:
@@ -2633,28 +2368,20 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: OK
           content:
@@ -2665,7 +2392,7 @@ paths:
       tags:
         - ApiClients
       summary: Updates apiClient based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation, so the recommendation is to use POST as that supports upsert behavior.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier ("id") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates.'
       parameters:
         - name: id
           in: path
@@ -2682,34 +2409,28 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
     delete:
@@ -2727,28 +2448,20 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: Resource was successfully deleted.
   /v2/actions:
@@ -2802,22 +2515,14 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
           content:
@@ -2839,11 +2544,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/informationResult'
         '500':
-          description: Internal server error. An unhandled error occurred on the server. See the response body for details.
+          description: Internal server error. An unhandled error occurred on the server.
+            See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
       security:
         - { }
   /v2/odsInstances/edOrgs/refresh:
@@ -2855,36 +2561,37 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
-        '201':
-          description: Created
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
+        '202':
+          description: Accepted. The refresh has been queued as a background job; it has not completed when this response is returned.
           headers:
             Location:
-              description: URI of the queued job's status endpoint.
+              description: 'Relative path of the job created for this request, in the form /v2/jobs/{jobId}.'
               schema:
                 type: string
                 format: uri
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/jobQueuedResult'
+              example:
+                jobId: RefreshEducationOrganizations-default-3f2504e0-4f89-11d3-9a0c-0305e82c3301_9b1deb4d3b7d4bad9bdd2b0d7b3dcb6d
+                message: Education organizations refresh has been queued for all instances
   '/v2/odsInstances/{instanceId}/edOrgs/refresh':
     post:
       tags:
@@ -2901,42 +2608,43 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
-        '201':
-          description: Created
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
+        '202':
+          description: Accepted. The refresh has been queued as a background job; it has not completed when this response is returned.
           headers:
             Location:
-              description: URI of the queued job's status endpoint.
+              description: 'Relative path of the job created for this request, in the form /v2/jobs/{jobId}.'
               schema:
                 type: string
                 format: uri
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/jobQueuedResult'
+              example:
+                jobId: RefreshEducationOrganizations-default-3f2504e0-4f89-11d3-9a0c-0305e82c3301_9b1deb4d3b7d4bad9bdd2b0d7b3dcb6d
+                message: Education organizations refresh has been queued for the specified instance
   /v2/claimSets/copy:
     post:
       tags:
@@ -2951,28 +2659,22 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '201':
           description: Created
           headers:
@@ -2995,28 +2697,22 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '201':
           description: Created
           headers:
@@ -3053,34 +2749,28 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
   '/v2/claimSets/{claimSetId}/resourceClaimActions/{resourceClaimId}/resetAuthorizationStrategies':
@@ -3104,34 +2794,28 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
   '/v2/claimSets/{claimSetId}/resourceClaimActions':
@@ -3156,34 +2840,28 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '201':
           description: Created
           headers:
@@ -3226,13 +2904,13 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/validationErrorResult'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '200':
           description: Application registered successfully.
       security:
@@ -3263,13 +2941,16 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/oauthErrorResult'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/oauthErrorResult'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '200':
           description: Sign-in successful.
       security:
@@ -3302,34 +2983,28 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
     delete:
@@ -3352,28 +3027,20 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '200':
           description: OK
   '/v2/applications/{id}/reset-credential':
@@ -3391,34 +3058,28 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
           content:
@@ -3440,34 +3101,28 @@ paths:
       responses:
         '401':
           description: Unauthorized. The request requires authentication
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '403':
           description: 'Forbidden. The request is authenticated, but not authorized to access this resource'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problemDetails'
         '500':
           description: Internal server error. An unhandled error occurred on the server. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/messageResult'
         '404':
           description: Not found. A resource with given identifier could not be found.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                $ref: '#/components/schemas/notFoundResult'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problemDetails'
+                oneOf:
+                  - $ref: '#/components/schemas/validationErrorResult'
+                  - $ref: '#/components/schemas/messageResult'
         '200':
           description: OK
           content:
@@ -3615,7 +3270,7 @@ components:
       properties:
         name:
           type: string
-          description: Name of the database instance
+          description: Name of the database instance (46 characters or fewer)
         databaseTemplate:
           type: string
           description: Database template to use for the instance
@@ -3646,7 +3301,7 @@ components:
           type: string
           description: Profile definition
       additionalProperties: false
-      example: "{\n  \"name\": \"Test-Profile\",\n  \"definition\": \"<Profile name=\\\"Test-Profile\\\"><Resource name=\\\"Resource1\\\"><ReadContentType memberSelection=\\\"IncludeOnly\\\"><Collection name=\\\"Collection1\\\" memberSelection=\\\"IncludeOnly\\\"><Property name=\\\"Property1\\\" /><Property name=\\\"Property2\\\" /></Collection></ReadContentType><WriteContentType memberSelection=\\\"IncludeOnly\\\"><Collection name=\\\"Collection2\\\" memberSelection=\\\"IncludeOnly\\\"><Property name=\\\"Property1\\\" /><Property name=\\\"Property2\\\" /></Collection></WriteContentType></Resource></Profile>\"\n}"
+      example: "{\r\n  \"name\": \"Test-Profile\",\r\n  \"definition\": \"<Profile name=\\\"Test-Profile\\\"><Resource name=\\\"Resource1\\\"><ReadContentType memberSelection=\\\"IncludeOnly\\\"><Collection name=\\\"Collection1\\\" memberSelection=\\\"IncludeOnly\\\"><Property name=\\\"Property1\\\" /><Property name=\\\"Property2\\\" /></Collection></ReadContentType><WriteContentType memberSelection=\\\"IncludeOnly\\\"><Collection name=\\\"Collection2\\\" memberSelection=\\\"IncludeOnly\\\"><Property name=\\\"Property1\\\" /><Property name=\\\"Property2\\\" /></Collection></WriteContentType></Resource></Profile>\"\r\n}"
     addResourceClaimOnClaimSetRequest:
       title: AddResourceClaimActionsOnClaimSetRequest
       type: object
@@ -3740,6 +3395,18 @@ components:
         applicationId:
           type: integer
           format: int32
+      additionalProperties: false
+    apiUrlsResult:
+      title: ApiUrls
+      type: object
+      properties:
+        openApiMetadata:
+          type: string
+          description: Absolute URL to the OpenAPI/metadata document
+        tenancy:
+          type: string
+          description: Absolute URL to the tenancy endpoint; empty for V1, which has no
+            tenancy endpoint
       additionalProperties: false
     applicationModel:
       title: Application
@@ -3938,6 +3605,16 @@ components:
           type: string
           description: New claimset name
       additionalProperties: false
+    edfiConnectionString:
+      type: object
+      properties:
+        host:
+          type: string
+          nullable: true
+        database:
+          type: string
+          nullable: true
+      additionalProperties: false
     editApiClientRequest:
       title: EditApiClientRequest
       type: object
@@ -4130,8 +3807,6 @@ components:
       title: Information
       type: object
       properties:
-        tenancy:
-          $ref: '#/components/schemas/tenancyResult'
         version:
           type: string
           description: Application version
@@ -4140,7 +3815,61 @@ components:
           description: Build / release version
         specificationVersion:
           type: string
-          description: Admin API specification version
+          description: Management API specification version
+        applicationName:
+          type: string
+          description: Application name
+        informationalVersion:
+          type: string
+          description: Informational/semantic version
+        urls:
+          $ref: '#/components/schemas/apiUrlsResult'
+      additionalProperties: false
+    messageResult:
+      title: Message
+      type: object
+      description: 'Error body returned for handled Admin API errors (such as conflicts or reserved resources), malformed JSON request bodies, a request to the wrong API version for this instance, and unhandled server errors.'
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: Human-readable explanation of the error
+      additionalProperties: false
+    notFoundResult:
+      title: NotFound
+      type: object
+      description: Error body returned when the requested resource could not be found.
+      required:
+        - title
+      properties:
+        title:
+          type: string
+          description: 'Human-readable explanation identifying the resource that was not found, for example "Not found: vendor with ID 5. It may have been recently deleted."'
+      additionalProperties: false
+    oauthErrorResult:
+      title: OAuthError
+      type: object
+      description: 'OAuth 2.0 error body (RFC 6749, section 5.2) returned by the token endpoint. An invalid_scope error is returned with a content type of application/problem+json and also includes title and status; other errors are returned as application/json.'
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: 'OAuth 2.0 error code, for example invalid_request, invalid_client, invalid_scope or unsupported_grant_type.'
+        error_description:
+          type: string
+          description: Human-readable explanation of the error
+        error_uri:
+          type: string
+          description: URI identifying a page with information about the error
+        title:
+          type: string
+          description: 'Short summary of the error. Present on invalid_scope errors.'
+        status:
+          type: integer
+          format: int32
+          description: 'HTTP status code. Present on invalid_scope errors.'
       additionalProperties: false
     odsInstanceContextModel:
       title: OdsInstanceContext
@@ -4261,26 +3990,6 @@ components:
             type: string
           description: AuthorizationStrategy Names
       additionalProperties: false
-    problemDetails:
-      type: object
-      properties:
-        type:
-          type: string
-          nullable: true
-        title:
-          type: string
-          nullable: true
-        status:
-          type: integer
-          format: int32
-          nullable: true
-        detail:
-          type: string
-          nullable: true
-        instance:
-          type: string
-          nullable: true
-      additionalProperties: { }
     profileDetailsModel:
       title: ProfileDetails
       type: object
@@ -4392,6 +4101,16 @@ components:
           description: Children are collection of SimpleResourceClaimModel
           nullable: true
       additionalProperties: false
+    jobQueuedResult:
+      type: object
+      properties:
+        jobId:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
     jobStatusResult:
       type: object
       properties:
@@ -4424,9 +4143,6 @@ components:
       title: Tenancy
       type: object
       properties:
-        multitenantMode:
-          type: boolean
-          description: Indicates whether multi-tenant mode is enabled
         tenants:
           type: array
           items:
@@ -4480,6 +4196,36 @@ components:
           items:
             $ref: '#/components/schemas/educationOrganizationModel'
           nullable: true
+      additionalProperties: false
+    tenantsResponse:
+      type: object
+      properties:
+        tenantName:
+          type: string
+          nullable: true
+        adminConnectionString:
+          $ref: '#/components/schemas/edfiConnectionString'
+        securityConnectionString:
+          $ref: '#/components/schemas/edfiConnectionString'
+      additionalProperties: false
+    validationErrorResult:
+      title: ValidationError
+      type: object
+      description: Error body returned when the request fails validation.
+      required:
+        - title
+        - errors
+      properties:
+        title:
+          type: string
+          description: Always "Validation failed".
+        errors:
+          type: object
+          description: Validation failures keyed by property name.
+          additionalProperties:
+            type: array
+            items:
+              type: string
       additionalProperties: false
     vendorModel:
       title: Vendor

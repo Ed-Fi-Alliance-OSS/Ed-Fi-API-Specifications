@@ -62,13 +62,19 @@ Changes** below; implementers should review that section first.
   dataStores, dataStoreContexts, dataStoreDerivatives, applications,
   claimSets, and apiClients. Clients that parse a response body or check
   strictly for status `200` on these calls must be updated to expect `204`.
+  `DELETE '/v3/dataStores/manage/{id}'` is the exception: it returns `202
+  Accepted` with a `jobQueuedResult` body, since deletion is queued as a
+  background job rather than completed synchronously.
 
 ## Non-Breaking Additive Changes
 
 * New paths: `'/v3/jobs/{jobId}'`, `/v3/dataStores/manage` (GET/POST),
   `'/v3/dataStores/manage/{id}'` (GET/DELETE),
   `/v3/dataStores/edOrgs/refresh`,
-  `'/v3/dataStores/{dataStoreId}/edOrgs/refresh'`.
+  `'/v3/dataStores/{dataStoreId}/edOrgs/refresh'`. `POST
+  /v3/dataStores/manage` and `DELETE '/v3/dataStores/manage/{id}'` both
+  return `202 Accepted` with a `jobQueuedResult` body containing the `jobId`
+  for the queued creation/deletion job.
 * New schema components: `dataStoreManageModel`, `addDataStoreManageRequest`,
   `tenancyResult`, `tenantDataStoreModel`, `tenantDetailsResponse`,
   `educationOrganizationModel`, `jobQueuedResult`, `jobStatusResult`,

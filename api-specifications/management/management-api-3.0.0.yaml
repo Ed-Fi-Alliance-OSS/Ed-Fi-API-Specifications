@@ -53,6 +53,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tenantDetailsResponse'
+  /v3/tenancy:
+    get:
+      tags:
+        - Tenancy
+      summary: Retrieves the list of configured tenant names
+      description: Returns the list of tenant names when multi-tenant mode is enabled;
+        an empty list otherwise.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tenancyResult'
+        '503':
+          description: Service Unavailable. MultiTenancy is enabled but no tenants are configured. Check the Tenants section of appsettings.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '500':
+          description: Internal server error. An unhandled error occurred on the server.
+            See the response body for details.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+      security:
+        - { }
   /v3/resourceClaims:
     get:
       tags:
@@ -1237,13 +1266,20 @@ paths:
               schema:
                 $ref: '#/components/schemas/problemDetails'
         '202':
-          description: 'Accepted. The dataStore record has been created and provisioning has been queued; the database is not yet available. The response has no body. Poll the resource identified by the Location header and read its status property, which progresses PendingCreate, CreateInProgress, then Created or CreateFailed.'
+          description: 'Accepted. The dataStore record has been created and provisioning has been queued; the database is not yet available. The response body includes the jobId that can be used to check progress via GET /jobs/{jobId}. Poll the resource identified by the Location header and read its status property, which progresses PendingCreate, CreateInProgress, then Created or CreateFailed.'
           headers:
             Location:
               description: 'Absolute URL of the created dataStore, of the form {scheme}://{host}/v3/dataStores/manage/{id}.'
               schema:
                 type: string
                 format: uri
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/jobQueuedResult'
+              example:
+                jobId: CreateInstanceJob-1_9b1deb4d3b7d4bad9bdd2b0d7b3dcb6d
+                message: The Data Store has been queued to be created.
   '/v3/dataStores/manage/{id}':
     get:
       tags:
@@ -1325,8 +1361,15 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/problemDetails'
-        '204':
-          description: No Content
+        '202':
+          description: 'Accepted. The dataStore deletion has been queued for processing. The response body includes the jobId that can be used to check progress via GET /jobs/{jobId}.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/jobQueuedResult'
+              example:
+                jobId: DeleteInstanceJob-1_9b1deb4d3b7d4bad9bdd2b0d7b3dcb6d
+                message: The Data Store has been queued to be deleted.
   /v3/dataStoreDerivatives:
     get:
       tags:
@@ -3751,6 +3794,18 @@ components:
           type: integer
           format: int32
       additionalProperties: false
+    apiUrlsResult:
+      title: ApiUrls
+      type: object
+      properties:
+        openApiMetadata:
+          type: string
+          description: Absolute URL to the OpenAPI/metadata document
+        tenancy:
+          type: string
+          description: Absolute URL to the tenancy endpoint; empty for V1, which has no
+            tenancy endpoint
+      additionalProperties: false
     applicationModel:
       title: Application
       type: object
@@ -4094,16 +4149,6 @@ components:
             type: integer
             format: int64
           description: Education organization ids
-        dataStoreIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: List of data store id
-        enabled:
-          type: boolean
-          description: Indicates whether the ApiClient's credetials is enabled. Defaults to true if not provided.
-          nullable: true
       additionalProperties: false
     editClaimSetRequest:
       title: EditClaimSetRequest
@@ -4264,8 +4309,6 @@ components:
       title: Information
       type: object
       properties:
-        tenancy:
-          $ref: '#/components/schemas/tenancyResult'
         version:
           type: string
           description: Application version
@@ -4275,6 +4318,14 @@ components:
         specificationVersion:
           type: string
           description: Management API specification version
+        applicationName:
+          type: string
+          description: Application name
+        informationalVersion:
+          type: string
+          description: Informational/semantic version
+        urls:
+          $ref: '#/components/schemas/apiUrlsResult'
       additionalProperties: true
     jobQueuedResult:
       type: object
@@ -4318,7 +4369,7 @@ components:
       properties:
         type:
           type: string
-          description: 'A URI reference identifying the problem type. Known values are urn:ed-fi:admin-api:bad-request, urn:ed-fi:admin-api:bad-request:data, urn:ed-fi:admin-api:bad-request:validation, urn:ed-fi:admin-api:bad-request:version-mismatch, urn:ed-fi:admin-api:not-found, and urn:ed-fi:admin-api:internal-server-error.'
+          description: 'A URI reference identifying the problem type. Known values are urn:ed-fi:management-api:bad-request, urn:ed-fi:management-api:bad-request:data, urn:ed-fi:management-api:bad-request:validation, urn:ed-fi:management-api:bad-request:version-mismatch, urn:ed-fi:management-api:not-found, and urn:ed-fi:management-api:internal-server-error.'
           nullable: true
         title:
           type: string
@@ -4347,7 +4398,7 @@ components:
             type: array
             items:
               type: string
-          description: 'Validation failures keyed by property name. Present on validation failures (type urn:ed-fi:admin-api:bad-request:validation).'
+          description: 'Validation failures keyed by property name. Present on validation failures (type urn:ed-fi:management-api:bad-request:validation).'
           nullable: true
         errors:
           type: object
@@ -4500,9 +4551,6 @@ components:
       title: Tenancy
       type: object
       properties:
-        multitenantMode:
-          type: boolean
-          description: Indicates whether multi-tenant mode is enabled
         tenants:
           type: array
           items:
