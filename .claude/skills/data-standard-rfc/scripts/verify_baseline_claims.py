@@ -150,6 +150,9 @@ _PROPERTY_RE = re.compile(
     r"(?P<name>[A-Z][A-Za-z0-9]*)"
     r"(?:\s*\[\d+\])?"
     r"(?:\s+named\s+(?P<alias>[A-Z][A-Za-z0-9]*))?"
+    # The real model puts the [id] tag after the alias:
+    # `shared integer AttendanceEventDuration named InterventionDuration [2856]`.
+    r"(?:\s*\[\d+\])?"
     r"\s*$"
 )
 
@@ -170,7 +173,9 @@ class Property:
     def name(self) -> str:
         """The effective field name, as it appears in the API and in RFC tables."""
         base = self.alias or self.declared_name
-        if self.role_name:
+        # MetaEd collapses a role name equal to the entity name: `domain entity
+        # Cohort` + `role name Cohort` is `cohortReference`, not CohortCohort.
+        if self.role_name and self.role_name != base:
             return self.role_name + base
         return base
 
@@ -267,6 +272,13 @@ def parse_entity_text(text: str) -> Entity:
                 alias=match.group("alias"),
             )
             entity.properties.append(current)
+
+    # An Association's first two properties are its defining entities, and in
+    # MetaEd they are identity without an `is part of identity` line.
+    if entity.kind == "Association":
+        for prop in entity.properties[:2]:
+            if prop.metaed_type == "domain entity":
+                prop.is_identity = True
 
     return entity
 

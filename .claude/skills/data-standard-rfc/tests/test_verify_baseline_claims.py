@@ -149,6 +149,83 @@ class TestParserGrammar(unittest.TestCase):
         self.assertNotIn("documentation", [n.lower() for n in entity.field_names()])
 
 
+# StudentInterventionAssociation-style: the two defining entities carry no
+# `is part of identity` line -- in MetaEd an Association's first two
+# properties ARE its identity.
+ASSOCIATION_FIXTURE = """Association StudentInterventionAssociation [609]
+    documentation "This association indicates the students participating in an intervention."
+    domain entity Student [1080]
+        documentation "Relates the student associated with the intervention."
+    domain entity Intervention [1079]
+        documentation "An implementation of an instructional approach."
+    domain entity Cohort [1076]
+        documentation "Relates the cohort."
+        is optional
+        role name Cohort
+    shared integer Dosage [2789]
+        documentation "The duration of time in minutes."
+        is optional
+    date BeginDate [1081]
+        documentation "The date the student began the intervention."
+        is part of identity
+"""
+
+# StudentInterventionAttendanceEvent-style: the [id] tag comes AFTER the
+# `named` alias, which is how the real model writes it.
+NAMED_AFTER_ID_FIXTURE = """Domain Entity StudentInterventionAttendanceEvent [590]
+    documentation "An attendance event."
+    domain entity Student [1759]
+        documentation "Relates the student."
+        is part of identity
+    shared integer AttendanceEventDuration named InterventionDuration [2856]
+        documentation "The duration in minutes."
+        is optional
+"""
+
+
+class TestParserMetaEdRules(unittest.TestCase):
+    """MetaEd semantics the grammar alone does not show. Each one was found
+    misread against the real model on 2026-10-02."""
+
+    def test_association_defining_entities_are_identity(self):
+        entity = parse_entity_text(ASSOCIATION_FIXTURE)
+        self.assertTrue(entity.field("Student").is_identity)
+        self.assertTrue(entity.field("Intervention").is_identity)
+        self.assertTrue(entity.field("Student").is_required)
+
+    def test_association_key_includes_explicit_identity_too(self):
+        entity = parse_entity_text(ASSOCIATION_FIXTURE)
+        self.assertEqual(
+            sorted(entity.identity_field_names()),
+            ["BeginDate", "Intervention", "Student"],
+        )
+
+    def test_association_third_entity_is_not_identity(self):
+        entity = parse_entity_text(ASSOCIATION_FIXTURE)
+        self.assertFalse(entity.field("Cohort").is_identity)
+        self.assertFalse(entity.field("Cohort").is_required)
+
+    def test_domain_entity_references_are_not_implicitly_identity(self):
+        """The implicit rule is for Associations only."""
+        entity = parse_entity_text(NAMED_AFTER_ID_FIXTURE)
+        self.assertEqual(entity.identity_field_names(), ["Student"])
+
+    def test_named_alias_after_the_id_tag_is_parsed(self):
+        entity = parse_entity_text(NAMED_AFTER_ID_FIXTURE)
+        self.assertIn("InterventionDuration", entity.field_names())
+        self.assertEqual(
+            entity.field("InterventionDuration").shared_type,
+            "AttendanceEventDuration",
+        )
+
+    def test_role_name_equal_to_the_entity_name_is_not_doubled(self):
+        """MetaEd collapses it: the API has `cohortReference` and the ODS
+        column is `CohortIdentifier`, never `CohortCohort...`."""
+        entity = parse_entity_text(ASSOCIATION_FIXTURE)
+        self.assertIn("Cohort", entity.field_names())
+        self.assertNotIn("CohortCohort", entity.field_names())
+
+
 class TestTypeLabel(unittest.TestCase):
     def test_descriptor(self):
         entity = parse_entity_text(FOUR_SPACE)
@@ -350,6 +427,28 @@ class TestAgainstLiveModel(unittest.TestCase):
     def test_instructional_grade_level_role_name_resolves(self):
         entity = load_entity(PACKAGE, "OpenStaffPosition")
         self.assertIn("InstructionalGradeLevel", entity.field_names())
+
+    def test_student_intervention_association_current_key(self):
+        """Student + Intervention are implicit identity (Association rule)."""
+        entity = load_entity(PACKAGE, "StudentInterventionAssociation")
+        self.assertEqual(
+            sorted(entity.identity_field_names()), ["Intervention", "Student"]
+        )
+        self.assertIn("Cohort", entity.field_names())
+
+    def test_assessment_key_is_identifier_and_namespace(self):
+        """Before the `named ... [id]` fix the parser skipped both identity
+        lines, and the second `is part of identity` attached to the property
+        above it -- reporting SectionOrProgramChoice as part of the key."""
+        entity = load_entity(PACKAGE, "Assessment")
+        self.assertEqual(
+            sorted(entity.identity_field_names()),
+            ["AssessmentIdentifier", "Namespace"],
+        )
+
+    def test_intervention_duration_named_alias_is_read(self):
+        entity = load_entity(PACKAGE, "StudentInterventionAttendanceEvent")
+        self.assertIn("InterventionDuration", entity.field_names())
 
     def test_is_active_exists_and_is_optional(self):
         entity = load_entity(PACKAGE, "OpenStaffPosition")
