@@ -2941,7 +2941,9 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/oauthErrorResult'
+                oneOf:
+                  - $ref: '#/components/schemas/oauthErrorResult'
+                  - $ref: '#/components/schemas/validationErrorResult'
             application/json:
               schema:
                 $ref: '#/components/schemas/oauthErrorResult'
@@ -3850,7 +3852,7 @@ components:
     oauthErrorResult:
       title: OAuthError
       type: object
-      description: 'OAuth 2.0 error body (RFC 6749, section 5.2) returned by the token endpoint. An invalid_scope error is returned with a content type of application/problem+json and also includes title and status; other errors are returned as application/json.'
+      description: 'OAuth 2.0 error body (RFC 6749, section 5.2) returned by the token endpoint. An invalid_scope error is returned with a content type of application/problem+json and also includes title and status; other errors are returned as application/json. A missing or invalid tenant header in multi-tenant mode is returned as a validationErrorResult with a content type of application/problem+json.'
       required:
         - error
       properties:

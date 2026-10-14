@@ -26,7 +26,10 @@ relative to `management-api-2.3.0.yaml`.
 * `/connect/register` and `/connect/token` now explicitly declare
   `security: [{}]` (anonymous access). `/connect/register` documents
   `validationErrorResult` on `400` and `/connect/token` documents the new
-  `oauthErrorResult` (OAuth 2.0 error body) on `400`; both document
+  `oauthErrorResult` (OAuth 2.0 error body) on `400`, as `oneOf`
+  `oauthErrorResult` or `validationErrorResult` for `application/problem+json`
+  (a missing or invalid tenant header in multi-tenant mode returns the
+  latter); both document
   `messageResult` on `500`.
 
 ## New Paths and Operations
