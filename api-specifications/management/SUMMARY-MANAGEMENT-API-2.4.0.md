@@ -9,17 +9,25 @@ relative to `management-api-2.3.0.yaml`.
 
 * The OAuth scope was renamed from `api` to `edfi_admin_api/full_access`; its
   description is unchanged ("Full access to the Management API").
-* Error responses are now consistently documented: `400`/`401`/`403`/`404`/
-  `500` responses across roughly 40 operations gained an explicit
-  `application/problem+json` body (`$ref: '#/components/schemas/problemDetails'`)
-  where none was previously specified.
+* Error responses are now consistently documented: `400`/`404`/`500`
+  (and `409`/`503` where applicable) responses across roughly 40 operations
+  gained an explicit body where none was previously specified. The bodies are
+  the legacy v2 error shapes the service returns, not RFC 7807 problem
+  details: `messageResult` (`{ "message": ... }`), `notFoundResult`
+  (`{ "title": ... }`), and `validationErrorResult` (`{ "title": ...,
+  "errors": ... }`). POST/PUT `400` responses use `oneOf`
+  `validationErrorResult` or `messageResult`. The content type remains
+  `application/problem+json`, which is what the service sends. `401` and
+  `403` responses have no body.
 * Most `201 Created` responses for POST operations (vendors, profiles,
   odsInstances, odsInstanceDerivatives, odsInstanceContexts, apiClients,
   claimSets, claimSets/copy, claimSets/import, resourceClaimActions,
   overrideAuthorizationStrategy) now include a `Location` response header.
 * `/connect/register` and `/connect/token` now explicitly declare
-  `security: [{}]` (anonymous access) and document `problemDetails` bodies
-  on their `400`/`500` responses.
+  `security: [{}]` (anonymous access). `/connect/register` documents
+  `validationErrorResult` on `400` and `/connect/token` documents the new
+  `oauthErrorResult` (OAuth 2.0 error body) on `400`; both document
+  `messageResult` on `500`.
 
 ## New Paths and Operations
 
@@ -60,10 +68,13 @@ Both are superseded by `GET '/v2/tenants/{tenantName}/odsInstances/edOrgs'`.
 
 ## Schema Property Changes
 
-* New `jobQueuedResult` schema (`jobId`, `message`, both nullable strings) —
-  the response body for background job queue operations.
+* New `jobQueuedResult` schema (titled `JobQueuedResult`; `jobId`,
+  `message`, both nullable strings) — the response body for background job
+  queue operations.
 * `informationResult` gained two properties: `tenancy` (`$ref:
   tenancyResult`) and `specificationVersion` (string).
 * The informational root endpoint's `500` response body changed from
   `application/json` + `informationResult` to `application/problem+json` +
-  `problemDetails`; the endpoint also gained `security: [{}]`.
+  `messageResult`; the endpoint also gained `security: [{}]`.
+* New error schemas `messageResult`, `notFoundResult`, `validationErrorResult`
+  and `oauthErrorResult` describe the v2 error bodies above.

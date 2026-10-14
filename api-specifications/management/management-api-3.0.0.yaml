@@ -4368,10 +4368,6 @@ components:
           type: integer
           description: Claim set id
           format: int32
-        resourceClaimId:
-          type: integer
-          description: Resource Claim Id
-          format: int32
         actionName:
           type: string
           nullable: true

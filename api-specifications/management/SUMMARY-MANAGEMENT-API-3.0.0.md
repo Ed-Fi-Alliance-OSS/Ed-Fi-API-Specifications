@@ -72,9 +72,11 @@ Changes** below; implementers should review that section first.
   `'/v3/dataStores/manage/{id}'` (GET/DELETE),
   `/v3/dataStores/edOrgs/refresh`,
   `'/v3/dataStores/{dataStoreId}/edOrgs/refresh'`. `POST
-  /v3/dataStores/manage` and `DELETE '/v3/dataStores/manage/{id}'` both
-  return `202 Accepted` with a `jobQueuedResult` body containing the `jobId`
-  for the queued creation/deletion job.
+  /v3/dataStores/manage`, `DELETE '/v3/dataStores/manage/{id}'` and both
+  `edOrgs/refresh` endpoints return `202 Accepted` with a `jobQueuedResult`
+  body containing the `jobId` for the queued job. Every `202` response except
+  the `DELETE` one also carries a `Location` header (`format: uri`) with the
+  relative path of the job, in the form `/v3/jobs/{jobId}`.
 * New schema components: `dataStoreManageModel`, `addDataStoreManageRequest`,
   `tenancyResult`, `tenantDataStoreModel`, `tenantDetailsResponse`,
   `educationOrganizationModel`, `jobQueuedResult`, `jobStatusResult`,
@@ -91,9 +93,8 @@ Changes** below; implementers should review that section first.
 * New property `claimSetId` added to `addResourceClaimOnClaimSetRequest`
   (optional).
 * `dataStoreDerivativeModel` gained a new `connectionString` property.
-* `overrideAuthStategyOnClaimSetRequest` relaxed from
-  `additionalProperties: false` to permissive (`additionalProperties: {}`) —
-  widens what the schema accepts rather than narrowing it.
+* New property `claimSetId` added to `overrideAuthStategyOnClaimSetRequest`.
+  The schema still has `additionalProperties: false`, as in 2.3.0.
 
 ## Non-Functional / Documentation Changes
 
