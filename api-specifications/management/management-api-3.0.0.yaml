@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.0.4
 info:
   title: Ed-Fi Management API
   description: 'The Ed-Fi Management API is a REST API-based administrative interface for managing vendors, applications, client credentials, and authorization rules for accessing an Ed-Fi API.'
@@ -36,13 +36,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/problemDetails'
         '400':
-          description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
+          description: Tenant header and URL tenant name do not match
           content:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/problemDetails'
         '404':
-          description: Not found. A resource with given identifier could not be found.
+          description: 'Not found: TenantName with ID {tenantName}. It may have been recently deleted.'
           content:
             application/problem+json:
               schema:
@@ -2891,7 +2891,8 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/problemDetails'
-      security: []
+      security:
+        - {}
   /v3/dataStores/edOrgs/refresh:
     post:
       tags:
@@ -2930,6 +2931,7 @@ paths:
               description: 'Relative path of the job created for this request, in the form /v3/jobs/{jobId}.'
               schema:
                 type: string
+                format: uri
           content:
             application/json:
               schema:
@@ -2988,6 +2990,7 @@ paths:
               description: 'Relative path of the job created for this request, in the form /v3/jobs/{jobId}.'
               schema:
                 type: string
+                format: uri
           content:
             application/json:
               schema:
@@ -3293,7 +3296,8 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '200':
           description: Application registered successfully.
-      security: []
+      security:
+        - {}
   /connect/token:
     post:
       tags:
@@ -3329,7 +3333,8 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '200':
           description: Sign-in successful.
-      security: []
+      security:
+        - {}
   '/v3/claimSets/{claimSetId}/resourceClaimActions/{resourceClaimId}':
     put:
       tags:
@@ -3471,6 +3476,12 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '409':
+          description: 'Conflict. The request is authenticated, but it has a conflict with an existing element'
           content:
             application/problem+json:
               schema:
@@ -3702,16 +3713,18 @@ components:
           type: string
           description: Profile definition
       additionalProperties: false
+      example: "{\n  \"name\": \"Test-Profile\",\n  \"definition\": \"<Profile name=\\\"Test-Profile\\\"><Resource name=\\\"Resource1\\\"><ReadContentType memberSelection=\\\"IncludeOnly\\\"><Collection name=\\\"Collection1\\\" memberSelection=\\\"IncludeOnly\\\"><Property name=\\\"Property1\\\" /><Property name=\\\"Property2\\\" /></Collection></ReadContentType><WriteContentType memberSelection=\\\"IncludeOnly\\\"><Collection name=\\\"Collection2\\\" memberSelection=\\\"IncludeOnly\\\"><Property name=\\\"Property1\\\" /><Property name=\\\"Property2\\\" /></Collection></WriteContentType></Resource></Profile>\"\n}"
     addResourceClaimOnClaimSetRequest:
       title: AddResourceClaimActionsOnClaimSetRequest
       type: object
       properties:
         claimSetId:
           type: integer
+          description: Claim set id
           format: int32
         resourceClaimId:
           type: integer
-          description: ResourceClaim id
+          description: Resource Claim Id
           format: int32
         resourceClaimActions:
           type: array
@@ -4020,7 +4033,7 @@ components:
         derivativeType:
           type: string
           nullable: true
-      additionalProperties: true
+      additionalProperties: false
     dataStoreDetailModel:
       title: DataStoreDetail
       type: object
@@ -4101,6 +4114,7 @@ components:
       properties:
         id:
           type: integer
+          description: Api client id.
           format: int32
         name:
           type: string
@@ -4125,6 +4139,7 @@ components:
       properties:
         id:
           type: integer
+          description: Application id
           format: int32
         applicationName:
           type: string
@@ -4156,6 +4171,7 @@ components:
       properties:
         id:
           type: integer
+          description: Claim set id
           format: int32
         name:
           type: string
@@ -4216,6 +4232,7 @@ components:
           nullable: true
         id:
           type: integer
+          description: Data store id.
           format: int32
       additionalProperties: false
     editProfileRequest:
@@ -4233,15 +4250,18 @@ components:
           description: Profile id
           format: int32
       additionalProperties: false
+      example: "{\n  \"name\": \"Test-Profile\",\n  \"definition\": \"<Profile name=\\\"Test-Profile\\\"><Resource name=\\\"Resource1\\\"><ReadContentType memberSelection=\\\"IncludeOnly\\\"><Collection name=\\\"Collection1\\\" memberSelection=\\\"IncludeOnly\\\"><Property name=\\\"Property1\\\" /><Property name=\\\"Property2\\\" /></Collection></ReadContentType><WriteContentType memberSelection=\\\"IncludeOnly\\\"><Collection name=\\\"Collection2\\\" memberSelection=\\\"IncludeOnly\\\"><Property name=\\\"Property1\\\" /><Property name=\\\"Property2\\\" /></Collection></WriteContentType></Resource></Profile>\"\n}"
     editResourceClaimOnClaimSetRequest:
       title: EditResourceClaimActionsOnClaimSetRequest
       type: object
       properties:
         claimSetId:
           type: integer
+          description: Claim set id
           format: int32
         resourceClaimId:
           type: integer
+          description: Resource Claim Id
           format: int32
         resourceClaimActions:
           type: array
@@ -4254,6 +4274,7 @@ components:
       properties:
         id:
           type: integer
+          description: Vendor/ company id
           format: int32
         company:
           type: string
@@ -4326,9 +4347,11 @@ components:
           description: Informational/semantic version
         urls:
           $ref: '#/components/schemas/apiUrlsResult'
-      additionalProperties: true
+      additionalProperties: false
     jobQueuedResult:
+      title: JobQueuedResult
       type: object
+      description: Response returned when a request has been queued as a background job
       properties:
         jobId:
           type: string
@@ -4343,18 +4366,14 @@ components:
       properties:
         claimSetId:
           type: integer
+          description: Claim set id
           format: int32
         resourceClaimId:
           type: integer
+          description: Resource Claim Id
           format: int32
         actionName:
           type: string
-          nullable: true
-        authStrategyIds:
-          type: array
-          items:
-            type: integer
-            format: int32
           nullable: true
         authorizationStrategies:
           type: array
@@ -4408,6 +4427,7 @@ components:
               type: string
           description: 'Duplicate of validationErrors, retained for compatibility with clients that read this key. Present on validation failures.'
           nullable: true
+      additionalProperties: {}
     profileDetailsModel:
       title: ProfileDetails
       type: object
@@ -4633,7 +4653,7 @@ components:
         clientCredentials:
           tokenUrl: https://localhost/connect/token
           scopes:
-            edfi_admin_api/full_access: Full access to the Admin API
+            edfi_admin_api/full_access: Full access to the Management API
 security:
   - oauth:
       - edfi_admin_api/full_access

@@ -99,7 +99,8 @@ Changes** below; implementers should review that section first.
 
 * `info.version` format updated from `v2.3.0` to `3.0.0`. `info.title` and
   `info.description` are unchanged from 2.3.0 ("Ed-Fi Management API").
-* OAuth scope description text updated to reflect "Admin API" wording.
+* OAuth scope description is "Full access to the Management API" (unchanged
+  from 2.3.0 wording).
 * Applied correct camel casing to the `apiClients` routes: `apiclients` →
   `apiClients` (`/v2/apiclients` → `/v3/apiClients`,
   `'/v2/apiclients/{id}'` → `'/v3/apiClients/{id}'`,

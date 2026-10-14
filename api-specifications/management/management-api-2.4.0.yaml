@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: Ed-Fi Management API
   description: 'The Ed-Fi Management API is a REST API-based administrative interface for managing vendors, applications, client credentials, and authorization rules for accessing an Ed-Fi API.'
-  version: v2
+  version: 2.4.0
 paths:
   /v2/tenants:
     get:
@@ -4102,7 +4102,9 @@ components:
           nullable: true
       additionalProperties: false
     jobQueuedResult:
+      title: JobQueuedResult
       type: object
+      description: Response returned when a request has been queued as a background job
       properties:
         jobId:
           type: string
@@ -4255,7 +4257,7 @@ components:
         clientCredentials:
           tokenUrl: https://localhost/connect/token
           scopes:
-            edfi_admin_api/full_access: Full access to the Admin API
+            edfi_admin_api/full_access: Full access to the Management API
 security:
   - oauth:
       - edfi_admin_api/full_access

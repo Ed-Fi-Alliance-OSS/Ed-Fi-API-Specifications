@@ -7,8 +7,8 @@ relative to `management-api-2.3.0.yaml`.
 
 ## Document Wide Changes
 
-* The OAuth scope was renamed from `api` ("Full access to the Management
-  API") to `edfi_admin_api/full_access` ("Full access to the Admin API").
+* The OAuth scope was renamed from `api` to `edfi_admin_api/full_access`; its
+  description is unchanged ("Full access to the Management API").
 * Error responses are now consistently documented: `400`/`401`/`403`/`404`/
   `500` responses across roughly 40 operations gained an explicit
   `application/problem+json` body (`$ref: '#/components/schemas/problemDetails'`)
