@@ -62,13 +62,21 @@ Changes** below; implementers should review that section first.
   dataStores, dataStoreContexts, dataStoreDerivatives, applications,
   claimSets, and apiClients. Clients that parse a response body or check
   strictly for status `200` on these calls must be updated to expect `204`.
+  `DELETE '/v3/dataStores/manage/{id}'` is the exception: it returns `202
+  Accepted` with a `jobQueuedResult` body, since deletion is queued as a
+  background job rather than completed synchronously.
 
 ## Non-Breaking Additive Changes
 
 * New paths: `'/v3/jobs/{jobId}'`, `/v3/dataStores/manage` (GET/POST),
   `'/v3/dataStores/manage/{id}'` (GET/DELETE),
   `/v3/dataStores/edOrgs/refresh`,
-  `'/v3/dataStores/{dataStoreId}/edOrgs/refresh'`.
+  `'/v3/dataStores/{dataStoreId}/edOrgs/refresh'`. `POST
+  /v3/dataStores/manage`, `DELETE '/v3/dataStores/manage/{id}'` and both
+  `edOrgs/refresh` endpoints return `202 Accepted` with a `jobQueuedResult`
+  body containing the `jobId` for the queued job. Every `202` response except
+  the `DELETE` one also carries a `Location` header (`format: uri`) with the
+  relative path of the job, in the form `/v3/jobs/{jobId}`.
 * New schema components: `dataStoreManageModel`, `addDataStoreManageRequest`,
   `tenancyResult`, `tenantDataStoreModel`, `tenantDetailsResponse`,
   `educationOrganizationModel`, `jobQueuedResult`, `jobStatusResult`,
@@ -85,15 +93,15 @@ Changes** below; implementers should review that section first.
 * New property `claimSetId` added to `addResourceClaimOnClaimSetRequest`
   (optional).
 * `dataStoreDerivativeModel` gained a new `connectionString` property.
-* `overrideAuthStategyOnClaimSetRequest` relaxed from
-  `additionalProperties: false` to permissive (`additionalProperties: {}`) —
-  widens what the schema accepts rather than narrowing it.
+* New property `claimSetId` added to `overrideAuthStategyOnClaimSetRequest`.
+  The schema still has `additionalProperties: false`, as in 2.3.0.
 
 ## Non-Functional / Documentation Changes
 
 * `info.version` format updated from `v2.3.0` to `3.0.0`. `info.title` and
   `info.description` are unchanged from 2.3.0 ("Ed-Fi Management API").
-* OAuth scope description text updated to reflect "Admin API" wording.
+* OAuth scope description is "Full access to the Management API" (unchanged
+  from 2.3.0 wording).
 * Applied correct camel casing to the `apiClients` routes: `apiclients` →
   `apiClients` (`/v2/apiclients` → `/v3/apiClients`,
   `'/v2/apiclients/{id}'` → `'/v3/apiClients/{id}'`,
