@@ -127,6 +127,12 @@ Changes** below; implementers should review that section first.
   `problemDetails.type` lists the new problem types
   `urn:ed-fi:management-api:conflict`, `conflict:unresolved-reference`,
   `conflict:education-organization-scope` and `bad-gateway`.
+* **Partial sync (proposed).** The `502` on `PUT '/v3/applications/{id}'`
+  documents a `urn:ed-fi:management-api:bad-gateway:partial-sync` outcome: the
+  Application change is saved, but some API clients weren't updated in the
+  identity provider. `problemDetails` gained an `apiClientIds` extension
+  member listing them, and the response documents how later requests finish
+  them.
 
 ## Non-Functional / Documentation Changes
 
