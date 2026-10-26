@@ -119,6 +119,14 @@ Changes** below; implementers should review that section first.
   `409` when the Application has zero API clients or more than one, and
   `DELETE '/v3/apiClients/{id}'` to leave the Application in place when it
   deletes the last client.
+* **New error responses.** `409` was added to `PUT '/v3/applications/{id}'`,
+  `POST /v3/apiClients` and `PUT '/v3/apiClients/{id}'`. `502` (identity
+  provider failure) was added to `POST /v3/applications`,
+  `PUT` and `DELETE '/v3/applications/{id}'`, `POST /v3/apiClients`,
+  `PUT '/v3/apiClients/{id}'` and `PUT '/v3/apiClients/{id}/reset-credential'`.
+  `problemDetails.type` lists the new problem types
+  `urn:ed-fi:management-api:conflict`, `conflict:unresolved-reference`,
+  `conflict:education-organization-scope` and `bad-gateway`.
 
 ## Non-Functional / Documentation Changes
 

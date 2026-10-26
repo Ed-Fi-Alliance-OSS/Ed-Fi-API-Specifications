@@ -2340,6 +2340,12 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/problemDetails'
+        '502':
+          description: 'Bad Gateway. The identity provider failed (type urn:ed-fi:management-api:bad-gateway); nothing is saved.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
         '201':
           description: 'Created. When createDefaultCredentials is false, no API client is created and key and secret are null.'
           headers:
@@ -2445,6 +2451,18 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/problemDetails'
+        '409':
+          description: 'Conflict. A referenced vendor or profile doesn''t exist (type urn:ed-fi:management-api:conflict:unresolved-reference).'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '502':
+          description: 'Bad Gateway. The identity provider failed (type urn:ed-fi:management-api:bad-gateway).'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
         '204':
           description: No Content
     delete:
@@ -2480,6 +2498,12 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '404':
           description: Not found. A resource with given identifier could not be found.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '502':
+          description: 'Bad Gateway. Some of the Application''s API clients couldn''t be deleted in the identity provider (type urn:ed-fi:management-api:bad-gateway). The Application and its remaining API clients are kept, so nothing is orphaned. Resending the DELETE finishes the job: API clients already deleted in the identity provider count as success, and the request returns 204 once everything is removed.'
           content:
             application/problem+json:
               schema:
@@ -2676,6 +2700,18 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/problemDetails'
+        '409':
+          description: 'Conflict. The referenced Application or data store doesn''t exist (type urn:ed-fi:management-api:conflict:unresolved-reference), or the Application already has an API client with this name (type urn:ed-fi:management-api:conflict).'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '502':
+          description: 'Bad Gateway. The identity provider failed (type urn:ed-fi:management-api:bad-gateway); nothing is saved.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
         '201':
           description: Created
           headers:
@@ -2803,6 +2839,18 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '409':
+          description: 'Conflict. A referenced Application or data store doesn''t exist (type urn:ed-fi:management-api:conflict:unresolved-reference), the Application already has another API client with this name (type urn:ed-fi:management-api:conflict), or a narrowed API client moved to another Application without a new list doesn''t fit it (type urn:ed-fi:management-api:conflict:education-organization-scope).'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '502':
+          description: 'Bad Gateway. The identity provider failed (type urn:ed-fi:management-api:bad-gateway).'
           content:
             application/problem+json:
               schema:
@@ -3582,6 +3630,12 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '400':
           description: Bad Request. The request was invalid and cannot be completed. See the response body for details.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '502':
+          description: 'Bad Gateway. The identity provider failed (type urn:ed-fi:management-api:bad-gateway).'
           content:
             application/problem+json:
               schema:
@@ -4462,7 +4516,7 @@ components:
       properties:
         type:
           type: string
-          description: 'A URI reference identifying the problem type. Known values are urn:ed-fi:management-api:bad-request, urn:ed-fi:management-api:bad-request:data, urn:ed-fi:management-api:bad-request:validation, urn:ed-fi:management-api:bad-request:version-mismatch, urn:ed-fi:management-api:not-found, and urn:ed-fi:management-api:internal-server-error.'
+          description: 'A URI reference identifying the problem type. Known values are urn:ed-fi:management-api:bad-request, urn:ed-fi:management-api:bad-request:data, urn:ed-fi:management-api:bad-request:validation, urn:ed-fi:management-api:bad-request:version-mismatch, urn:ed-fi:management-api:not-found, urn:ed-fi:management-api:conflict, urn:ed-fi:management-api:conflict:unresolved-reference, urn:ed-fi:management-api:conflict:education-organization-scope, urn:ed-fi:management-api:internal-server-error, and urn:ed-fi:management-api:bad-gateway.'
           nullable: true
         title:
           type: string
@@ -4491,7 +4545,7 @@ components:
             type: array
             items:
               type: string
-          description: 'Validation failures keyed by property name. Present on validation failures (type urn:ed-fi:management-api:bad-request:validation).'
+          description: 'Validation failures keyed by property name. Present on validation failures (type urn:ed-fi:management-api:bad-request:validation) and on data errors reported against a specific field (type urn:ed-fi:management-api:bad-request:data).'
           nullable: true
         errors:
           type: object
