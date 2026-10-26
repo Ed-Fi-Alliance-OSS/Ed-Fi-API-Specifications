@@ -95,6 +95,30 @@ Changes** below; implementers should review that section first.
 * `dataStoreDerivativeModel` gained a new `connectionString` property.
 * New property `claimSetId` added to `overrideAuthStategyOnClaimSetRequest`.
   The schema still has `additionalProperties: false`, as in 2.3.0.
+* **API client education organizations.** An API client can be narrowed to
+  some of its Application's education organizations:
+  * `addApiClientRequest` and `editApiClientRequest` gained optional
+    `educationOrganizationIds` (array of int64) and
+    `inheritsApplicationEducationOrganizations` (boolean). The rules for
+    combining them, including moving a client to another Application, are in
+    the `POST` and `PUT /v3/apiClients` operation descriptions. On `PUT`,
+    omitting both keeps the client's current flag and list.
+  * `apiClientModel` gained `inheritsApplicationEducationOrganizations`.
+    `educationOrganizationIds` is documented as the client's effective list
+    and is no longer nullable; `[]` means no education organization access.
+  * `PUT '/v3/applications/{id}'` is documented to remove deleted education
+    organizations from every client and add new ones only to inheriting
+    clients, and to work for Applications with zero clients.
+* **Applications without a default client.** `addApplicationRequest` gained
+  optional `createDefaultCredentials` (default `true`). When it is `false`, no
+  API client is created, `key` and `secret` are `null`, and sending `enabled`
+  or `dataStoreIds` returns `400`.
+* `applicationModel.enabled` and `applicationModel.dataStoreIds` are
+  documented as derived from the Application's API clients.
+* `PUT '/v3/applications/{id}/reset-credential'` is documented to return
+  `409` when the Application has zero API clients or more than one, and
+  `DELETE '/v3/apiClients/{id}'` to leave the Application in place when it
+  deletes the last client.
 
 ## Non-Functional / Documentation Changes
 

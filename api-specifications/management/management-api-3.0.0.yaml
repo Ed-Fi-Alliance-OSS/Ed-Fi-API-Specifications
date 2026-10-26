@@ -2341,7 +2341,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/problemDetails'
         '201':
-          description: Created
+          description: 'Created. When createDefaultCredentials is false, no API client is created and key and secret are null.'
           headers:
             Location:
               description: URI of the resource that was created.
@@ -2400,7 +2400,7 @@ paths:
       tags:
         - Applications
       summary: Updates application based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier "id" is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates.'
+      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier "id" is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Education organizations removed from the Application are removed from every one of its API clients. Education organizations added to the Application are added only to API clients that inherit the Application''s education organizations; narrowed clients don''t get them. The operation works for Applications with zero API clients.'
       parameters:
         - name: id
           in: path
@@ -2620,7 +2620,31 @@ paths:
       tags:
         - ApiClients
       summary: Creates apiClient based on the supplied values.
-      description: 'The POST operation is used to create a new resource. Clients should NOT include the resource "id" in the JSON body; doing so will result in an error. The web service will check whether a resource with matching natural key values already exists; if a match is found, the request is rejected with an error and no data is changed. Use PUT to update an existing resource by identifier instead.'
+      description: |-
+        The POST operation is used to create a new resource. Clients should NOT include the resource "id" in the JSON body; doing so will result in an error. The web service will check whether a resource with matching natural key values already exists; if a match is found, the request is rejected with an error and no data is changed. Use PUT to update an existing resource by identifier instead.
+
+        **Client education organization rules**
+
+        The same rules apply to POST and PUT /v3/apiClients. "The Application's list" means the current education organizations of the client's Application; on a PUT that moves the client to another Application, it means the new Application's list.
+
+        | Request contains | Result |
+        | --- | --- |
+        | A list, no flag | Narrowed to that list. |
+        | `false` with a list | Narrowed to that list. |
+        | `true`, no list | Inherits the Application's list and follows future changes. |
+        | `true` with a list equal to the Application's list | Inherits; the list is ignored. This makes a GET-then-PUT round trip of an inheriting client a no-op. |
+        | `true` with any other list | 400 |
+        | `false` without a list | 400 |
+        | An empty list `[]` | 400 |
+        | A list containing an education organization that isn't on the Application | 400 |
+        | Neither field | POST: inherits. PUT (same Application): the client's current flag and list are kept. This is the only difference between POST and PUT. |
+        | Neither field, on a PUT that moves the client to another Application (new `applicationId`) | Inheriting client: takes the new Application's list and keeps inheriting. Narrowed client: keeps its list if every education organization in it is on the new Application; otherwise 409 (`urn:ed-fi:management-api:conflict:education-organization-scope`). To move it anyway, send a new list or `true`. |
+
+        - "Flag" is `inheritsApplicationEducationOrganizations`; "list" is `educationOrganizationIds`.
+        - Each 400 above has type `urn:ed-fi:management-api:bad-request:data`, with the error on the field concerned.
+        - Duplicate IDs in a list are removed silently.
+        - Sending a list without the flag makes the client narrowed, even if the list matches the Application's list. To keep a client inheriting, send `true` or leave the list out.
+        - On PUT, a narrowed client sent `true` (with no list, or with a list equal to the Application's list) switches back to inheriting.
       requestBody:
         content:
           application/json:
@@ -2712,7 +2736,33 @@ paths:
       tags:
         - ApiClients
       summary: Updates apiClient based on the resource identifier.
-      description: 'The PUT operation is used to update a resource by identifier. If the resource identifier "id" is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates.'
+      description: |-
+        The PUT operation is used to update a resource by identifier. If the resource identifier "id" is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates.
+
+        Sending a different `applicationId` moves the client to that Application. Its education organizations are then resolved against the new Application, as the rules below describe.
+
+        **Client education organization rules**
+
+        The same rules apply to POST and PUT /v3/apiClients. "The Application's list" means the current education organizations of the client's Application; on a PUT that moves the client to another Application, it means the new Application's list.
+
+        | Request contains | Result |
+        | --- | --- |
+        | A list, no flag | Narrowed to that list. |
+        | `false` with a list | Narrowed to that list. |
+        | `true`, no list | Inherits the Application's list and follows future changes. |
+        | `true` with a list equal to the Application's list | Inherits; the list is ignored. This makes a GET-then-PUT round trip of an inheriting client a no-op. |
+        | `true` with any other list | 400 |
+        | `false` without a list | 400 |
+        | An empty list `[]` | 400 |
+        | A list containing an education organization that isn't on the Application | 400 |
+        | Neither field | POST: inherits. PUT (same Application): the client's current flag and list are kept. This is the only difference between POST and PUT. |
+        | Neither field, on a PUT that moves the client to another Application (new `applicationId`) | Inheriting client: takes the new Application's list and keeps inheriting. Narrowed client: keeps its list if every education organization in it is on the new Application; otherwise 409 (`urn:ed-fi:management-api:conflict:education-organization-scope`). To move it anyway, send a new list or `true`. |
+
+        - "Flag" is `inheritsApplicationEducationOrganizations`; "list" is `educationOrganizationIds`.
+        - Each 400 above has type `urn:ed-fi:management-api:bad-request:data`, with the error on the field concerned.
+        - Duplicate IDs in a list are removed silently.
+        - Sending a list without the flag makes the client narrowed, even if the list matches the Application's list. To keep a client inheriting, send `true` or leave the list out.
+        - On PUT, a narrowed client sent `true` (with no list, or with a list equal to the Application's list) switches back to inheriting.
       parameters:
         - name: id
           in: path
@@ -2763,7 +2813,7 @@ paths:
       tags:
         - ApiClients
       summary: Deletes an existing apiClient using the resource identifier.
-      description: 'The DELETE operation is used to delete an existing resource by identifier. If the resource doesn''t exist, an error will result (the resource will not be found).'
+      description: 'The DELETE operation is used to delete an existing resource by identifier. If the resource doesn''t exist, an error will result (the resource will not be found). Deleting an Application''s last API client leaves the Application in place: it can still be read, updated and deleted, and new API clients can be added to it.'
       parameters:
         - name: id
           in: path
@@ -3442,6 +3492,7 @@ paths:
       tags:
         - Applications
       summary: Reset application credentials. Returns new key and secret.
+      description: 'Generates a new secret for the Application''s only API client. Returns 409 (type urn:ed-fi:management-api:conflict) when the Application has zero API clients or more than one; use PUT /v3/apiClients/{id}/reset-credential to reset a specific client.'
       parameters:
         - name: id
           in: path
@@ -3599,6 +3650,15 @@ components:
             type: integer
             format: int32
           description: List of data store id
+        educationOrganizationIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: 'Education organizations the client is limited to. Each one must be on the client''s Application. Sending a list without inheritsApplicationEducationOrganizations narrows the client to that list, even if it matches the Application''s list. An empty list is rejected, and duplicate IDs are removed. See the operation description for the full rules.'
+        inheritsApplicationEducationOrganizations:
+          type: boolean
+          description: 'When true, the client inherits its Application''s education organizations and follows future changes to them. When false, the client is narrowed to educationOrganizationIds, which is then required. If neither field is sent, the client inherits. See the operation description for the full rules.'
       additionalProperties: false
     addApplicationRequest:
       title: AddApplicationRequest
@@ -3637,6 +3697,10 @@ components:
           type: boolean
           description: Indicates whether the ApiClient's credetials is enabled. Defaults to true if not provided.
           nullable: true
+        createDefaultCredentials:
+          type: boolean
+          description: 'When true (the default), a default API client is created that inherits all of the Application''s education organizations, and its key and secret are returned. When false, no API client is created, key and secret are returned as null, and sending enabled or dataStoreIds returns 400 (type urn:ed-fi:management-api:bad-request:data, with the error on the field concerned). Add API clients afterwards with POST /v3/apiClients.'
+          default: true
       additionalProperties: false
     addClaimSetRequest:
       title: AddClaimSetRequest
@@ -3779,7 +3843,10 @@ components:
           items:
             type: integer
             format: int64
-          nullable: true
+          description: 'The client''s effective education organizations: the Application''s current list for an inheriting client, or the client''s own list for a narrowed one. Never null. An empty list means the client has no education organization access; a narrowed client''s list becomes empty when all of its education organizations are removed from the Application.'
+        inheritsApplicationEducationOrganizations:
+          type: boolean
+          description: 'True when the client inherits its Application''s education organizations and follows future changes to them. False when the client is narrowed to its own list.'
         dataStoreIds:
           type: array
           items:
@@ -3853,9 +3920,11 @@ components:
           items:
             type: integer
             format: int32
+          description: 'The union of the data stores of the Application''s API clients. An empty list when the Application has no clients.'
           nullable: true
         enabled:
           type: boolean
+          description: 'Derived from the Application''s API clients: true only when the Application has at least one client and all of its clients are approved. False when the Application has no clients, or when its clients are not all approved.'
       additionalProperties: false
     applicationResult:
       title: ApplicationKeySecret
@@ -4132,6 +4201,15 @@ components:
             type: integer
             format: int32
           description: List of data store id
+        educationOrganizationIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: 'Education organizations the client is limited to. Each one must be on the client''s Application (the new Application, when applicationId moves the client). Sending a list without inheritsApplicationEducationOrganizations narrows the client to that list, even if it matches the Application''s list. An empty list is rejected, and duplicate IDs are removed. If neither this field nor inheritsApplicationEducationOrganizations is sent, the client keeps its current flag and list. See the operation description for the full rules.'
+        inheritsApplicationEducationOrganizations:
+          type: boolean
+          description: 'When true, the client inherits its Application''s education organizations and follows future changes to them; a narrowed client sent true switches back to inheriting. When false, the client is narrowed to educationOrganizationIds, which is then required. If neither field is sent, the client keeps its current flag and list. See the operation description for the full rules.'
       additionalProperties: false
     editApplicationRequest:
       title: EditApplicationRequest
