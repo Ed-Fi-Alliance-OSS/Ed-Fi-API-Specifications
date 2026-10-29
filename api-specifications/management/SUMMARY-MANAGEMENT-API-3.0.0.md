@@ -95,6 +95,61 @@ Changes** below; implementers should review that section first.
 * `dataStoreDerivativeModel` gained a new `connectionString` property.
 * New property `claimSetId` added to `overrideAuthStategyOnClaimSetRequest`.
   The schema still has `additionalProperties: false`, as in 2.3.0.
+* **API client education organizations.** An API client can be narrowed to
+  some of its Application's education organizations:
+  * `addApiClientRequest` and `editApiClientRequest` gained optional
+    `educationOrganizationIds` (array of int64) and
+    `inheritsApplicationEducationOrganizations` (boolean). The rules for
+    combining them, including moving a client to another Application, are in
+    the `POST` and `PUT /v3/apiClients` operation descriptions. On `PUT`,
+    omitting both keeps the client's current flag and list.
+  * `apiClientModel` gained `inheritsApplicationEducationOrganizations`.
+    `educationOrganizationIds` is documented as the client's effective list
+    and is no longer nullable; `[]` means no education organization access.
+  * `PUT '/v3/applications/{id}'` is documented to remove deleted education
+    organizations from every client and add new ones only to inheriting
+    clients, and to work for Applications with zero clients.
+* **Applications without a default client.** `addApplicationRequest` gained
+  optional `createDefaultCredentials` (default `true`). When it is `false`, no
+  API client is created, `key` and `secret` are `null`, and sending `enabled`
+  or `dataStoreIds` returns `400`.
+* `applicationModel.enabled` and `applicationModel.dataStoreIds` are
+  documented as derived from the Application's API clients.
+* `PUT '/v3/applications/{id}/reset-credential'` is documented to return
+  `409` when the Application has zero API clients or more than one, and
+  `DELETE '/v3/apiClients/{id}'` to leave the Application in place when it
+  deletes the last client.
+* **New error responses.** `409` was added to `PUT` and
+  `DELETE '/v3/applications/{id}'`, `POST /v3/apiClients`, `PUT` and
+  `DELETE '/v3/apiClients/{id}'` and
+  `PUT '/v3/apiClients/{id}/reset-credential'`. `502` (identity provider
+  failure) was added to `POST /v3/applications`, `PUT` and
+  `DELETE '/v3/applications/{id}'`,
+  `PUT '/v3/applications/{id}/reset-credential'`, `POST /v3/apiClients`,
+  `PUT` and `DELETE '/v3/apiClients/{id}'` and
+  `PUT '/v3/apiClients/{id}/reset-credential'`. `problemDetails.type` lists
+  the new problem types `urn:ed-fi:management-api:conflict`,
+  `conflict:unresolved-reference`, `conflict:education-organization-scope`,
+  `bad-gateway` and `bad-gateway:partial-sync`.
+  * Every new `502` applies only to implementations that keep client
+    credentials in an external identity provider. Implementations without
+    one, such as ODS Admin API, don't return it.
+  * Implementations that process changes to an Application one at a time
+    may return `409` (type `conflict`) when a concurrent change to the
+    Application held the request up; the caller retries. This applies to
+    every endpoint above that changes an Application or its API clients,
+    including `PUT '/v3/applications/{id}/reset-credential'`.
+  * Implementations that keep client credentials in an external identity
+    provider may also return `409` (type `conflict`) on
+    `POST /v3/apiClients` when the generated client key is already in use
+    (retry), or when the identity provider client is already associated with
+    another API client.
+* **Partial sync.** The `502` on `PUT '/v3/applications/{id}'` documents only
+  the `urn:ed-fi:management-api:bad-gateway:partial-sync` outcome: the
+  Application change is saved, but the identity provider update of some API
+  clients isn't confirmed. `problemDetails` gained an `apiClientIds`
+  extension member listing them in ascending order. Resending the request
+  finishes them.
 
 ## Non-Functional / Documentation Changes
 
