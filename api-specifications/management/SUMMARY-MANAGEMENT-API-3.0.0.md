@@ -120,19 +120,30 @@ Changes** below; implementers should review that section first.
   `DELETE '/v3/apiClients/{id}'` to leave the Application in place when it
   deletes the last client.
 * **New error responses.** `409` was added to `PUT '/v3/applications/{id}'`,
-  `POST /v3/apiClients` and `PUT '/v3/apiClients/{id}'`. `502` (identity
-  provider failure) was added to `POST /v3/applications`,
-  `PUT` and `DELETE '/v3/applications/{id}'`, `POST /v3/apiClients`,
-  `PUT '/v3/apiClients/{id}'` and `PUT '/v3/apiClients/{id}/reset-credential'`.
-  `problemDetails.type` lists the new problem types
-  `urn:ed-fi:management-api:conflict`, `conflict:unresolved-reference`,
-  `conflict:education-organization-scope` and `bad-gateway`.
-* **Partial sync (proposed).** The `502` on `PUT '/v3/applications/{id}'`
-  documents a `urn:ed-fi:management-api:bad-gateway:partial-sync` outcome: the
-  Application change is saved, but some API clients weren't updated in the
-  identity provider. `problemDetails` gained an `apiClientIds` extension
-  member listing them, and the response documents how later requests finish
-  them.
+  `POST /v3/apiClients`, `PUT` and `DELETE '/v3/apiClients/{id}'` and
+  `PUT '/v3/apiClients/{id}/reset-credential'`. `502` (identity provider
+  failure) was added to `POST /v3/applications`, `PUT` and
+  `DELETE '/v3/applications/{id}'`, `POST /v3/apiClients`, `PUT` and
+  `DELETE '/v3/apiClients/{id}'` and
+  `PUT '/v3/apiClients/{id}/reset-credential'`. `problemDetails.type` lists
+  the new problem types `urn:ed-fi:management-api:conflict`,
+  `conflict:unresolved-reference`, `conflict:education-organization-scope`,
+  `bad-gateway` and `bad-gateway:partial-sync`.
+  * Every new `502` applies only to implementations that keep client
+    credentials in an external identity provider. Implementations without
+    one, such as ODS Admin API, don't return it.
+  * Implementations that serialize changes per Application may return `409`
+    (type `conflict`) when a concurrent change held the request up; the
+    caller retries. `POST /v3/apiClients` may also return `409` (type
+    `conflict`) when the generated client key is already in use (retry), or
+    when the identity provider client is already associated with another API
+    client.
+* **Partial sync.** The `502` on `PUT '/v3/applications/{id}'` documents only
+  the `urn:ed-fi:management-api:bad-gateway:partial-sync` outcome: the
+  Application change is saved, but the identity provider update of some API
+  clients isn't confirmed. `problemDetails` gained an `apiClientIds`
+  extension member listing them in ascending order. Resending the request
+  finishes them.
 
 ## Non-Functional / Documentation Changes
 

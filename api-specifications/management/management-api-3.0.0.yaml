@@ -2341,7 +2341,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/problemDetails'
         '502':
-          description: 'Bad Gateway. The identity provider failed (type urn:ed-fi:management-api:bad-gateway); nothing is saved.'
+          description: 'Bad Gateway. Implementations that keep client credentials in an external identity provider may return this response. The identity provider failed (type urn:ed-fi:management-api:bad-gateway); nothing is saved.'
           content:
             application/problem+json:
               schema:
@@ -2452,13 +2452,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/problemDetails'
         '409':
-          description: 'Conflict. A referenced vendor or profile doesn''t exist (type urn:ed-fi:management-api:conflict:unresolved-reference).'
+          description: 'Conflict. A referenced vendor or profile doesn''t exist (type urn:ed-fi:management-api:conflict:unresolved-reference). Implementations that serialize changes per Application may also return type urn:ed-fi:management-api:conflict when a concurrent change to the Application held up the request; retry the request.'
           content:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/problemDetails'
         '502':
-          description: 'Bad Gateway. Either the identity provider failed and nothing is saved (type urn:ed-fi:management-api:bad-gateway), or the Application change is saved but some of its API clients weren''t updated in the identity provider (type urn:ed-fi:management-api:bad-gateway:partial-sync). A partial-sync response''s detail states that the change is saved and how many API clients weren''t updated, and its apiClientIds member lists them. Pending API clients are finished by any later PUT to this Application, including resending the same request, which returns 204 once none are left; or by PUT /v3/apiClients/{id} on a pending client, even if nothing else in that request changes. Resetting a client''s secret (reset-credential) doesn''t finish it.'
+          description: 'Bad Gateway. Implementations that keep client credentials in an external identity provider may return this response. The Application change is saved, but the identity provider update of some of its API clients isn''t confirmed (type urn:ed-fi:management-api:bad-gateway:partial-sync). The detail states that the change is saved and how many API clients are pending, and the apiClientIds member lists them. Resend the request to finish them; it returns 204 once none are left.'
           content:
             application/problem+json:
               schema:
@@ -2503,7 +2503,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/problemDetails'
         '502':
-          description: 'Bad Gateway. Some of the Application''s API clients couldn''t be deleted in the identity provider (type urn:ed-fi:management-api:bad-gateway). The Application and its remaining API clients are kept, so nothing is orphaned. Resending the DELETE finishes the job: API clients already deleted in the identity provider count as success, and the request returns 204 once everything is removed.'
+          description: 'Bad Gateway. Implementations that keep client credentials in an external identity provider may return this response. Some of the Application''s API clients couldn''t be deleted in the identity provider (type urn:ed-fi:management-api:bad-gateway). The Application and its remaining API clients are kept, so nothing is orphaned. Resending the DELETE finishes the job: API clients already deleted in the identity provider count as success, and the request returns 204 once everything is removed.'
           content:
             application/problem+json:
               schema:
@@ -2701,13 +2701,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/problemDetails'
         '409':
-          description: 'Conflict. The referenced Application or data store doesn''t exist (type urn:ed-fi:management-api:conflict:unresolved-reference), or the Application already has an API client with this name (type urn:ed-fi:management-api:conflict).'
+          description: 'Conflict. The referenced Application or data store doesn''t exist (type urn:ed-fi:management-api:conflict:unresolved-reference), or the Application already has an API client with this name (type urn:ed-fi:management-api:conflict). Implementations that keep client credentials in an external identity provider may also return type urn:ed-fi:management-api:conflict when a concurrent change to the Application held up the request or the generated client key is already in use (retry the request), or when the identity provider client is already associated with another API client.'
           content:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/problemDetails'
         '502':
-          description: 'Bad Gateway. The identity provider failed (type urn:ed-fi:management-api:bad-gateway); nothing is saved.'
+          description: 'Bad Gateway. Implementations that keep client credentials in an external identity provider may return this response. The identity provider failed (type urn:ed-fi:management-api:bad-gateway); nothing is saved.'
           content:
             application/problem+json:
               schema:
@@ -2844,13 +2844,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/problemDetails'
         '409':
-          description: 'Conflict. A referenced Application or data store doesn''t exist (type urn:ed-fi:management-api:conflict:unresolved-reference), the Application already has another API client with this name (type urn:ed-fi:management-api:conflict), or a narrowed API client moved to another Application without a new list doesn''t fit it (type urn:ed-fi:management-api:conflict:education-organization-scope).'
+          description: 'Conflict. A referenced Application or data store doesn''t exist (type urn:ed-fi:management-api:conflict:unresolved-reference), the Application already has another API client with this name (type urn:ed-fi:management-api:conflict), or a narrowed API client moved to another Application without a new list doesn''t fit it (type urn:ed-fi:management-api:conflict:education-organization-scope). Implementations that serialize changes per Application may also return type urn:ed-fi:management-api:conflict when a concurrent change to the Application held up the request; retry the request.'
           content:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/problemDetails'
         '502':
-          description: 'Bad Gateway. The identity provider failed (type urn:ed-fi:management-api:bad-gateway).'
+          description: 'Bad Gateway. Implementations that keep client credentials in an external identity provider may return this response. The identity provider failed (type urn:ed-fi:management-api:bad-gateway).'
           content:
             application/problem+json:
               schema:
@@ -2890,6 +2890,18 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '404':
           description: Not found. A resource with given identifier could not be found.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '409':
+          description: 'Conflict. Implementations that serialize changes per Application may return this response (type urn:ed-fi:management-api:conflict) when a concurrent change to the API client''s Application held up the request; retry the request.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '502':
+          description: 'Bad Gateway. Implementations that keep client credentials in an external identity provider may return this response. The identity provider failed to delete the API client (type urn:ed-fi:management-api:bad-gateway). The API client is kept; resend the DELETE to retry.'
           content:
             application/problem+json:
               schema:
@@ -3634,8 +3646,14 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/problemDetails'
+        '409':
+          description: 'Conflict. Implementations that serialize changes per Application may return this response (type urn:ed-fi:management-api:conflict) when a concurrent change to the API client''s Application held up the request; retry the request.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
         '502':
-          description: 'Bad Gateway. The identity provider failed (type urn:ed-fi:management-api:bad-gateway).'
+          description: 'Bad Gateway. Implementations that keep client credentials in an external identity provider may return this response. The identity provider failed (type urn:ed-fi:management-api:bad-gateway).'
           content:
             application/problem+json:
               schema:
@@ -4560,7 +4578,7 @@ components:
           items:
             type: integer
             format: int32
-          description: 'IDs of the API clients that weren''t updated in the identity provider. Present on partial-sync responses (type urn:ed-fi:management-api:bad-gateway:partial-sync).'
+          description: 'IDs of the API clients whose identity provider update isn''t confirmed, in ascending order. A listed client''s update may have failed, or may have succeeded without being recorded. Present on partial-sync responses (type urn:ed-fi:management-api:bad-gateway:partial-sync).'
           nullable: true
       additionalProperties: {}
     profileDetailsModel:
