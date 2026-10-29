@@ -2452,7 +2452,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/problemDetails'
         '409':
-          description: 'Conflict. A referenced vendor or profile doesn''t exist (type urn:ed-fi:management-api:conflict:unresolved-reference). Implementations that serialize changes per Application may also return type urn:ed-fi:management-api:conflict when a concurrent change to the Application held up the request; retry the request.'
+          description: 'Conflict. A referenced vendor or profile doesn''t exist (type urn:ed-fi:management-api:conflict:unresolved-reference). Implementations that process changes to an Application one at a time may also return type urn:ed-fi:management-api:conflict when a concurrent change to the Application held up the request; retry the request.'
           content:
             application/problem+json:
               schema:
@@ -2498,6 +2498,12 @@ paths:
                 $ref: '#/components/schemas/problemDetails'
         '404':
           description: Not found. A resource with given identifier could not be found.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '409':
+          description: 'Conflict. Implementations that process changes to an Application one at a time may return this response (type urn:ed-fi:management-api:conflict) when a concurrent change to the Application held up the request; retry the request.'
           content:
             application/problem+json:
               schema:
@@ -2701,7 +2707,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/problemDetails'
         '409':
-          description: 'Conflict. The referenced Application or data store doesn''t exist (type urn:ed-fi:management-api:conflict:unresolved-reference), or the Application already has an API client with this name (type urn:ed-fi:management-api:conflict). Implementations that keep client credentials in an external identity provider may also return type urn:ed-fi:management-api:conflict when a concurrent change to the Application held up the request or the generated client key is already in use (retry the request), or when the identity provider client is already associated with another API client.'
+          description: 'Conflict. The referenced Application or data store doesn''t exist (type urn:ed-fi:management-api:conflict:unresolved-reference), or the Application already has an API client with this name (type urn:ed-fi:management-api:conflict). Implementations that process changes to an Application one at a time may also return type urn:ed-fi:management-api:conflict when a concurrent change to the Application held up the request; retry the request. Implementations that keep client credentials in an external identity provider may also return type urn:ed-fi:management-api:conflict when the generated client key is already in use (retry the request), or when the identity provider client is already associated with another API client.'
           content:
             application/problem+json:
               schema:
@@ -2844,7 +2850,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/problemDetails'
         '409':
-          description: 'Conflict. A referenced Application or data store doesn''t exist (type urn:ed-fi:management-api:conflict:unresolved-reference), the Application already has another API client with this name (type urn:ed-fi:management-api:conflict), or a narrowed API client moved to another Application without a new list doesn''t fit it (type urn:ed-fi:management-api:conflict:education-organization-scope). Implementations that serialize changes per Application may also return type urn:ed-fi:management-api:conflict when a concurrent change to the Application held up the request; retry the request.'
+          description: 'Conflict. A referenced Application or data store doesn''t exist (type urn:ed-fi:management-api:conflict:unresolved-reference), the Application already has another API client with this name (type urn:ed-fi:management-api:conflict), or a narrowed API client moved to another Application without a new list doesn''t fit it (type urn:ed-fi:management-api:conflict:education-organization-scope). Implementations that process changes to an Application one at a time may also return type urn:ed-fi:management-api:conflict when a concurrent change to the Application held up the request; retry the request.'
           content:
             application/problem+json:
               schema:
@@ -2895,7 +2901,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/problemDetails'
         '409':
-          description: 'Conflict. Implementations that serialize changes per Application may return this response (type urn:ed-fi:management-api:conflict) when a concurrent change to the API client''s Application held up the request; retry the request.'
+          description: 'Conflict. Implementations that process changes to an Application one at a time may return this response (type urn:ed-fi:management-api:conflict) when a concurrent change to the API client''s Application held up the request; retry the request.'
           content:
             application/problem+json:
               schema:
@@ -3592,7 +3598,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/problemDetails'
         '409':
-          description: 'Conflict. The request is authenticated, but it has a conflict with an existing element'
+          description: 'Conflict. The Application has zero API clients or more than one (type urn:ed-fi:management-api:conflict); use PUT /v3/apiClients/{id}/reset-credential to reset a specific client. Implementations that process changes to an Application one at a time may also return type urn:ed-fi:management-api:conflict when a concurrent change to the Application held up the request; retry the request.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemDetails'
+        '502':
+          description: 'Bad Gateway. Implementations that keep client credentials in an external identity provider may return this response. The identity provider failed (type urn:ed-fi:management-api:bad-gateway).'
           content:
             application/problem+json:
               schema:
@@ -3647,7 +3659,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/problemDetails'
         '409':
-          description: 'Conflict. Implementations that serialize changes per Application may return this response (type urn:ed-fi:management-api:conflict) when a concurrent change to the API client''s Application held up the request; retry the request.'
+          description: 'Conflict. Implementations that process changes to an Application one at a time may return this response (type urn:ed-fi:management-api:conflict) when a concurrent change to the API client''s Application held up the request; retry the request.'
           content:
             application/problem+json:
               schema:
