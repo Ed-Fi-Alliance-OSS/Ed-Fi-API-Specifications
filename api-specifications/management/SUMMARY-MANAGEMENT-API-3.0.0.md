@@ -35,8 +35,10 @@ Changes** below; implementers should review that section first.
     `editOdsInstanceDerivativeRequest` → `editDataStoreDerivativeRequest`.
   * Properties: `instanceType` → `dataStoreType` (including the query
     parameter on `GET /v3/dataStores`), `odsInstanceId` → `dataStoreId` on
-    context/derivative models, and `odsInstanceIds` → `dataStoreIds` on the
-    application schema.
+    context/derivative models, and `odsInstanceIds` → `dataStoreIds` on
+    `applicationModel` and `addApplicationRequest`. `editApplicationRequest`
+    lost `odsInstanceIds` instead of having it renamed; see **Application
+    edit request no longer sets data stores or enabled** below.
 
 * **Tenant endpoints were removed and replaced.** `GET /v2/tenants` and
   `GET '/v2/tenants/{tenantName}'` are removed with no direct equivalent;
@@ -65,6 +67,33 @@ Changes** below; implementers should review that section first.
   `DELETE '/v3/dataStores/manage/{id}'` is the exception: it returns `202
   Accepted` with a `jobQueuedResult` body, since deletion is queued as a
   background job rather than completed synchronously.
+
+* **POST changed from upsert to create-only.** In 2.3.0, `POST` created or
+  updated a resource ("upsert"): when a resource with matching natural key
+  values existed, the service updated it. In 3.0.0, `POST` only creates; if a
+  match is found, the request is rejected with an error and no data is
+  changed. This applies to `POST` on `/v3/vendors`, `/v3/profiles`,
+  `/v3/dataStores`, `/v3/dataStoreDerivatives`, `/v3/dataStoreContexts`,
+  `/v3/claimSets`, `/v3/applications` and `/v3/apiClients`. Clients that
+  re-post an existing resource to update it must use `PUT` on the resource's
+  `{id}` path instead.
+
+* **Application edit request no longer sets data stores or enabled.** In
+  2.3.0, `editApplicationRequest` included `odsInstanceIds` and `enabled`. In
+  3.0.0 it has neither; both are set per API client, through `dataStoreIds`
+  and `isApproved` on `editApiClientRequest` (`PUT '/v3/apiClients/{id}'`),
+  and `applicationModel.enabled` and `applicationModel.dataStoreIds` are
+  derived from the Application's API clients. Clients that change an
+  Application's data stores or enabled state through
+  `PUT '/v3/applications/{id}'` must use the API client endpoints instead.
+
+* **Application credential reset can return `409 Conflict`.** In 2.3.0,
+  `PUT '/v2/applications/{id}/reset-credential'` documented no `409`. In
+  3.0.0, `PUT '/v3/applications/{id}/reset-credential'` returns `409` (type
+  `urn:ed-fi:management-api:conflict`) when the Application has zero API
+  clients or more than one. Clients must handle `409`, and reset an
+  individual client's credentials with
+  `PUT '/v3/apiClients/{id}/reset-credential'`.
 
 ## Non-Breaking Additive Changes
 
@@ -115,10 +144,8 @@ Changes** below; implementers should review that section first.
   or `dataStoreIds` returns `400`.
 * `applicationModel.enabled` and `applicationModel.dataStoreIds` are
   documented as derived from the Application's API clients.
-* `PUT '/v3/applications/{id}/reset-credential'` is documented to return
-  `409` when the Application has zero API clients or more than one, and
-  `DELETE '/v3/apiClients/{id}'` to leave the Application in place when it
-  deletes the last client.
+* `DELETE '/v3/apiClients/{id}'` is documented to leave the Application in
+  place when it deletes the last client.
 * **New error responses.** `409` was added to `PUT` and
   `DELETE '/v3/applications/{id}'`, `POST /v3/apiClients`, `PUT` and
   `DELETE '/v3/apiClients/{id}'` and
