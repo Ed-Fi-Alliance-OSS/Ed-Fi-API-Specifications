@@ -122,7 +122,7 @@ erDiagram
         string EvaluationTitle "I"
         enumeration SchoolYear "I, NEW - moved from PerformanceEvaluation"
         descriptor EvaluationPeriod "I, NEW - moved from PerformanceEvaluation"
-        string EvaluationDescription "O"
+        string EvaluationDescription "O, length 255 to 1024"
         descriptor Term "O, moved from PerformanceEvaluation - was identity, now optional"
         descriptor AcademicSubject "O, moved from PerformanceEvaluation"
         descriptor GradeLevel "OA, moved from PerformanceEvaluation"
@@ -159,7 +159,7 @@ erDiagram
     EvaluationObjective-7 ["EvaluationObjective (DS 7.0 Future)"] {
         reference Evaluation "I"
         string EvaluationObjectiveTitle "I"
-        string EvaluationObjectiveDescription "O"
+        string EvaluationObjectiveDescription "O, length 255 to 1024"
         integer SortOrder "O"
         decimal MinNumericRating "O"
         decimal MaxNumericRating "O"
@@ -178,7 +178,7 @@ erDiagram
     EvaluationElement-7 ["EvaluationElement (DS 7.0 Future)"] {
         reference EvaluationObjective "I"
         string EvaluationElementTitle "I"
-        string EvaluationElementDescription "O, NEW"
+        string EvaluationElementDescription "O, NEW - length 1024"
         integer SortOrder "O"
         decimal MinNumericRating "O"
         decimal MaxNumericRating "O"
@@ -249,6 +249,8 @@ erDiagram
 
 `AcademicSubject` and `GradeLevel` move here from `PerformanceEvaluation` so that an instrument scoped to a subject or grade band can still say so at definition grain. They are _also_ added to `EvaluationRating` (see below), because the same instrument may be applied to different subjects or grades across occurrences. Both remain optional at both grains.
 
+`EvaluationDescription` increases in maximum length from 255 to 1024 characters. The same description definition is shared by `Evaluation`, `EvaluationObjective`, and `EvaluationElement`, so the increase applies at all three levels — see `EvaluationElement` below for the reason.
+
 `EvaluationVersion` is new: a marker for which revision of the instrument was in effect, so a rating can be interpreted against the rubric that actually produced it. It is deliberately a plain string rather than a date or a number, since implementers version rubrics inconsistently, and it is not part of the identity — a new version of an instrument is the same instrument, not a new one.
 
 **Identity**
@@ -264,7 +266,7 @@ erDiagram
 
 | Field | Type | Required | Description |
 |---|---|---|---|
-| `EvaluationDescription` | String (255) | Optional | Existing field, unchanged. |
+| `EvaluationDescription` | String (1024) | Optional | Existing field. Maximum length increases from 255 to 1024. |
 | `Term` | Descriptor | Optional | Moved from `PerformanceEvaluation`, where it was an identity component. Now optional and non-identifying. |
 | `AcademicSubject` | Descriptor | Optional | Moved from `PerformanceEvaluation`. The subject the instrument is scoped to, where it is scoped to one. |
 | `GradeLevel` | Descriptor array | Optional | Moved from `PerformanceEvaluation`. The grade level(s) the instrument is scoped to. |
@@ -318,12 +320,13 @@ Four additions give the occurrence the context it has been missing. `Observation
 
 ### EvaluationObjective
 
-Gains `EvaluationObjectiveVersion`, matching `Evaluation`'s versioning so that a revised objective can be identified without changing its identity. All other fields are unchanged.
+Gains `EvaluationObjectiveVersion`, matching `Evaluation`'s versioning so that a revised objective can be identified without changing its identity. `EvaluationObjectiveDescription` increases in maximum length from 255 to 1024 characters, in step with the shared description definition. All other fields are unchanged.
 
 **Properties (changes only)**
 
 | Field | Type | Required | Description |
 |---|---|---|---|
+| `EvaluationObjectiveDescription` | String (1024) | Optional | Existing field. Maximum length increases from 255 to 1024. |
 | `EvaluationObjectiveVersion` | String | Optional | New. The revision of the objective in effect. Non-identifying. |
 
 ### EvaluationObjectiveRating
@@ -339,13 +342,15 @@ Gains `FeedbackEntry`, so that typed feedback can be recorded at the objective l
 
 ### EvaluationElement
 
-Gains `EvaluationElementDescription` and `EvaluationElementVersion`. The description closes a genuine asymmetry: `EvaluationObjective` has `EvaluationObjectiveDescription` (String, 255) but `EvaluationElement` has only `EvaluationElementTitle`, so the text of a rubric criterion has nowhere to live except the title. The new field mirrors the objective's description in type and length.
+Gains `EvaluationElementDescription` and `EvaluationElementVersion`. The description closes a genuine asymmetry: `EvaluationObjective` has `EvaluationObjectiveDescription` but `EvaluationElement` has only `EvaluationElementTitle`, so the text of a rubric criterion has nowhere to live except the title. The new field uses the same shared description definition as the objective and the evaluation.
+
+That definition's maximum length increases from 255 to 1024 characters. Implementers have reported that 255 characters is too short for the full text of a rubric element, which is often a multi-sentence criterion. Because the definition is shared, the increase also applies to `Evaluation.EvaluationDescription` and `EvaluationObjective.EvaluationObjectiveDescription`, which keeps the three levels consistent.
 
 **Properties (changes only)**
 
 | Field | Type | Required | Description |
 |---|---|---|---|
-| `EvaluationElementDescription` | String (255) | Optional | New. The description of the element. Mirrors `EvaluationObjective.EvaluationObjectiveDescription`. |
+| `EvaluationElementDescription` | String (1024) | Optional | New. The description of the element. Shares its definition with `EvaluationObjective.EvaluationObjectiveDescription`. |
 | `EvaluationElementVersion` | String | Optional | New. The revision of the element in effect. Non-identifying. |
 
 ### EvaluationElementRating
@@ -474,6 +479,7 @@ Change by change:
 - `PerformanceEvaluationRating.ActualDate` (Date, required) is **dropped** in favour of the existing `EvaluationRating.EvaluationDate` (Datetime, identity). Implementations relying on date-only semantics should note the type difference.
 - `PerformanceEvaluationDescription`, `PerformanceEvaluationRatingLevel`, `PerformanceEvaluationRatingResult`, and the `PerformanceEvaluationRating` copies of `Reviewer` and `Comments` are **dropped as redundant** — each has a direct counterpart already on `Evaluation` or `EvaluationRating`.
 - `AcademicSubject` and `GradeLevel` **relocate** from `PerformanceEvaluation` to `Evaluation`, and are **also added** to `EvaluationRating` at occurrence grain.
+- `Evaluation.EvaluationDescription` and `EvaluationObjective.EvaluationObjectiveDescription` **increase in maximum length** from 255 to 1024 characters, as does the new `EvaluationElementDescription`. Existing data remains valid. Implementations that size storage or validation to 255 characters must widen them.
 - `AreaOfRefinement`, `AreaOfReinforcement`, and `Feedback` on `EvaluationElementRating` are **deprecated, not removed**.
 - `Comments` on `EvaluationRating`, `EvaluationObjectiveRating`, and `EvaluationElementRating` is **deprecated, not removed**, superseded by `FeedbackEntry`. `Goal.Comments` is unaffected, since `FeedbackEntry` is not added to `Goal`.
 - `Goal`'s `EvaluationObjective` and `EvaluationElement` references are **deprecated, not removed**.
