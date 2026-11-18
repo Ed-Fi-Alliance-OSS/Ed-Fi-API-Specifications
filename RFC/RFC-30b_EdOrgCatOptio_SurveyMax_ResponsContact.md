@@ -1,11 +1,14 @@
-# Ed-Fi RFC 30b: Data Standard v6.2 — Education Organization Categories, Responsible Contact, and Survey Response Values
+#  Ed-Fi RFC 30b: Data Standard v6.2 — Education Organization Categories, Responsible Contact, and Survey Response Values
 
 | Field | Value |
 |---|---|
 | RFC number | 30b |
-| Product | Ed-Fi Data Standard |
-| Target release | Data Standard v6.2 |
 | Status | Draft for community review |
+| Product | Ed-Fi Data Standard |
+| Author | Maria Ragone |
+| Date | Nov 17, 2026 |
+| Obsolete by |  |
+| Target release | Data Standard v6.2 |
 | Change type | Additive or constraint-relaxing; non-breaking |
 | Related roadmap items | [#89: Make `educationOrganizationCategories` optional](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-Technology-Roadmap/issues/89); [#151: Responsible Contact for Special Education](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-Technology-Roadmap/issues/151); [#146: SurveyQuestionResponse NumericResponse](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-Technology-Roadmap/issues/146); [#166: Data Standard v6.2](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-Technology-Roadmap/issues/166) |
 
@@ -25,12 +28,12 @@ The changes preserve existing resources, identities, and payloads. Existing prod
 
 ## 2. Background
 
-The Data Standard Work Group (DSWG), state agencies, vendors, and the Data Standard Architectural Review evaluated these needs from DSWG #17 onward.
+The Data Standard Work Group (DSWG), state agencies, vendors, and the Data Standard Architectural Review evaluated these needs from DSWG 17 onward.
 
-- DSWG #17 identified that `StudentContactAssociation` cannot represent when a contact is legally responsible for a student's IEP, and that adding a begin date to the general association would mix a Special Education need into a general-purpose relationship.
-- DSWG #19 supported a Special Education-specific, dated responsibility model and renamed generic begin/end dates to make their responsibility context explicit. The group supported both an optional common on `StudentSpecialEducationProgramAssociation` and an SEDM association linked to `StudentIEP`.
+- The `StudentContactAssociation` cannot represent when a contact is legally responsible for a student's IEP, and that adding a begin date to the general association would mix a Special Education need into a general-purpose relationship.
+- A Special Education-specific, dated responsibility model and renamed generic begin/end dates to make their responsibility context explicit was proposed. The group supported both an optional common on `StudentSpecialEducationProgramAssociation` and an SEDM association linked to `StudentIEP`.
 - The October architectural review approved the Data Standard v6.2 responsible-contact additions. It also confirmed the need for a separate Contact Responsibility descriptor so that a person's responsibility is not confused with an institution's or education organization's responsibility.
-- DSWG #21 decided that `EducationOrganizationCategory` becomes optional in Data Standard v6.2 to avoid Validation API failures. Some concrete education organization resource remains identifiable even when the categories collection is absent.
+- The community agreed that `EducationOrganizationCategory` becomes optional in Data Standard v6.2 to avoid Validation API failures. Some concrete education organization resource remains identifiable even when the categories collection is absent.
 - Community identified two related limitations in Survey responses: an unnecessary maximum of 100 on integer responses and no decimal response element.
 
 These proposals are targeted to Data Standard v6.2 and can be delivered without making breaking changes changing existing natural keys or removing existing elements.
@@ -168,11 +171,17 @@ Data Standard v6.1 can indicate that a contact is a legal guardian or has a rela
 
 #### Data Standard v6.2 — after
 
-The proposal adds one descriptor, one reusable common, and two Special Education placements of the concept.
+The proposal adds one descriptor, one reusable object (common), and two Special Education placements of the concept.
 
 **New descriptor**
 
-`ContactResponsibility` defines the type of responsibility a contact has for a student. Candidate values include `IDEA Parent` and `Surrogate Parent`; the final seeded values require community confirmation.
+`ContactResponsibility` defines the type of responsibility a contact has for a student. Candidate values include `IDEA Parent` and `Transportation`; the final seeded values require community responses.
+
+Possible values for this descriptor are: `IDEA Parent`, `Transportation`, `Mailing`,`Nurse-related`,`Texting`,`Attendance`, `Bus-route responsibilities`, `Mailing`, `Program Communication`,`Other program-specific responsibilities`.
+
+ [!NOTE]
+ >In MetaEd coding: the descriptors are listed in alphabetical order in the Ed-Fi Data Standard except for Other, which is placed at the end.
+
 
 **New reusable object (common)**
 ResponsibleContact defines the contact and associated responsibility to the student effective on the begin date 
@@ -190,55 +199,53 @@ Add `ContactResponsibility` as an optional collection on `StudentSpecialEducatio
 
 **Placement 2 — SEDM**
 
-Add `StudentIEPContactResponsibility`, associated to `StudentIEP`, with `Contact`, `ContactResponsibilityDescriptor`, and responsibility begin date in its identity and responsibility end date optional.
+Add `StudentIEPContactResponsibility`, associated to `StudentIEP`, with `Contact`, `ContactResponsibility`, and responsibility begin date in its identity and responsibility end date optional.
 
 **Companion use outside Special Education**
 
-The responsible-contact epic also considers adding an optional collection of `ContactResponsibilityDescriptor` values to `StudentContactAssociation`, without dates. This would support responsibilities such as mailing or program communication but would not preserve a responsibility timeline.
+The responsible-contact epic also considers adding an optional collection of `ContactResponsibility` values to `StudentContactAssociation`, without dates. This would support responsibilities such as mailing or program communication but would not preserve a responsibility timeline.
 
 ```mermaid
 classDiagram
-    class Contact
-    class ContactResponsibilityDescriptor
-    class ContactResponsibility {
+    class ContactResponsibility
+    class ResponsibleContact {
       +ContactReference [identity, required]
-      +ContactResponsibilityDescriptor [identity, required]
+      +ContactResponsibility [identity, required]
       +ContactResponsibilityBeginDate [identity, required]
       +ContactResponsibilityEndDate [optional]
     }
     class StudentSpecialEducationProgramAssociation {
-      +ContactResponsibilities [optional collection]
+      +ResponsibleContact [optional collection]
     }
     class StudentIEP
-    class StudentIEPContactResponsibility {
+    class StudentIEPResponsibleContact {
       +StudentIEPReference [identity, required]
       +ContactReference [identity, required]
-      +ContactResponsibilityDescriptor [identity, required]
+      +ContactResponsibility [identity, required]
       +ContactResponsibilityBeginDate [identity, required]
       +ContactResponsibilityEndDate [optional]
     }
     class StudentContactAssociation {
-      +ContactResponsibilityDescriptors [optional collection; decision requested]
+      +ContactResponsibility [optional collection]
     }
 
-    ContactResponsibilityDescriptor "1" <-- "0..*" ContactResponsibility
-    Contact "1" <-- "0..*" ContactResponsibility
-    StudentSpecialEducationProgramAssociation "1" *-- "0..*" ContactResponsibility
-    StudentIEP "1" --> "0..*" StudentIEPContactResponsibility
-    Contact "1" --> "0..*" StudentIEPContactResponsibility
-    ContactResponsibilityDescriptor "1" --> "0..*" StudentIEPContactResponsibility
+   ResponsibleContact "1" <-- "1..*" ContactResponsibility
+    StudentIEP "1" --> "0..*" StudentIEPResponsibleContact
+   StudentIEPResponsibleContact "1" --> "0..*"ContactResponsibility
+    StudentContactAssociation "1" --> "0..*"ContactResponsibility
+    StudentSpecialEducationProgramAssociation "1" --> "0..*" ResponsibleContact
 ```
 
 Illustrative SSEPA fragment:
 
 ```json
 {
-  "contactResponsibilities": [
+  "responsibleContacts": [
     {
       "contactReference": {
         "contactUniqueId": "C1001"
       },
-      "contactResponsibilityDescriptor": "uri://ed-fi.org/ContactResponsibilityDescriptor#IDEA Parent",
+      "ContactResponsibility": "uri://ed-fi.org/ContactResponsibility#IDEA Parent",
       "contactResponsibilityBeginDate": "2026-08-15",
       "contactResponsibilityEndDate": "2026-10-31"
     },
@@ -246,7 +253,7 @@ Illustrative SSEPA fragment:
       "contactReference": {
         "contactUniqueId": "C2002"
       },
-      "contactResponsibilityDescriptor": "uri://ed-fi.org/ContactResponsibilityDescriptor#IDEA Parent",
+      "ContactResponsibility": "uri://ed-fi.org/ContactResponsibility#IDEA Parent",
       "contactResponsibilityBeginDate": "2026-11-01"
     }
   ]
@@ -411,7 +418,7 @@ The following artifacts should be updated for Data Standard v6.2:
 
 Please respond by question number.
 
-7. **Descriptor seed values:** Which values should be seeded? Are `IDEA Parent`, `Transportation`, `Mailing`,`Nurse-related`,`Texting`,`Attendance`, `Bus-route responsibilities`,`Other program-specific responsibilities`,sufficient for the initial release?
+7. **Descriptor seed values:** Which values should be seeded? Are `IDEA Parent`, `Transportation`, `Mailing`,`Nurse-related`,`Texting`,`Attendance`, `Bus-route responsibilities`, `Mailing`, `Program Communication`,`Other program-specific responsibilities`,sufficient for the initial release?
 8. **Decimal precision:** Does `decimal(10,3)` meet community needs? 
 
 ## 13. References
