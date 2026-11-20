@@ -28,6 +28,7 @@ The following RFCs are listed by Ed-Fi Data Standard version, reverse ordered by
 
 - Data Standard 7.0
   - 29a | [OpenStaffPosition](./RFC-29a_Open-Staff-Position.md)
+  - 29e | Intervention Plans, Goals, and Progress Monitoring - _coming soon_
   
 > [!TIP]
 > Looking for older RFC documents? Many older documents have not yet been copied from Confluence
