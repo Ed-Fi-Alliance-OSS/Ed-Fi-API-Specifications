@@ -1,7 +1,7 @@
-# Ed-Fi RFC [TBD]: Individual Graduation Plan — StudentGraduationPlan (Graduation Domain)
+# Ed-Fi RFC 30c: Individual Graduation Plan — StudentGraduationPlan (Graduation Domain)
 
 | | |
-|---|---|
+| --- | --- |
 | **Product** | Ed-Fi Data Standard |
 | **Target Release** | Ed-Fi Data Standard 6.2 |
 | **Affects** | Ed-Fi Data Standard (Graduation Domain), Ed-Fi Resources API |
@@ -10,8 +10,6 @@
 | **Status** | DRAFT — Request for Comment |
 | **Author** | Sayee Srinivasan, Ed-Fi Alliance |
 | **Date** | November 18, 2026 |
-
----
 
 ## Synopsis
 
@@ -26,13 +24,9 @@ Two states drive this proposal:
 
 This model is proposed for inclusion in **Ed-Fi Data Standard 6.2**.
 
----
-
 ## Feedback
 
 Please comment on this discussion. Comments from SEAs, LEAs, SIS vendors, and College and Career Guidance System vendors are all in scope.
-
----
 
 ## Contents
 
@@ -50,8 +44,6 @@ Please comment on this discussion. Comments from SEAs, LEAs, SIS vendors, and Co
 12. [Implementation Guidance](#12-implementation-guidance)
 13. [Next Steps](#next-steps)
 14. [References](#references)
-
----
 
 ## 1. Background and Problem Statement
 
@@ -76,14 +68,12 @@ There are two problems with that location.
 ### 1.4 Options evaluated
 
 | Option | Approach | Concern raised |
-|---|---|---|
+| --- | --- | --- |
 | A | GET the `StudentEducationOrganizationAssociation` record, stitch IGP indicators into `studentIndicators`, POST it back | Fragile: only safe if every process writing that record coordinates the same way; otherwise one write overwrites another |
 | B | Write IGP data to the existing `/graduationPlan` resource | Most accountability data has no natural home there; extended properties would still be needed |
 | C | Build a custom extension modeled for South Carolina's IGP | SCDE is committed to core endpoints; registering extensions across state ODS instances is a large lift |
 
 This RFC combines the strengths of B and C. It builds on `GraduationPlan` (B) and adds a purpose-built structure (C), but as part of the core Data Standard (6.2), so that no state has to carry a private extension.
-
----
 
 ## 2. Legal and Policy Basis
 
@@ -92,23 +82,21 @@ This RFC combines the strengths of B and C. It builds on `GraduationPlan` (B) an
 South Carolina's Education and Economic Development Act (EEDA), codified at S.C. Code Title 59, Chapter 59, requires the IGP:
 
 | Section | What it covers | Model element |
-|---|---|---|
+| --- | --- | --- |
 | § 59-59-140 | The IGP itself and its required contents | `StudentGraduationPlan` |
 | § 59-59-110 | Declared area of academic focus (major) by end of grade 10 | `PlanChoice` (type = Major) |
 | § 59-59-90 | Preferred cluster of study selected in grade 8 | `PlanChoice` (type = Career Cluster) |
 
-Source: <https://www.scstatehouse.gov/code/t59c059.php>. Implementing regulations (for example, R.43-234 and Diploma Pathways provisions) change more often than the statute and should be confirmed against current SCDE guidance.
+Source: [South Carolina Education and Economic Development Act](https://www.scstatehouse.gov/code/t59c059.php). Implementing regulations (for example, R.43-234 and Diploma Pathways provisions) change more often than the statute and should be confirmed against current SCDE guidance.
 
 ### Indiana
 
 Under IC 20-30-4-2, every Indiana student develops a graduation plan by the end of grade 8, with counselor and parent consultation. See [Section 10](#10-indiana-needs-policy-and-existing-extension).
 
----
-
 ## 3. Use Cases
 
 | # | Use case |
-|---|---|
+| --- | --- |
 | UC1 | **Record a student's graduation plan.** As an agency receiving IGP data from a source system (an SIS or a College and Career Guidance System), I need a structure that ties a student to the existing `GraduationPlan` and records plan-level facts (school year, active period, primary or alternative, finalized or not) without relying on student indicators. |
 | UC2 | **Record IGP meetings.** I need to record the meeting(s) at which the plan was created, reviewed, amended, or finalized, so meeting context stays with the plan. A plan can have many meetings. |
 | UC3 | **Record who participated.** I need to capture who took part in each meeting and how, optionally referencing the specific `Staff` member or `Contact`. |
@@ -118,8 +106,6 @@ Under IC 20-30-4-2, every Indiana student develops a graduation plan by the end 
 | UC7 | **Meet a state's accountability collection.** As an SEA, I need the same structure to carry what I report at the state level (at minimum: student, school year, plan type, graduation school year, begin and end dates), whether the full plan is reported or only an indicator. |
 | UC8 | **Send IGP data separately from demographic data.** As a source system (an SIS or a College and Career Guidance System), I need to send IGP data to its own resource, separate from student demographic data, so IGP updates don't require resending a larger shared record and aren't at risk from other systems' writes. |
 
----
-
 ## 4. Design Approach
 
 1. **Extend, don't duplicate.** Ed-Fi's `GraduationPlan` already models graduation requirements (credits by subject, course, and credit category, plus required assessments and certifications). It is identified by `EducationOrganization`, `GraduationPlanType`, and `GraduationSchoolYear` and works as a plan template. This RFC reuses it unchanged and individualizes it for a student.
@@ -128,8 +114,6 @@ Under IC 20-30-4-2, every Indiana student develops a graduation plan by the end 
 4. **The plan is the anchor.** Meetings, participants, choices, and goals all hang off the plan. The meeting is context for the plan, not its parent.
 5. **A resource of its own.** Because IGP data has its own resource, whichever system produces the plan can write it without touching `StudentEducationOrganizationAssociation` (UC8).
 6. **Follows the Special Education Data Model.** The structure mirrors the Special Education Data Model (Early Access in Data Standard 6.1): a student plan (`StudentIEP`) with meetings recorded at the plan level (`IDEAEvent`) and goals that carry an identifier, details, a type, and an optional achievement period (`StudentIEPGoal`).
-
----
 
 ## 5. Proposed Model
 
@@ -321,7 +305,7 @@ A student has **0..*** graduation plans. Each `StudentGraduationPlan` references
 The data dictionary uses the same notation as the diagrams: `I` = identity · `R` = required · `O` = optional · `OC` = optional collection · `RC` = required collection (at least one) · `Object` = custom object ("common" in MetaEd).
 
 | Element | Type | Card. | Definition |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Student | Reference | I | The student the plan is for. |
 | GraduationPlan | Reference | I | The existing Ed-Fi `GraduationPlan` being individualized. Brings `EducationOrganization`, `GraduationPlanType` (the diploma pathway), and the plan's `GraduationSchoolYear`. |
 | SchoolYear | SchoolYear | I | The school year in which the plan is active. |
@@ -341,7 +325,7 @@ The data dictionary uses the same notation as the diagrams: `I` = identity · `R
 ### 5.3 Meeting (object, OC)
 
 | Element | Type | Card. | Definition |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | MeetingType | Descriptor | I | Type of meeting (initial planning, review, amendment, finalization). |
 | MeetingDate | Date | I | Date the meeting occurred. |
 | MeetingNarrative | String | O | Narrative notes about the meeting. |
@@ -352,7 +336,7 @@ A plan can have many meetings. Each is unique within the plan by `MeetingType` +
 ### 5.4 Participant (object on Meeting, OC)
 
 | Element | Type | Card. | Definition |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | ParticipantType | Descriptor | I | Role of the participant (e.g., Parent/Step-Parent/Guardian, Other Representative, Counselor, Student). |
 | ParticipationMethod | Descriptor | O | How the participant took part (e.g., In Person, Telephone, Online). |
 | Staff | Reference | O | The specific Ed-Fi `Staff` member, when known (e.g., the counselor). |
@@ -363,7 +347,7 @@ Attendance can be reported **by role alone**, which is how IGP attendance is rec
 ### 5.5 PlanChoice (object, RC)
 
 | Element | Type | Card. | Definition |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | PlanChoiceType | Descriptor | I | Kind of choice (Career Cluster, Major, Postsecondary Plan, Academy, …). |
 | PlanChoiceName | String | R | The selected or recommended value (e.g., Health Science, Sports Medicine, Four-Year College). |
 | ChoiceStatus | Descriptor | O | Status of the choice (Selected, Recommended, …). |
@@ -375,7 +359,7 @@ Every plan carries at least one choice. Within a plan, each choice is unique by 
 Goal follows the Special Education Data Model's `StudentIEPGoal` (Early Access in Data Standard 6.1), which identifies a goal with `IEPGoalIdentifier` and describes it with `IEPGoalDetails`, `IEPGoalType`, and an optional `GoalAchievementPeriod`.
 
 | Element | Type | Card. | Definition |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | GoalIdentifier | String | I | Identifier for the goal within the plan. Allows more than one goal of the same type. |
 | GoalType | Descriptor | R | Career, academic, or postsecondary goal. |
 | GoalDetails | String | R | The goal statement (e.g., "Veterinarian"). |
@@ -386,7 +370,7 @@ Goal follows the Special Education Data Model's `StudentIEPGoal` (Early Access i
 `GraduationPlan` is reused as-is. No changes are proposed. Its Data Standard 6.1 elements are:
 
 | Element | Type | Card. | Definition (from Ed-Fi Data Standard 6.1) |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | GraduationPlanType | Descriptor | I | The type of academic plan the student is following for graduation. |
 | EducationOrganization | Reference | I | The education organization defining the plan. |
 | GraduationSchoolYear | SchoolYear | I | The school year the student is expected to graduate. |
@@ -405,7 +389,7 @@ These entities are reused as-is; no changes are proposed. `StudentGraduationPlan
 **Student** — This entity represents an individual for whom instruction, services, and/or care are provided in an early childhood, elementary, or secondary educational program under the jurisdiction of a school, education agency or other institution or program. A student is a person who has been enrolled in a school or other educational institution.
 
 | Element | Type | Card. | Definition (from Ed-Fi Data Standard 6.1) |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | StudentUniqueId | String | I | A unique alphanumeric code assigned to a student. |
 | Name | Object | R | Full legal name of the person. |
 | OtherName | Object | OC | Other names (e.g., alias, nickname, previous legal name) associated with a person. |
@@ -415,7 +399,7 @@ These entities are reused as-is; no changes are proposed. `StudentGraduationPlan
 **Staff** — This entity represents an individual who performs specified activities for any public or private education institution or agency that provides instructional and/or support services to students or staff at the early childhood level through high school completion.
 
 | Element | Type | Card. | Definition (from Ed-Fi Data Standard 6.1) |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | StaffUniqueId | String | I | A unique alphanumeric code assigned to a staff. |
 | Name | Object | R | Full legal name of the person. |
 | OtherName | Object | OC | Other names associated with a person. |
@@ -436,7 +420,7 @@ These entities are reused as-is; no changes are proposed. `StudentGraduationPlan
 **Contact** — This entity represents a contact of a student, such as a parent, guardian or caretaker.
 
 | Element | Type | Card. | Definition (from Ed-Fi Data Standard 6.1) |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | ContactUniqueId | String | I | A unique alphanumeric code assigned to a contact. |
 | Name | Object | R | Full legal name of the person. |
 | OtherName | Object | OC | Other names (e.g., alias, nickname, previous legal name) associated with a person. |
@@ -457,14 +441,12 @@ These entities are reused as-is; no changes are proposed. `StudentGraduationPlan
 2. **At least one PlanChoice** on every `StudentGraduationPlan`.
 3. **Finalized means `FinalizedDate` is present.** There is no separate status field.
 
----
-
 ## 6. Descriptors
 
 These are starter values. Each is a descriptor, so states govern and extend the lists without a model change. Values marked † were confirmed in Panorama's review (§11).
 
 | Descriptor | Starter values |
-|---|---|
+| --- | --- |
 | PlanDesignation | Primary · Alternative |
 | MeetingType | Initial Planning Meeting† · Plan Review Meeting† · Plan Amendment Meeting† · Plan Finalization Meeting |
 | ParticipantType | Parent/Step-Parent/Guardian† · Other Representative† · Student · Counselor · Teacher · Administrator · Other |
@@ -475,14 +457,12 @@ These are starter values. Each is a descriptor, so states govern and extend the 
 
 The SCDE mapping also uses **No Representative** as an attendance value.
 
-Example `PlanChoiceName` values from the SCDE mapping: *Postsecondary Plan:* Workforce/Apprenticeship, Military, Four-Year College, Two-Year College/Technical Training, Undecided. *Career Cluster:* Health Science, Information Support and Services. *Major:* Sports Medicine.
-
----
+Example `PlanChoiceName` values from the SCDE mapping: _Postsecondary Plan:_ Workforce/Apprenticeship, Military, Four-Year College, Two-Year College/Technical Training, Undecided. _Career Cluster:_ Health Science, Information Support and Services. _Major:_ Sports Medicine.
 
 ## 7. Goal vs. Plan Choice
 
 | | Goal | PlanChoice |
-|---|---|---|
+| --- | --- | --- |
 | Represents | What the student is trying to accomplish | What the student selected in the plan |
 | Example | "Become a veterinarian" | Health Science cluster · Sports Medicine major |
 | Career goal | ✅ `GoalType = Career Goal` | — |
@@ -492,25 +472,21 @@ Example `PlanChoiceName` values from the SCDE mapping: *Postsecondary Plan:* Wor
 
 Career goals are often selected from a curated list based on the Standard Occupational Classification (SOC) system. They map to `Goal` because they describe an aspiration, not a pathway selection.
 
----
-
 ## 8. Alternatives Considered
 
 Section 1.4 covers keeping IGP data in student indicators (Option A), using `GraduationPlan` alone (Option B), and a custom state extension (Option C). Two other alternatives were also considered:
 
 | Alternative | Why not |
-|---|---|
+| --- | --- |
 | Ed-Fi `Path` / `StudentPath` | Built for formal pathways with phases and milestones. The current need is to record selections, so Path would over-model it. A future version could add an optional Path link from a choice. |
 | Four or five standalone entities (earlier working draft: `IGPEvent`, `StudentIGP`, `StudentIGPGoal`, `StudentIGPPlanChoice`) | More resources to send, authorize, and govern. The same data fits as inline collections on one entity. |
-
----
 
 ## 9. Source Mappings
 
 ### 9.1 SCDE student indicators (`StudentEducationOrganizationAssociation`) → model
 
 | Current indicator | New location |
-|---|---|
+| --- | --- |
 | `IGP_Primary` | `StudentGraduationPlan.PlanDesignation` (Primary) |
 | `IGP_Attendance` | `Meeting.Participant.ParticipantType` |
 | `IGP_Participation` | `Meeting.Participant.ParticipationMethod` |
@@ -523,7 +499,7 @@ Section 1.4 covers keeping IGP data in student indicators (Option A), using `Gra
 This table shows where each piece of IGP data a source system sends lands in the model.
 
 | IGP data element | Example | Model element |
-|---|---|---|
+| --- | --- | --- |
 | School year of the plan | 2028–2029 | `StudentGraduationPlan.SchoolYear` |
 | Plan name | (plan title) | `StudentGraduationPlan.PlanName` |
 | Primary plan flag | Yes | `StudentGraduationPlan.PlanDesignation` = Primary |
@@ -542,7 +518,7 @@ This table shows where each piece of IGP data a source system sends lands in the
 ### 9.3 Indiana `StudentSchoolGraduationPlans` → model
 
 | Indiana element | Model element |
-|---|---|
+| --- | --- |
 | `StudentUniqueId` | `StudentGraduationPlan.Student` |
 | `SchoolId` | No direct equivalent. The `GraduationPlan` reference carries the education organization that defines the plan. |
 | `GraduationPlanReference` (EducationOrganizationId, GraduationPlanTypeDescriptor, GraduationSchoolYear) | `StudentGraduationPlan.GraduationPlan` |
@@ -551,8 +527,6 @@ This table shows where each piece of IGP data a source system sends lands in the
 | `alternativeGraduationPlans[].GraduationPlanReference` | A second `StudentGraduationPlan` with `PlanDesignation = Alternative` |
 
 **One structural difference.** Indiana carries the primary plan and its alternatives on one record (`alternativeGraduationPlans` is a collection on it). This model uses one record per plan and marks each Primary or Alternative. The information is the same, but the shape differs, and an Indiana mapping would split one record into two.
-
----
 
 ## 10. Indiana: Needs, Policy, and Existing Extension
 
@@ -574,14 +548,12 @@ This is, in substance, the student-to-`GraduationPlan` association this RFC prop
 
 Policy source: [IDOE — How to Report Student Grad Plan](https://idoe.atlassian.net/wiki/spaces/IKHTV/pages/1604091905/How+to+Report+Student+Grad+Plan)
 
----
-
 ## 11. Panorama Model Review
 
 Panorama reviewed the proposed model and provided the feedback below. The review was based on an earlier working draft (the multi-entity `IGPEvent` / `StudentIGP` model), so several items are already met by the current design.
 
 | Recommendation | Disposition | Notes |
-|---|---|---|
+| --- | --- | --- |
 | Event should be a child of Plan, with many events per plan | **Already met** | `Meeting` is a 0..* collection on `StudentGraduationPlan`. |
 | Add `SchoolYear` to the plan's identity | **Adopted** | Plans are scoped by the year they are active, which is stable. `GraduationSchoolYear` stays a non-key attribute because it can change with retention or acceleration. |
 | Add a plan name | **Adopted** | `PlanName` (required). |
@@ -595,8 +567,6 @@ Panorama reviewed the proposed model and provided the feedback below. The review
 | `PlanStatus` / `ProgressStatus` descriptors | **Not adopted** | Status is expressed by `FinalizedDate` and `PlanDesignation`. See the mapping in §9.2. |
 | `GoalAchievementPeriod` | **Adopted, following the Special Education Data Model** | Added as an optional `Period` (`BeginDate`, `EndDate`), the same structure as `StudentIEPGoal.GoalAchievementPeriod`. This settles the type question Panorama raised. |
 
----
-
 ## 12. Implementation Guidance
 
 - **Source.** A source system, either an SIS or a College and Career Guidance System, writes `StudentGraduationPlan`. South Carolina initially plans to receive the data from the SIS, which writes to the Palmetto Collaborative; from there the data flows to the State Data System. `StudentEducationOrganizationAssociation` keeps carrying its other student data.
@@ -605,26 +575,18 @@ Panorama reviewed the proposed model and provided the feedback below. The review
 - **Updates.** Because collections are embedded, the source system sends the complete plan (all meetings, participants, choices, and goals) on each write.
 - **Descriptor governance.** Seed the starter values in §6. States add values through descriptor governance, not schema changes.
 
----
-
-## Next Steps
-
-Collect feedback on this RFC.
-
----
-
 ## References
 
-**Source documents**
+### Source documents
 
-- SCDE — *Individual Graduation Plan (IGP) Data Passback in South Carolina* (overview of the write-conflict challenge and options A–C)
-- Panorama — *IGP Ed-Fi Extension — Model Assessment Notes* (v2.0, July 6, 2026) and *IGP Ed-Fi Extension Review Matrix*
+- SCDE — _Individual Graduation Plan (IGP) Data Passback in South Carolina_ (overview of the write-conflict challenge and options A–C)
+- Panorama — _IGP Ed-Fi Extension — Model Assessment Notes_ (v2.0, July 6, 2026) and _IGP Ed-Fi Extension Review Matrix_
 - IDOE — `StudentSchoolGraduationPlans` data collection example (Indiana state reporting specification)
-- Learn More Indiana — Graduation Plan template (New Diploma): <https://learnmoreindiana.org/wp-content/uploads/2026/04/26-Graduation-Plan_New-Diploma.pdf>
+- [Learn More Indiana — Graduation Plan template (New Diploma)](https://learnmoreindiana.org/wp-content/uploads/2026/04/26-Graduation-Plan_New-Diploma.pdf)
 
-**Standards, statutes, and policy**
+### Standards, statutes, and policy
 
-- S.C. Code Title 59, Chapter 59 (EEDA): <https://www.scstatehouse.gov/code/t59c059.php>
-- Indiana Code IC 20-30-4-2; IDOE — *How to Report Student Grad Plan*: <https://idoe.atlassian.net/wiki/spaces/IKHTV/pages/1604091905/How+to+Report+Student+Grad+Plan>
-- Ed-Fi Data Standard — Graduation Domain: <https://docs.ed-fi.org/reference/data-exchange/data-standard/model-reference/graduation-domain/>
-- Ed-Fi Data Standard v6.1.0 source (Ed-Fi-Core.xsd: `GraduationPlan`, `StudentEducationOrganizationAssociation`, `StudentIEP`, `StudentIEPGoal`, `IDEAEvent`): <https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-Data-Standard/tree/v6.1.0>
+- [S.C. Code Title 59, Chapter 59 (EEDA): _South Carolina Education and Economic Development Act_](https://www.scstatehouse.gov/code/t59c059.php)
+- [Indiana Code IC 20-30-4-2; IDOE: _How to Report Student Grad Plan_](https://idoe.atlassian.net/wiki/spaces/IKHTV/pages/1604091905/How+to+Report+Student+Grad+Plan)
+- [Ed-Fi Data Standard: Graduation Domain](https://docs.ed-fi.org/reference/data-exchange/data-standard/model-reference/graduation-domain/)
+- [Ed-Fi Data Standard v6.1.0 source (Ed-Fi-Core.xsd: `GraduationPlan`, `StudentEducationOrganizationAssociation`, `StudentIEP`, `StudentIEPGoal`, `IDEAEvent`)](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-Data-Standard/tree/v6.1.0)
