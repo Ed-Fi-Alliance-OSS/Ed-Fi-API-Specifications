@@ -30,6 +30,6 @@ is licensed by 1EdTech Consortium, Inc., so it carries the 1EdTech header, and
 
 ## Formatting Rules
 
-- Use `lf` style line endings
-- Use two spaces instead of tab for indentation
+- Obey the `.editorconfig` file rules
 - When editing a markdown file, follow the rules in `.markdownlint.yaml`
+- Do not use horizontal lines `---` between section headings
