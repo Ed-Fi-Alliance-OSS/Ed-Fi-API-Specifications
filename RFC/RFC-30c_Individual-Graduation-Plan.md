@@ -128,7 +128,7 @@ erDiagram
         reference EducationOrganization "I"
         string ProfileThumbnail "O"
         object CohortYear "OC"
-        object StudentIndicator "OC - potential placeholder for IGP data in the current mapping (IGP_Primary, IGP_Attendance, IGP_Participation, IGP_Cluster, IGP_Major, IGP_Postsecondary_Plan)"
+        object StudentIndicator "OC - IGP placeholder (see note)"
         string LoginId "O"
         descriptor PrimaryLearningDeviceAwayFromSchool "O"
         descriptor PrimaryLearningDeviceAccess "O"
@@ -156,6 +156,8 @@ erDiagram
 
 > [!NOTE]
 > Elements are taken from the Data Standard 6.1 XSD. In 5.x, `StudentEducationOrganizationAssociation` also carries demographic elements (for example, `Sex`, `Race`, `Address`, `Telephone`), and `StudentIndicator` is in the same place.
+>
+> **IGP placeholder:** The current SCDE mapping uses `StudentIndicator` entries as a potential placeholder for IGP data: `IGP_Primary`, `IGP_Attendance`, `IGP_Participation`, `IGP_Cluster`, `IGP_Major`, and `IGP_Postsecondary_Plan`. See §9.1.
 >
 > **Notation:** `I` = identity / natural key · `R` = required · `O` = optional · `OC` = optional collection · `RC` = required collection (at least one) · `object` = custom object ("common" in MetaEd; written `Object` in the data dictionary tables).
 
