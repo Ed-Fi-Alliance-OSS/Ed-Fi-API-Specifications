@@ -22,13 +22,17 @@ community are welcomed on any aspect of an active proposal.
 
 The following RFCs are listed by Ed-Fi Data Standard version, reverse ordered by Data Standard version.
 
+- Data Standard 7.0
+  - 29a | [OpenStaffPosition](./RFC-29a_OpenStaffPosition.md)
+  - 29b | [Breaking Changes to Name, GenerationSuffix, Contact, and StudentContactAssociation](./RFC-29b_Breaking-Changes-to-Name-GenerationSuffix-Contact-and-StudentContactAssociation-in-DS-v7.md)
+
+- Data Standard 6.2
+  - 30c | [Individual Graduation Plan](./RFC-30c_Individual-Graduation-Plan.md)
+
 - Data Standard 6.1
   - 28a | Enhancements to Ed-Fi Data Standard 6.1 - _coming soon_
   - 28b | [Special Education Data Model (SEDM)](./RFC-28b_Special-Education-Data-Model.md)
 
-- Data Standard 7.0
-  - 29a | [OpenStaffPosition](./RFC-29a_Open-Staff-Position.md)
-  
 > [!TIP]
 > Looking for older RFC documents? Many older documents have not yet been copied from Confluence
 > into this repository. See: [Ed-Fi Data Standard Requests for Comment (RFC)](https://edfi.atlassian.net/wiki/spaces/rc/pages/712278041/Ed-Fi+Data+Standard+Request+for+Comments+RFC)
