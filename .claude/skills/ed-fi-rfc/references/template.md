@@ -8,15 +8,13 @@ does not apply rather than leaving it empty. Delete the guidance comments.
 
 # Ed-Fi RFC <NN><letter>: <Title> (<Domain>)
 
-| Field | Value |
-| --- | --- |
-| **Product** | Ed-Fi Data Standard |
-| **Affects** | Ed-Fi Data Standard v<X.Y>; Ed-Fi Resources API |
-| **Obsoletes** | -- <or link to the RFC this replaces> |
-| **Obsoleted By** | -- |
-| **Status** | Draft <Draft, Early Access, Active, Published, Obsolete> |
-| **Author** | <Name, Organization> |
-| **Date** | <Month D, YYYY> |
+> **Product**: Ed-Fi Data Standard \
+> **Affects**: Ed-Fi Data Standard v<X.Y>; Ed-Fi Resources API; <if there are new descriptors: Ed-Fi Descriptors API> \
+> **Obsoletes**: -- <or link to the RFC this replaces> \
+> **Obsoleted By**: -- \
+> **Status**: Draft <Draft, Early Access, Active, Published, Obsolete> \
+> **Author**: <Name, Organization> \
+> **Date**: <Month D, YYYY>
 
 ## Synopsis
 
