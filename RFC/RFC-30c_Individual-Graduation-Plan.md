@@ -28,23 +28,6 @@ This model is proposed for inclusion in **Ed-Fi Data Standard 6.2**.
 
 Please comment on this discussion. Comments from SEAs, LEAs, SIS vendors, and College and Career Guidance System vendors are all in scope.
 
-## Contents
-
-1. [Background and Problem Statement](#1-background-and-problem-statement)
-2. [Legal and Policy Basis](#2-legal-and-policy-basis)
-3. [Use Cases](#3-use-cases)
-4. [Design Approach](#4-design-approach)
-5. [Proposed Model](#5-proposed-model)
-6. [Descriptors](#6-descriptors)
-7. [Goal vs. Plan Choice](#7-goal-vs-plan-choice)
-8. [Alternatives Considered](#8-alternatives-considered)
-9. [Source Mappings](#9-source-mappings)
-10. [Indiana: Needs, Policy, and Existing Extension](#10-indiana-needs-policy-and-existing-extension)
-11. [Panorama Model Review](#11-panorama-model-review)
-12. [Implementation Guidance](#12-implementation-guidance)
-13. [Next Steps](#next-steps)
-14. [References](#references)
-
 ## 1. Background and Problem Statement
 
 ### 1.1 South Carolina context
@@ -110,7 +93,7 @@ Under IC 20-30-4-2, every Indiana student develops a graduation plan by the end 
 
 1. **Extend, don't duplicate.** Ed-Fi's `GraduationPlan` already models graduation requirements (credits by subject, course, and credit category, plus required assessments and certifications). It is identified by `EducationOrganization`, `GraduationPlanType`, and `GraduationSchoolYear` and works as a plan template. This RFC reuses it unchanged and individualizes it for a student.
 2. **One new entity.** `StudentGraduationPlan` is the only new resource. That keeps the footprint small: one resource to send, query, and authorize.
-3. **Inline collections, not new entities.** Meeting (with Participant), PlanChoice, and Goal are common-type collections that serialize inside the `StudentGraduationPlan` resource, the same way `CohortYear` serializes inside `StudentEducationOrganizationAssociation`.
+3. **Inline collections, not new entities.** Meeting (with Participant), PlanChoice, and PlanGoal are common-type collections that serialize inside the `StudentGraduationPlan` resource, the same way `CohortYear` serializes inside `StudentEducationOrganizationAssociation`.
 4. **The plan is the anchor.** Meetings, participants, choices, and goals all hang off the plan. The meeting is context for the plan, not its parent.
 5. **A resource of its own.** Because IGP data has its own resource, whichever system produces the plan can write it without touching `StudentEducationOrganizationAssociation` (UC8).
 6. **Follows the Special Education Data Model.** The structure mirrors the Special Education Data Model (Early Access in Data Standard 6.1): a student plan (`StudentIEP`) with meetings recorded at the plan level (`IDEAEvent`) and goals that carry an identifier, details, a type, and an optional achievement period (`StudentIEPGoal`).
@@ -190,7 +173,7 @@ erDiagram
     StudentGraduationPlan ||--o{ Meeting : "embeds"
     Meeting ||--o{ Participant : "embeds"
     StudentGraduationPlan ||--|{ PlanChoice : "embeds at least one"
-    StudentGraduationPlan ||--o{ Goal : "embeds"
+    StudentGraduationPlan ||--o{ PlanGoal : "embeds"
     Staff |o--o{ Participant : "optionally identifies"
     Contact |o--o{ Participant : "optionally identifies"
 
@@ -255,7 +238,6 @@ erDiagram
         reference GraduationPlan "🟩 I - NEW"
         SchoolYear SchoolYear "🟩 I - NEW"
         date BeginDate "🟩 I - NEW"
-        SchoolYear GraduationSchoolYear "🟩 R - NEW"
         date EndDate "🟩 O - NEW"
         string PlanName "🟩 R - NEW"
         descriptor PlanDesignation "🟩 R - NEW (Primary or Alternative)"
@@ -263,7 +245,7 @@ erDiagram
         string PlanNarrative "🟩 O - NEW"
         object Meeting "🟩 OC - NEW"
         object PlanChoice "🟩 RC - NEW (at least one)"
-        object Goal "🟩 OC - NEW"
+        object PlanGoal "🟩 OC - NEW"
     }
 
     Meeting["Meeting (object)"] {
@@ -282,20 +264,20 @@ erDiagram
 
     PlanChoice["PlanChoice (object)"] {
         descriptor PlanChoiceType "🟩 I - NEW"
-        string PlanChoiceName "🟩 R - NEW"
+        string PlanChoiceName "🟩 I - NEW"
         descriptor ChoiceStatus "🟩 O - NEW"
     }
 
-    Goal["Goal (object)"] {
+    PlanGoal["PlanGoal (object)"] {
         string GoalIdentifier "🟩 I - NEW"
-        descriptor GoalType "🟩 R - NEW"
+        descriptor PlanGoalType "🟩 R - NEW"
         string GoalDetails "🟩 R - NEW"
         object GoalAchievementPeriod "🟩 O - NEW (BeginDate, EndDate)"
     }
 ```
 
 > [!NOTE]
-> `Student`, `GraduationPlan`, `Staff`, and `Contact` are existing entities and are not changed by this RFC; all of their Data Standard 6.1 elements are shown. `StudentGraduationPlan` is the only new entity. `Meeting`, `Participant`, `PlanChoice`, and `Goal` are objects ("common" in MetaEd) embedded in the `StudentGraduationPlan` resource, not separate resources. In the identity column of an object, `I` means the element that makes a row unique within its parent collection.
+> `Student`, `GraduationPlan`, `Staff`, and `Contact` are existing entities and are not changed by this RFC; all of their Data Standard 6.1 elements are shown. `StudentGraduationPlan` is the only new entity. `Meeting`, `Participant`, `PlanChoice`, and `PlanGoal` are objects ("common" in MetaEd) embedded in the `StudentGraduationPlan` resource, not separate resources. In the identity column of an object, `I` means the element that makes a row unique within its parent collection.
 > **Notation:** `I` = identity / natural key · `R` = required · `O` = optional · `C` = array/collection · `RC` = required collection (at least one) · `object` = custom object ("common" in MetaEd) · 🟩 = new.
 
 A student has **0..*** graduation plans. Each `StudentGraduationPlan` references one `GraduationPlan`, carries at least one `PlanChoice`, and may carry any number of meetings and goals.
@@ -307,18 +289,17 @@ The data dictionary uses the same notation as the diagrams: `I` = identity · `R
 | Element | Type | Card. | Definition |
 | --- | --- | --- | --- |
 | Student | Reference | I | The student the plan is for. |
-| GraduationPlan | Reference | I | The existing Ed-Fi `GraduationPlan` being individualized. Brings `EducationOrganization`, `GraduationPlanType` (the diploma pathway), and the plan's `GraduationSchoolYear`. |
+| GraduationPlan | Reference | I | The existing Ed-Fi `GraduationPlan` being individualized. Brings `EducationOrganization`, `GraduationPlanType` (the diploma pathway), and the plan's `GraduationSchoolYear`, which is why `StudentGraduationPlan` does not carry its own graduation school year. |
 | SchoolYear | SchoolYear | I | The school year in which the plan is active. |
-| BeginDate | Date | I | Date the plan becomes active or is identified. Distinguishes revisions within the same school year. |
-| GraduationSchoolYear | SchoolYear | R | The student's identified (expected) graduation school year. |
-| EndDate | Date | O | Date the plan ends or is replaced. |
+| BeginDate | Date | I | Date the plan becomes active or is identified. Distinguishes revisions within the same school year. When a plan is amended, the amended plan is a new record with a new `BeginDate`. |
+| EndDate | Date | O | Date the plan ends or is replaced. When a plan is amended, the prior record is ended by setting its `EndDate`. |
 | PlanName | String | R | Human-readable name of the plan. |
 | PlanDesignation | Descriptor | R | Whether this is the student's Primary or an Alternative plan. |
 | FinalizedDate | Date | O | Date the plan was finalized. A plan without a `FinalizedDate` is not yet final. |
 | PlanNarrative | String | O | Free-text narrative for the plan. |
 | Meeting | Object | OC | Meetings about the plan. See 5.3. |
 | PlanChoice | Object | RC | Structured selections in the plan; at least one is required. See 5.5. |
-| Goal | Object | OC | Student goal statements. See 5.6. |
+| PlanGoal | Object | OC | Student goal statements. See 5.6. |
 
 **Identity:** `Student` + `GraduationPlan` + `SchoolYear` + `BeginDate`.
 
@@ -344,24 +325,28 @@ A plan can have many meetings. Each is unique within the plan by `MeetingType` +
 
 Attendance can be reported **by role alone**, which is how IGP attendance is recorded today. The `Staff` and `Contact` references are optional and only used when an implementation wants to name the individual.
 
+Participants are identified by `ParticipantType` alone. Two parents at one meeting are distinguished by type (for example, `Mother` and `Father`). Source systems are not asked to invent participant identifiers that they do not have.
+
 ### 5.5 PlanChoice (object, RC)
 
 | Element | Type | Card. | Definition |
 | --- | --- | --- | --- |
 | PlanChoiceType | Descriptor | I | Kind of choice (Career Cluster, Major, Postsecondary Plan, Academy, …). |
-| PlanChoiceName | String | R | The selected or recommended value (e.g., Health Science, Sports Medicine, Four-Year College). |
+| PlanChoiceName | String | I | The selected or recommended value (e.g., Health Science, Sports Medicine, Four-Year College). |
 | ChoiceStatus | Descriptor | O | Status of the choice (Selected, Recommended, …). |
 
-Every plan carries at least one choice. Within a plan, each choice is unique by `PlanChoiceType`, so there is one of each type per plan.
+Every plan carries at least one choice. Within a plan, each choice is unique by `PlanChoiceType` + `PlanChoiceName`. This allows more than one choice of the same type. In practice a student is expected to have only one choice per `PlanChoiceType`; the composite key future-proofs the model.
 
-### 5.6 Goal (object, OC)
+### 5.6 PlanGoal (object, OC)
+
+The existing Data Standard 6.1 `Goal` entity and `GoalTypeDescriptor` were considered and not reused. Their definitions and data elements are oriented to educators rather than students, and `Goal` is identified by a person identifier, which is not a concept on the student side. The new object is therefore named `PlanGoal` (with `PlanGoalType`) to avoid a name collision. Generalizing the data model for both student and educator contexts, across `Goal`, `StudentIEPGoal`, and the IGP goal, should be examined for a future breaking release of the Data Standard.
 
 Goal follows the Special Education Data Model's `StudentIEPGoal` (Early Access in Data Standard 6.1), which identifies a goal with `IEPGoalIdentifier` and describes it with `IEPGoalDetails`, `IEPGoalType`, and an optional `GoalAchievementPeriod`.
 
 | Element | Type | Card. | Definition |
 | --- | --- | --- | --- |
 | GoalIdentifier | String | I | Identifier for the goal within the plan. Allows more than one goal of the same type. |
-| GoalType | Descriptor | R | Career, academic, or postsecondary goal. |
+| PlanGoalType | Descriptor | R | Career, academic, or postsecondary goal. |
 | GoalDetails | String | R | The goal statement (e.g., "Veterinarian"). |
 | GoalAchievementPeriod | Object | O | A `Period` object: the time period for which the goal is applicable or effective, with `BeginDate` (required) and `EndDate` (optional). Same structure as `StudentIEPGoal.GoalAchievementPeriod`. |
 
@@ -438,8 +423,17 @@ These entities are reused as-is; no changes are proposed. `StudentGraduationPlan
 ### 5.9 Business rules
 
 1. **One primary plan per student per school year.** At most one `StudentGraduationPlan` per `Student` + `SchoolYear` should have `PlanDesignation = Primary`. The composite key scopes plans by year but cannot enforce this rule by itself, so it is a documented validation rule, consistent with how Ed-Fi handles "primary" designations elsewhere.
-2. **At least one PlanChoice** on every `StudentGraduationPlan`.
+2. **At least one PlanChoice** on every `StudentGraduationPlan`. South Carolina requires at least one plan choice, so the collection is required. Indiana does not currently collect plan choices; the purpose of an individualized graduation plan is to record one or more choices the student has selected, so Indiana will be guided to collect them.
 3. **Finalized means `FinalizedDate` is present.** There is no separate status field.
+4. **Amendments create a new record.** Source systems do not track a plan status that says whether a plan has been amended. When a plan is amended, the existing record is ended (`EndDate`) and a new record is created with a new `BeginDate`.
+
+### 5.10 Relationship to the existing model
+
+`StudentSchoolAssociation` already carries `graduationPlanReference` and an `alternativeGraduationPlans` collection. A question to the SIS SIG found that many SIS vendors do not send this information to agencies. Whether those elements should be deprecated is an open question. Answering it requires focused meetings with SIS vendors and agencies, which this RFC treats as outside its scope. Deprecation would be a breaking change and cannot be part of Data Standard 6.2, so this RFC leaves the question unanswered for a future breaking release.
+
+### 5.11 Open questions
+
+- **Authorization.** The `GraduationPlan` reference carries `EducationOrganization` as a required identity element. Can authorization for `StudentGraduationPlan` be handled through that education organization? This is not yet decided.
 
 ## 6. Descriptors
 
@@ -453,7 +447,7 @@ These are starter values. Each is a descriptor, so states govern and extend the 
 | ParticipationMethod | In Person† · Telephone† · Email† · Online† · Video Conference† · Other† |
 | PlanChoiceType | Career Cluster† · Major† · Postsecondary Plan† · Academy† · CTE Plan · Seal · Scholarship · Local Opportunity |
 | ChoiceStatus | Selected · Recommended · Completed · Declined · Undecided |
-| GoalType | Career Goal† · Academic Goal · Postsecondary Goal |
+| PlanGoalType | Career Goal† · Academic Goal · Postsecondary Goal |
 
 The SCDE mapping also uses **No Representative** as an attendance value.
 
@@ -461,16 +455,16 @@ Example `PlanChoiceName` values from the SCDE mapping: _Postsecondary Plan:_ Wor
 
 ## 7. Goal vs. Plan Choice
 
-| | Goal | PlanChoice |
+| | PlanGoal | PlanChoice |
 | --- | --- | --- |
 | Represents | What the student is trying to accomplish | What the student selected in the plan |
 | Example | "Become a veterinarian" | Health Science cluster · Sports Medicine major |
-| Career goal | ✅ `GoalType = Career Goal` | — |
+| Career goal | ✅ `PlanGoalType = Career Goal` | — |
 | Career cluster | — | ✅ `PlanChoiceType = Career Cluster` |
 | Major | — | ✅ `PlanChoiceType = Major` |
 | Postsecondary plan | When phrased as an aspiration | When it is the selected option |
 
-Career goals are often selected from a curated list based on the Standard Occupational Classification (SOC) system. They map to `Goal` because they describe an aspiration, not a pathway selection.
+Career goals are often selected from a curated list based on the Standard Occupational Classification (SOC) system. They map to `PlanGoal` because they describe an aspiration, not a pathway selection.
 
 ## 8. Alternatives Considered
 
@@ -506,7 +500,7 @@ This table shows where each piece of IGP data a source system sends lands in the
 | Plan completed / finalized | | `FinalizedDate` populated |
 | Plan in progress | | Record sent, no `FinalizedDate` |
 | Plan not started | | No record sent |
-| Career goal | Veterinarian | `Goal` (type = Career Goal), `GoalDetails` |
+| Career goal | Veterinarian | `PlanGoal` (type = Career Goal), `GoalDetails` |
 | Career cluster | Health Science | `PlanChoice` (type = Career Cluster) |
 | Major | Sports Medicine | `PlanChoice` (type = Major) |
 | Postsecondary plan | Four-Year College | `PlanChoice` (type = Postsecondary Plan) |
@@ -544,7 +538,7 @@ This table shows where each piece of IGP data a source system sends lands in the
 
 This is, in substance, the student-to-`GraduationPlan` association this RFC proposes, already running in production. Indiana's state indicator maps to the plan-level fields of `StudentGraduationPlan` (§9.3). Indiana's locally retained plan maps to the inline collections.
 
-**Coverage of the Indiana local template.** Most of the content on Indiana's graduation plan template maps to this model or to other Ed-Fi domains: diploma requirements to `GraduationPlan`; seals and school/program choices to `PlanChoice`; career interests to `Goal`; assessment scores to the Assessment domain; earned credits and grades to the Student Academic Record domain. Two items have no home in this model: the per-year planned course schedule, and formal parent approval with a date.
+**Coverage of the Indiana local template.** Most of the content on Indiana's graduation plan template maps to this model or to other Ed-Fi domains: diploma requirements to `GraduationPlan`; seals and school/program choices to `PlanChoice`; career interests to `PlanGoal`; assessment scores to the Assessment domain; earned credits and grades to the Student Academic Record domain. Two items have no home in this model: the per-year planned course schedule, and formal parent approval with a date.
 
 Policy source: [IDOE — How to Report Student Grad Plan](https://idoe.atlassian.net/wiki/spaces/IKHTV/pages/1604091905/How+to+Report+Student+Grad+Plan)
 
@@ -555,14 +549,14 @@ Panorama reviewed the proposed model and provided the feedback below. The review
 | Recommendation | Disposition | Notes |
 | --- | --- | --- |
 | Event should be a child of Plan, with many events per plan | **Already met** | `Meeting` is a 0..* collection on `StudentGraduationPlan`. |
-| Add `SchoolYear` to the plan's identity | **Adopted** | Plans are scoped by the year they are active, which is stable. `GraduationSchoolYear` stays a non-key attribute because it can change with retention or acceleration. |
-| Add a plan name | **Adopted** | `PlanName` (required). |
-| Keep free text out of the Choice identity | **Adopted** | `PlanChoiceName` is required but not part of the key. |
+| Add `SchoolYear` to the plan's identity | **Adopted** | Plans are scoped by the year they are active, which is stable. `GraduationSchoolYear` is not carried on `StudentGraduationPlan`; it comes from the referenced `GraduationPlan`, where it is part of the key. |
+| Add a plan name | **Adopted** | `PlanName` (required), as proposed by Panorama. |
+| Keep free text out of the Choice identity | **Not adopted** | `PlanChoiceName` is part of the key with `PlanChoiceType`, so that more than one choice of the same type can be recorded. |
 | Primary indicator should be required | **Adopted, as a descriptor** | `PlanDesignation` (Primary / Alternative) is required. It replaces a boolean so alternatives can be sent. |
-| Record attendance by role, not by person | **Compatible** | `ParticipantType` alone is enough. `Staff` / `Contact` references are optional and need not be sent. |
+| Record attendance by role, not by person | **Compatible** | `ParticipantType` alone is enough; no participant identifier is added. `Staff` / `Contact` references are optional and need not be sent. |
 | Add "Descriptor" suffix to every controlled-vocabulary field | **Not adopted in the model** | Ed-Fi MetaEd adds the "Descriptor" suffix when it generates technical artifacts, so the API properties still end in `…Descriptor`, as Panorama expects. |
-| Remove the Goal identifier; identify Goal by type | **Not adopted** | `GoalIdentifier` allows more than one goal of the same type, and matches the Special Education Data Model's `IEPGoalIdentifier`. A source system that sends one goal per type still fits. |
-| Goal and Choice reference the meeting where they were set | **Not adopted** | South Carolina's requirements tie meetings to the plan as a whole, not to individual goals or choices. Meetings are recorded once on the plan (`Meeting`). |
+| Remove the Goal identifier; identify PlanGoal by type | **Not adopted** | `GoalIdentifier` allows more than one goal of the same type, and matches the Special Education Data Model's `IEPGoalIdentifier`. A source system that sends one goal per type still fits. |
+| PlanGoal and Choice reference the meeting where they were set | **Not adopted** | South Carolina's requirements tie meetings to the plan as a whole, not to individual goals or choices. Meetings are recorded once on the plan (`Meeting`). |
 | `EventReason` as a descriptor | **Not adopted** | Meeting reason was removed. `MeetingType` and `MeetingNarrative` cover the need. |
 | `PlanStatus` / `ProgressStatus` descriptors | **Not adopted** | Status is expressed by `FinalizedDate` and `PlanDesignation`. See the mapping in §9.2. |
 | `GoalAchievementPeriod` | **Adopted, following the Special Education Data Model** | Added as an optional `Period` (`BeginDate`, `EndDate`), the same structure as `StudentIEPGoal.GoalAchievementPeriod`. This settles the type question Panorama raised. |
