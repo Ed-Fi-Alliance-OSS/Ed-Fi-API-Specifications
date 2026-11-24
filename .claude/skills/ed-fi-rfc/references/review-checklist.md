@@ -83,6 +83,8 @@ Also:
 - [ ] History semantics are stated (new record vs. update).
 - [ ] Date semantics (inclusive vs. exclusive) are stated where dates bound a
       period.
+- [ ] The combined natural key size will not exceed the size limit when turned
+      into a clustered index in MSSQL.
 
 ## 7. Conventions
 
